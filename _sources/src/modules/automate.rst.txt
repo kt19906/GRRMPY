@@ -1,0 +1,61 @@
+###########################
+Automateモジュール
+###########################
+
+.. module:: grrmpy.automate
+
+   
+SinglePath
+==================================
+
+SinglePathはSNEB( :class:`grrmpy.neb.auto_neb.SNEB` ),振動数計算,IRC計算をiniとfinが繋がるまで繰り返す.
+
+.. image:: ./img/SinglePath.png
+   :scale: 20%
+   :align: center
+
+.. autoclass:: grrmpy.automate.by_neb.SinglePath 
+   :members: default_param, run
+
+AutoOpt
+==================================
+
+| 複数の構造の最適化を連続的に行うことができる.
+| 計算中のlogファイル, 最適化後の構造はそれぞれ, log, Structureフォルダに保存される.
+| 計算中にエラーが発生した場合はERROR_XXX.txtが作成され,エラーメッセージを確認することができる.
+
+基本的な使用方法
+------------------
+
+.. code-block:: python
+
+    from grrmpy.io import log2atoms
+    from grrmpy.automate import AutoOpt
+    from grrmpy.optimize import FIRELBFGS
+
+    eq_list = log2atoms("XXX_EQ_list.log","XXX.com","POSCAR")
+    opt = AutoOpt(eq_list,optimizer=FIRELBFGS)
+    opt.run()
+
+計算後にはStructureフォルダに最適化後の構造が保存されるので
+
+.. code-block:: python
+
+    from grrmpy.io import read_traj
+
+    opted_eq_list = read_traj("Structure")
+
+で構造を取り出せる.
+
+続きから計算する場合
+----------------------
+
+| XXX_EQ_list.logが更新されて,新たに追加された構造のみを計算したい場合,run()の引数のrestartを指定すればよい
+| 例えば,EQ16まで既に計算していた場合
+
+.. code-block:: python
+
+    opt.run(restart=17) # EQ17から計算を開始する
+
+.. autoclass:: grrmpy.automate.auto_opt.AutoOpt
+   :members: set_automaxstep, run

@@ -1,0 +1,29 @@
+##################
+基本操作
+##################
+
+PFP計算機の取り付け
+
+.. code-block:: python
+   :emphasize-lines: 1,5
+
+    from grrmpy import pfp_calculator
+    from ase.io import read
+
+    atoms = read("atoms.cif")
+    atoms.calc = pfp_calculator()
+
+可視化
+
+.. code-block:: python
+   :emphasize-lines: 1,7,8,9
+
+    from grrmpy.visualize import *
+    from ase.io import read,iread
+
+    atoms = read("atoms.cif")
+    images = [atoms for atoms in iread("vib.0.traj")]
+
+    view(atoms)
+    view_with_index(atoms)
+    view_images(images)

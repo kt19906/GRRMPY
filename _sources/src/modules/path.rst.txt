@@ -1,0 +1,73 @@
+################
+Pathモジュール
+################
+
+
+
+.. module:: grrmpy.path
+
+
+ReactPath
+============ 
+
+インスタンス化方法
+-------------------
+
+- nameとAtomsを与える方法
+
+.. code-block:: python
+
+    from grrmpy.path import ReactPath
+    from ase.io import iread
+
+    atoms_list = [atoms fro atoms in iread(atoms)] # 5つのAtomsが格納されている
+    name = ["EQ0","TS0","EQ1","TS1","EQ2"]
+    data = {":name":name,"atoms":atoms}
+    path = ReactPath(data)
+
+- nameとenergyを与える方法
+
+.. code-block:: python
+
+    from grrmpy.path import ReactPath
+    from ase.io import iread
+
+    energy = [-201.3, -123.3, -222.3, -192.6, -200.1] # Hartree単位
+    name = ["EQ0","TS0","EQ1","TS1","EQ2"]
+    data = {"name":name,"energy":energy}
+    path = ReactPath(data,unit="Hartree") # eV単位以外の場合は単位を設定する
+
+プレビュー
+-------------------
+.. code-block:: python
+
+    path.preview()
+
+.. image:: ./img/preview.png
+   :scale: 60%
+   :align: center
+
+Excelへ保存
+-------------------
+.. code-block:: python
+
+    path.write_excel("Sample.xlsx")
+
+.. image:: ./img/excel.png
+   :scale: 60%
+   :align: center
+
+htmlへ保存
+-------------------
+.. code-block:: python
+
+    path.write_html("Sample.html") # Sample.htmlに保存
+    path.write_html() # 標準出力
+
+.. image:: ./img/path_html.png
+   :scale: 60%
+   :align: center
+
+
+.. autoclass:: grrmpy.path.reaction_path.ReactPath
+   :members: data,get_energy, get_name,  

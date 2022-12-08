@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>地味に便利な機能 &mdash; GRRMPY 2022/11/10 ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/ase.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="目的から探す" href="SearchByPurpose.html" />
+    <link rel="prev" title="コマンドライン" href="modules/commandline.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> GRRMPY
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">地味に便利な機能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#grrmpy.functions.get_fmax"><code class="docutils literal notranslate"><span class="pre">get_fmax()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grrmpy.functions.unique_connections"><code class="docutils literal notranslate"><span class="pre">unique_connections()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grrmpy.functions.n_sampling"><code class="docutils literal notranslate"><span class="pre">n_sampling()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grrmpy.functions.get_diff"><code class="docutils literal notranslate"><span class="pre">get_diff()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grrmpy.functions.minimize_rotation_and_translation_for_specified_indices_only"><code class="docutils literal notranslate"><span class="pre">minimize_rotation_and_translation_for_specified_indices_only()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grrmpy.functions.get_bond"><code class="docutils literal notranslate"><span class="pre">get_bond()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grrmpy.functions.connected_components"><code class="docutils literal notranslate"><span class="pre">connected_components()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SearchByPurpose.html">目的から探す</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">最短経路アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other_lib.html">その他のライブラリ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GRRMPY</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">地味に便利な機能</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/toy_tools.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-grrmpy.functions">
+<span id="id1"></span><h1>地味に便利な機能<a class="headerlink" href="#module-grrmpy.functions" title="この見出しへのパーマリンク"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.get_fmax">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">get_fmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#get_fmax"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.get_fmax" title="この定義へのパーマリンク"></a></dt>
+<dd><p>fmaxを返す</p>
+<p>Parameters:</p>
+<p>atoms: Atoms or NEB</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.unique_connections">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">unique_connections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connections</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#unique_connections"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.unique_connections" title="この定義へのパーマリンク"></a></dt>
+<dd><p>ユニークなCONNECTIONSを返す</p>
+<p>同じEQを繋ぐconneciotns,同じ組み合わせのconnections,'??'などを含むconnectionsを削除し
+新しいconnectionsのリストを作成する.</p>
+<p>戻り値は2要素のタプルで1要素目がユニークなconnections, 2要素目がそれが元々どのindex番号のconnectionだったのかを返す.</p>
+<p>Parameters:</p>
+<dl>
+<dt>connections: list of lists of int</dt><dd><div class="line-block">
+<div class="line">[[0,1],[1,0],[2,5],[&quot;??&quot;,2],[3,4]]のようなリスト</div>
+<div class="line">grrmpy.io.read_connecitonsで取得できる</div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p>ユニークなconnections, 元々のindex番号</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.n_sampling">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">n_sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#n_sampling"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.n_sampling" title="この定義へのパーマリンク"></a></dt>
+<dd><p>listを与えたとき,いい感じに均等になるようにn個サンプリングする</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst</strong> -- list
+リスト</p></li>
+<li><p><strong>n</strong> -- int
+抽出する数</p></li>
+<li><p><strong>end</strong> -- bool
+始めと終わりの構造を必ず含める場合True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.get_diff">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">get_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#get_diff"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.get_diff" title="この定義へのパーマリンク"></a></dt>
+<dd><p>atoms1とatoms2の距離の差分を算出する</p>
+<p>Parameters:</p>
+<dl class="simple">
+<dt>atoms1: Atoms</dt><dd><p>Atomsオブジェクト</p>
+</dd>
+<dt>atoms2: Atoms</dt><dd><p>Atomsオブジェクト</p>
+</dd>
+<dt>mic: bool</dt><dd><p>周期境界条件で最小移動規則を適用する場合.True</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p>距離</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.minimize_rotation_and_translation_for_specified_indices_only">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">minimize_rotation_and_translation_for_specified_indices_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#minimize_rotation_and_translation_for_specified_indices_only"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.minimize_rotation_and_translation_for_specified_indices_only" title="この定義へのパーマリンク"></a></dt>
+<dd><p>atomsの原子の位置をtargetの位置と近くなるように(最小二乗法)配置する.</p>
+<p>ase.build.rotate.minimize_rotation_and_translationでindexを指定できるようにした関数
+indices=Noneの時はASEのminimize_rotation_and_translationと同じで全ての原子を動かす.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.get_bond">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">get_bond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#get_bond"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.get_bond" title="この定義へのパーマリンク"></a></dt>
+<dd><p>結合している原子のindex番号のリストを返す</p>
+<p>Parameters:</p>
+<dl>
+<dt>atoms: Atoms</dt><dd><p>対象のAtoms</p>
+</dd>
+<dt>unique: bool</dt><dd><p>Trueの場合,A-B,B-Aのいずれかのみを返す</p>
+</dd>
+<dt>mult: float</dt><dd><p>大きい程,離れていても結合していると判定される.</p>
+</dd>
+<dt>kwargs:</dt><dd><div class="line-block">
+<div class="line">元素毎で解離の共有結合半径を指定できる</div>
+<div class="line">ex) H=0.5 で水素の共有結合半径を0.5Åに変更できる.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.connected_components">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">connected_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#connected_components"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.connected_components" title="この定義へのパーマリンク"></a></dt>
+<dd><p>atoms中に存在する分子をindex番号毎にまとめたジェネレーターを返す</p>
+<p>Exampleを参照</p>
+<p>Parameters:</p>
+<dl>
+<dt>atoms: Atoms</dt><dd><p>対象のAtoms</p>
+</dd>
+<dt>indices: list of int</dt><dd><p>特定の原子のみcomponentを調べる時に指定する.
+Noneの場合,全ての原子を対象とする.</p>
+</dd>
+<dt>mult: float</dt><dd><p>大きい程,離れていても結合していると判定される.</p>
+</dd>
+<dt>kwargs:</dt><dd><div class="line-block">
+<div class="line">元素毎で解離の共有結合半径を指定できる</div>
+<div class="line">ex) H=0.5 で水素の共有結合半径を0.5Åに変更できる.</div>
+</div>
+</dd>
+</dl>
+<p class="rubric">サンプル</p>
+<p>例えばatomsの[5,6,7,8,9]がメタン分子,[10,11]がNO分子だった場合,
+分子ごとに分離することができる</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="n">connected_components</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#--&gt; {5,6,7,8,9}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#--&gt; {10,11}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules/commandline.html" class="btn btn-neutral float-left" title="コマンドライン" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SearchByPurpose.html" class="btn btn-neutral float-right" title="目的から探す" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kato Taisetsu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

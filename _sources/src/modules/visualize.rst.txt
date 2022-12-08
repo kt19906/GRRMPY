@@ -1,0 +1,65 @@
+###########################
+Visualizeモジュール 
+###########################
+
+.. module:: grrmpy.visualize
+
+
+View
+==================================
+
+| Forceのベクトル表示や電荷の色分けなどを行なえる.
+| 電荷またはindex番号のラベルを貼ることができる.
+| 原子にカーソルを合わせると,index番号と座標が表示される.
+| "現在の構造のみ保存"にチェックを入れた場合, 表示中の構造のみを保存する.
+| チェックを外すと，複数の構造を表示している場合は全ての構造を保存する
+  (.traj, .html, .xyzなど複数の構造を保存できる形式に限る).
+| 
+
+.. code-block:: python
+
+    from grrmpy.visualize import View
+    from grrmpy import pfp_calculator
+    from ase.io import iread
+
+    images = [i for i in iread("images.traj")]
+    for image in images:
+        image.calc = pfp_calculator
+
+    View(images)
+
+
+.. image:: ./img/View.png
+   :scale: 100%
+   :align: center
+
+
+.. hint:: 保存について
+    
+    | 基本的には :ase:`ASEのwrite <io/io.html#ase.io.write>` を実行し保存を行なう.
+    | ただし, **".png"と".html"だけは例外** でそれぞれ，スクリーンショット, 
+      htmlで表示可能なインタラクティブなViewerを作成する.
+    |
+    | またファイル名を"POSCAR"または"CONTCAR"にした場合vaspファイルが作成される.
+
+.. autoclass:: grrmpy.visualize.ngl_display.View
+
+view
+==================================
+
+.. autofunction:: grrmpy.visualize.by_ase.view
+
+view_images
+==================================
+
+.. autofunction:: grrmpy.visualize.by_ase.view_images
+
+view_with_index
+==================================
+
+.. autofunction:: grrmpy.visualize.by_nglview.view_with_index
+
+view_with_coordinate
+==================================
+
+.. autofunction:: grrmpy.visualize.by_nglview.view_with_coordinate

@@ -1,0 +1,15 @@
+##################
+地味に便利な機能
+##################
+
+.. module:: grrmpy.functions
+
+.. autofunction:: grrmpy.functions.get_fmax
+.. autofunction:: grrmpy.functions.unique_connections
+.. autofunction:: grrmpy.functions.n_sampling
+.. autofunction:: grrmpy.functions.get_diff
+.. autofunction:: grrmpy.functions.minimize_rotation_and_translation_for_specified_indices_only
+.. autofunction:: grrmpy.functions.get_bond
+.. autofunction:: grrmpy.functions.connected_components
+
+
