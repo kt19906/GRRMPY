@@ -41,6 +41,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/toy_tools.html">地味に便利な機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/SearchByPurpose.html">目的から探す</a></li>
@@ -81,11 +82,6 @@
 <span class="c1"># User</span>
 <span class="kn">from</span> <span class="nn">grrmpy.calculator</span> <span class="kn">import</span> <span class="n">pfp_calculator</span>
 <span class="kn">from</span> <span class="nn">grrmpy.functions</span> <span class="kn">import</span> <span class="n">get_diff</span><span class="p">,</span><span class="n">get_fmax</span>
-
-<span class="c1">###他に参照しているところが無ければ消したい##########</span>
-<span class="k">def</span> <span class="nf">get_fmax</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_forces</span><span class="p">()</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="c1">########################################################</span>
 
 <div class="viewcode-block" id="optimize_eq"><a class="viewcode-back" href="../../../src/modules/optimize.html#grrmpy.optimize.attach.optimize_eq">[ドキュメント]</a><span class="k">def</span> <span class="nf">optimize_eq</span><span class="p">(</span><span class="n">neb</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;iniとfinを最適化しながらNEB計算を行なう</span>

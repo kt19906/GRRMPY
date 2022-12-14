@@ -11,7 +11,6 @@ GRRMのEQ構造をMatlantis上で再度構造最適化計算をする
     from grrmpy.io import log2atoms
     from grrmpy.automate import AutoOpt
     from grrmpy.optimize import FIRELBFGS
-    from ase.io import iread,read,write
 
     log = "XXX_EQ_list.log"
     com = "XXX.com"
@@ -19,3 +18,15 @@ GRRMのEQ構造をMatlantis上で再度構造最適化計算をする
     eqs = log2atoms(log, com, poscar) # --> EQ_listの構造がAtomsのリストに変換される. [Atoms,Atoms,...]
     opt = AutoOpt(eqs,optimizer=FIRELBFGS,logfile="XXX.log",)
     opt.run()
+
+| 最適化後の構造は"Structure"フォルダにtrajとして保存される.
+| logファイルは"log"フォルダに保存される
+
+| "Structure"フォルダに保存された構造を一気に読み込むには
+
+.. code-block:: python
+
+    from grrmpy.io import read_traj
+
+    opted_eq_list = read_traj("Structure") # trajが存在するフォルダ名を指定
+    # "Structure"ファイルの中にあるtrajが全て読み込まれる

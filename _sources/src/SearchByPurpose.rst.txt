@@ -6,22 +6,14 @@
 ---------------------------------
 - \*_list.logファイル
     | :class:`grrmpy.io.read_listlog.log2atoms` 関数: logファイルからAtomsを作成する
+    | :class:`grrmpy.io.read_listlog.read_connections` 関数: CONNECTIONS情報を読み取る
     | :class:`grrmpy.io.log.Log` クラス: logファイルをマージする
-- EQ_list.logファイル
-    | ``EQList`` クラス
-    | ``GrrmData`` クラス
-- TS_list.logファイル 
-    | :class:`grrmpy.io.read_listlog.read_connections` 関数: CONNECTIONS情報を読み取る
-    | ``TSList`` クラス
-    | ``GrrmData`` クラス
-- PT_list.logファイル
-    | :class:`grrmpy.io.read_listlog.read_connections` 関数: CONNECTIONS情報を読み取る
-    | ``PTList`` クラス
-    | ``GrrmData`` クラス
 - COMファイル 
     | :class:`grrmpy.io.read_com.frozen2atoms` FrozenAtomsをAtomsオブジェクトに変換する
     | ``COM`` クラス: FrozenAtoms,Option等のCOMファイルの情報をまとめたクラス
-- POSCAR,CONTCAR
+- ACF.dat(BaderCharge)
+    | :class:`grrmpy.io.read_acfdat.read_acf` ACF.datファイルの中身をDataFrameにして返す.
+    | :class:`grrmpy.io.read_acfdat.get_dader` ACF.datファイルからBaderChargeを計算する.
 
 構造最適化計算を行なう
 ---------------------------------
