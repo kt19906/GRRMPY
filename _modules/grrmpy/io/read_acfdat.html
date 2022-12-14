@@ -40,8 +40,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/toy_tools.html">ちょっとした機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/SearchByPurpose.html">目的から探す</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のライブラリ</a></li>
 </ul>
 
         </div>
@@ -103,7 +108,7 @@
     <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#&quot;</span><span class="p">,</span><span class="s2">&quot;X&quot;</span><span class="p">,</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span><span class="s2">&quot;CHARGE&quot;</span><span class="p">,</span><span class="s2">&quot;MIN DIST&quot;</span><span class="p">,</span><span class="s2">&quot;ATOMIC VOL&quot;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">df</span></div>
 
-<span class="k">def</span> <span class="nf">get_dader</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span><span class="n">Atoms</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;ACF.dat&quot;</span><span class="p">,</span><span class="n">displacement</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="get_dader"><a class="viewcode-back" href="../../../src/modules/io.html#grrmpy.io.read_acfdat.get_dader">[ドキュメント]</a><span class="k">def</span> <span class="nf">get_dader</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span><span class="n">Atoms</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;ACF.dat&quot;</span><span class="p">,</span><span class="n">displacement</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    </span>
 <span class="sd">    | ACF.datファイルからBaderChargeを計算する.</span>
@@ -137,7 +142,7 @@
             <span class="n">norm2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">position</span> <span class="o">-</span> <span class="n">xyz</span> <span class="o">*</span> <span class="n">Bohr</span><span class="p">)</span>
             <span class="k">assert</span> <span class="n">norm1</span> <span class="o">&lt;</span> <span class="n">displacement</span> <span class="ow">or</span> <span class="n">norm2</span> <span class="o">&lt;</span> <span class="n">displacement</span>
     
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">zval</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">number</span><span class="p">]</span><span class="o">-</span><span class="n">charge</span> <span class="k">for</span> <span class="n">atom</span><span class="p">,</span> <span class="n">charge</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CHARGE&quot;</span><span class="p">])])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">zval</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">number</span><span class="p">]</span><span class="o">-</span><span class="n">charge</span> <span class="k">for</span> <span class="n">atom</span><span class="p">,</span> <span class="n">charge</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;CHARGE&quot;</span><span class="p">])])</span></div>
         
     
 
