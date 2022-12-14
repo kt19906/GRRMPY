@@ -40,8 +40,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/toy_tools.html">地味に便利な機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/SearchByPurpose.html">目的から探す</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のライブラリ</a></li>
 </ul>
 
         </div>
@@ -81,7 +86,7 @@
 <span class="kn">from</span> <span class="nn">grrmpy.neb.functions</span> <span class="kn">import</span> <span class="n">to_html_nebgraph</span>
 <span class="kn">from</span> <span class="nn">grrmpy.functions</span> <span class="kn">import</span> <span class="n">to_html_energy_diagram</span>
 
-<div class="viewcode-block" id="write_html"><a class="viewcode-back" href="../../../src/modules/io.html#grrmpy.io.write_html.write_html">[ドキュメント]</a><span class="k">def</span> <span class="nf">write_html</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="write_html"><a class="viewcode-back" href="../../../src/modules/io.html#grrmpy.io.write_html.write_html">[ドキュメント]</a><span class="k">def</span> <span class="nf">write_html</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span><span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;htmlファイルとして保存する</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters:</span>
@@ -98,16 +103,20 @@
 <span class="sd">        |     エネルギーダイアグラムを作成</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">==</span> <span class="n">NEB</span><span class="p">:</span>
-        <span class="n">write_neb_graph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span> <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">write_neb_graph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span> <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="n">append</span><span class="o">=</span><span class="n">append</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">==</span> <span class="n">Vibrations</span><span class="p">:</span>
-        <span class="n">write_vibtb_and_vibgraph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span> <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">write_vibtb_and_vibgraph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span> <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="n">append</span><span class="o">=</span><span class="n">append</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">==</span> <span class="n">Path</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">write_vib_graph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">write_vib_graph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="n">append</span><span class="o">=</span><span class="n">append</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">Atoms</span><span class="p">:</span>
-            <span class="n">write_energy_diagram</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+            <span class="n">write_energy_diagram</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="n">append</span><span class="o">=</span><span class="n">append</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
     
-<span class="k">def</span> <span class="nf">write_vib_table</span><span class="p">(</span><span class="n">html</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="n">vib_obj</span><span class="p">,</span><span class="n">full_html</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">write_vib_table</span><span class="p">(</span>
+    <span class="n">html</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+    <span class="n">vib_obj</span><span class="p">,</span>
+    <span class="n">full_html</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,):</span>
     <span class="sd">&quot;&quot;&quot;振動数の表をhtmlのstrを出力する&amp;虚振動の振動モード番号を出力する</span>
 
 <span class="sd">    Parameters:</span>
@@ -120,14 +129,26 @@
 <span class="sd">    full_html: boolean</span>
 <span class="sd">        | &lt;html&gt;タグから始まる,完全なhtmlを出力する場合True</span>
 <span class="sd">        | Falseの場合&lt;div&gt;タグから始まるテキストを出力</span>
+<span class="sd">    append:bool</span>
+<span class="sd">        Trueの場合追記モード</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">full_html</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="n">full_html</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
     <span class="n">html_text</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">to_html_table_and_imode</span><span class="p">(</span><span class="n">vib_obj</span><span class="p">,</span><span class="n">full_html</span><span class="o">=</span><span class="n">full_html</span><span class="p">,</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">html</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">html_text</span>        
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_text</span><span class="p">)</span>
         
-<span class="k">def</span> <span class="nf">write_vib_graph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">vib_obj</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span> <span class="n">kT</span><span class="o">=</span><span class="n">units</span><span class="o">.</span><span class="n">kB</span> <span class="o">*</span> <span class="mi">300</span><span class="p">,</span> <span class="n">nimages</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">full_html</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">write_vib_graph</span><span class="p">(</span>
+    <span class="n">html</span><span class="p">,</span><span class="n">vib_obj</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span>
+    <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span> 
+    <span class="n">kT</span><span class="o">=</span><span class="n">units</span><span class="o">.</span><span class="n">kB</span> <span class="o">*</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="n">nimages</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">full_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,):</span>
     <span class="sd">&quot;&quot;&quot;エネルギーダイアグラムを作成する</span>
 
 <span class="sd">    Parameters:</span>
@@ -151,15 +172,34 @@
 <span class="sd">    full_html:</span>
 <span class="sd">        | &lt;html&gt;タグから始まる,完全なhtmlを出力する場合True</span>
 <span class="sd">        | Falseの場合&lt;div&gt;タグから始まるテキストを出力</span>
+<span class="sd">    append: bool</span>
+<span class="sd">        追記する場合True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">html_text</span> <span class="o">=</span> <span class="n">to_html_graph</span><span class="p">(</span><span class="n">vib_obj</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">outfile</span><span class="p">,</span><span class="n">calc_func</span><span class="p">,</span><span class="n">kT</span><span class="p">,</span><span class="n">nimages</span><span class="p">,</span><span class="n">full_html</span><span class="p">,</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
+    <span class="n">full_html</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="n">full_html</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
+    <span class="n">html_text</span> <span class="o">=</span> <span class="n">to_html_graph</span><span class="p">(</span>
+        <span class="n">vib_obj</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">,</span>
+        <span class="n">outfile</span><span class="p">,</span>
+        <span class="n">calc_func</span><span class="p">,</span>
+        <span class="n">kT</span><span class="p">,</span>
+        <span class="n">nimages</span><span class="p">,</span>
+        <span class="n">full_html</span><span class="p">,</span>
+        <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">html</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">html_text</span>  
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_text</span><span class="p">)</span>
         
 
-<span class="k">def</span> <span class="nf">write_vibtb_and_vibgraph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">vib_obj</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span> <span class="n">kT</span><span class="o">=</span><span class="n">units</span><span class="o">.</span><span class="n">kB</span> <span class="o">*</span> <span class="mi">300</span><span class="p">,</span> <span class="n">nimages</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">write_vibtb_and_vibgraph</span><span class="p">(</span>
+    <span class="n">html</span><span class="p">,</span>
+    <span class="n">vib_obj</span><span class="p">,</span>
+    <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span>
+    <span class="n">kT</span><span class="o">=</span><span class="n">units</span><span class="o">.</span><span class="n">kB</span> <span class="o">*</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="n">nimages</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;振動数の表とエネルギーダイアグラムのhtmlテキストを出力する.</span>
 
 <span class="sd">    Parameters:</span>
@@ -178,10 +218,12 @@
 <span class="sd">    nimages: integer</span>
 <span class="sd">        | イメージの数, デフォルトは30</span>
 <span class="sd">        | 偶数で設定する事を推奨する</span>
-<span class="sd">        </span>
+<span class="sd">    append: bool</span>
+<span class="sd">        追記の場合True.</span>
 <span class="sd">    Note:</span>
 <span class="sd">        | 虚振動がないor複数ある場合は,エネルギーダイアグラムは出力しない</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
     <span class="n">tb_txt</span><span class="p">,</span><span class="n">imode</span> <span class="o">=</span> <span class="n">to_html_table_and_imode</span><span class="p">(</span><span class="n">vib_obj</span><span class="p">,</span><span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">imode</span><span class="p">:</span>
         <span class="n">fig_txt</span> <span class="o">=</span> <span class="n">write_vib_graph</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">vib_obj</span><span class="p">,</span><span class="n">imode</span><span class="p">,</span><span class="n">outfile</span><span class="p">,</span><span class="n">calc_func</span><span class="p">,</span><span class="n">kT</span><span class="p">,</span><span class="n">nimages</span><span class="p">,</span><span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -189,21 +231,52 @@
         <span class="n">fig_txt</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">html</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">tb_txt</span><span class="o">+</span><span class="n">fig_txt</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tb_txt</span><span class="o">+</span><span class="n">fig_txt</span><span class="p">)</span>
         
-<span class="k">def</span> <span class="nf">write_neb_graph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">neb_obj</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="n">full_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">html_txt</span> <span class="o">=</span> <span class="n">to_html_nebgraph</span><span class="p">(</span><span class="n">neb_obj</span><span class="p">,</span><span class="n">calc_func</span><span class="p">,</span><span class="n">full_html</span><span class="p">,</span><span class="n">unit</span><span class="p">,</span><span class="n">full_html</span><span class="p">,</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">write_neb_graph</span><span class="p">(</span><span class="n">html</span><span class="p">,</span>
+                    <span class="n">neb_obj</span><span class="p">,</span>
+                    <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;NEB Energy Diagram&quot;</span><span class="p">,</span>
+                    <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span>
+                    <span class="n">full_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">full_html</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="n">full_html</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
+    <span class="n">html_txt</span> <span class="o">=</span> <span class="n">to_html_nebgraph</span><span class="p">(</span>
+        <span class="n">neb_obj</span><span class="p">,</span>
+        <span class="n">calc_func</span><span class="p">,</span>
+        <span class="n">full_html</span><span class="p">,</span>
+        <span class="n">unit</span><span class="p">,</span>
+        <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">html</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">html_txt</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_txt</span><span class="p">)</span>
         
-<span class="k">def</span> <span class="nf">write_energy_diagram</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">images</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span><span class="n">full_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">html_txt</span> <span class="o">=</span> <span class="n">to_html_energy_diagram</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">calc_func</span><span class="p">,</span><span class="n">full_html</span><span class="p">,</span><span class="n">unit</span><span class="p">,</span><span class="n">full_html</span><span class="p">,</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">write_energy_diagram</span><span class="p">(</span><span class="n">html</span><span class="p">,</span>
+                         <span class="n">images</span><span class="p">,</span>
+                         <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                         <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Energy Diagram&quot;</span><span class="p">,</span>
+                         <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span>
+                         <span class="n">full_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span>
+                         <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">full_html</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="n">full_html</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
+    <span class="n">html_txt</span> <span class="o">=</span> <span class="n">to_html_energy_diagram</span><span class="p">(</span>
+        <span class="n">images</span><span class="p">,</span>
+        <span class="n">calc_func</span><span class="p">,</span>
+        <span class="n">full_html</span><span class="p">,</span>
+        <span class="n">unit</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">,</span>
+        <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">html</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">html_txt</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_txt</span><span class="p">)</span>
         
 </pre></div>

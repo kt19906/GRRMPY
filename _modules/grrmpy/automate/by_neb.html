@@ -41,8 +41,12 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/toy_tools.html">地味に便利な機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/SearchByPurpose.html">目的から探す</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のライブラリ</a></li>
 </ul>
 
         </div>
@@ -360,7 +364,8 @@
                             <span class="n">optimizer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">neb_optimizer</span><span class="p">,</span>
                             <span class="n">with_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_stop</span><span class="p">,</span>
                             <span class="n">max_n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_n</span><span class="p">,</span>
-                            <span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
+                            <span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span>
+                            <span class="n">constraints</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sneb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span><span class="n">write_html</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SNEB</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">iter_count</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sneb</span><span class="o">.</span><span class="n">images</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sneb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SNEB</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">iter_count</span><span class="si">}</span><span class="s2">.traj&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sneb</span><span class="o">.</span><span class="n">images</span><span class="p">))</span>
         <span class="n">sneb_converged</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sneb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>

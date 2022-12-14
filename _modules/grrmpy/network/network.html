@@ -41,6 +41,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/toy_tools.html">地味に便利な機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/SearchByPurpose.html">目的から探す</a></li>
@@ -84,7 +85,7 @@
 
 <span class="c1">#USER</span>
 <span class="kn">from</span> <span class="nn">grrmpy.io.read_listlog</span> <span class="kn">import</span> <span class="n">log2atoms</span><span class="p">,</span><span class="n">read_connections</span><span class="p">,</span><span class="n">read_energies</span>
-<span class="kn">from</span> <span class="nn">grrmpy</span> <span class="kn">import</span> <span class="n">pfp_calculator</span>
+<span class="kn">from</span> <span class="nn">grrmpy.calculator</span> <span class="kn">import</span> <span class="n">pfp_calculator</span>
 <span class="kn">from</span> <span class="nn">grrmpy.conv.atoms2smiles</span> <span class="kn">import</span> <span class="n">atomslist2smileses</span>
 
 <span class="k">def</span> <span class="nf">make_color</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">cm</span><span class="o">=</span><span class="s2">&quot;gnuplot&quot;</span><span class="p">):</span>

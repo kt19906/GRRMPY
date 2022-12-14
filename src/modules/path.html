@@ -177,7 +177,7 @@
 <a class="reference internal image-reference" href="../../_images/path_html.png"><img alt="../../_images/path_html.png" class="align-center" src="../../_images/path_html.png" style="width: 815.4px; height: 380.4px;" /></a>
 <dl class="py class">
 <dt class="sig sig-object py" id="grrmpy.path.reaction_path.ReactPath">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">grrmpy.path.reaction_path.</span></span><span class="sig-name descname"><span class="pre">ReactPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions:</span> <span class="pre">~typing.Optional[list]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit='eV'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/path/reaction_path.html#ReactPath"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.path.reaction_path.ReactPath" title="この定義へのパーマリンク"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">grrmpy.path.reaction_path.</span></span><span class="sig-name descname"><span class="pre">ReactPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data:</span> <span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions:</span> <span class="pre">~typing.Optional[list]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit='eV'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/path/reaction_path.html#ReactPath"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.path.reaction_path.ReactPath" title="この定義へのパーマリンク"></a></dt>
 <dd><p>Parameters:</p>
 <dl>
 <dt>data: dict or DataFrame</dt><dd><p>energyとnameまたはatomsとnameの2つのキーを持つ辞書.</p>
@@ -225,6 +225,8 @@
 <div class="line">dataの設定の際に'atoms'で設定した場合,calculatorを与える関数が必要.</div>
 <div class="line">デフォルトではPFP.</div>
 </div>
+</dd>
+<dt>mask: list of bool</dt><dd><p>dot線を書かない部分をFalseにする.Noneの場合全てTrueのリスト</p>
 </dd>
 </dl>
 <div class="admonition note">

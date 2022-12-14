@@ -93,6 +93,20 @@ write_html
             image.calc = pfp_calculator()
         write_html("Vib.html",vib_images)
 
+- 追記モード
+    .. code-block:: python
+        :emphasize-lines: 9
+
+        from grrmpy.io import write_html
+        from ase.optimize import FIRE
+        from ase.neb import NEB
+
+        write_html("NEB.html",images) # 計算前のNEBイメージを書き込み
+        neb = NEB(images)
+        opt = FIRE(neb,climb=True)
+        opt.run(fmax=0.001)
+        write_html("NEB.html",images,append=True) # 同一ファイル上にのNEBイメージを追記
+
 .. autofunction:: grrmpy.io.write_html.write_html
 
 BaderChargeの読み込み

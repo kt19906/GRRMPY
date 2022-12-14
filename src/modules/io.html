@@ -381,10 +381,25 @@
 </dd>
 </dl>
 </li>
+<li><dl>
+<dt>追記モード</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.io</span> <span class="kn">import</span> <span class="n">write_html</span>
+<span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">FIRE</span>
+<span class="kn">from</span> <span class="nn">ase.neb</span> <span class="kn">import</span> <span class="n">NEB</span>
+
+<span class="n">write_html</span><span class="p">(</span><span class="s2">&quot;NEB.html&quot;</span><span class="p">,</span><span class="n">images</span><span class="p">)</span> <span class="c1"># 計算前のNEBイメージを書き込み</span>
+<span class="n">neb</span> <span class="o">=</span> <span class="n">NEB</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">FIRE</span><span class="p">(</span><span class="n">neb</span><span class="p">,</span><span class="n">climb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">opt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="hll"><span class="n">write_html</span><span class="p">(</span><span class="s2">&quot;NEB.html&quot;</span><span class="p">,</span><span class="n">images</span><span class="p">,</span><span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># 同一ファイル上にのNEBイメージを追記</span>
+</span></pre></div>
+</div>
+</dd>
+</dl>
+</li>
 </ul>
 <dl class="py function">
 <dt class="sig sig-object py" id="grrmpy.io.write_html.write_html">
-<span class="sig-prename descclassname"><span class="pre">grrmpy.io.write_html.</span></span><span class="sig-name descname"><span class="pre">write_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/write_html.html#write_html"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.write_html.write_html" title="この定義へのパーマリンク"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">grrmpy.io.write_html.</span></span><span class="sig-name descname"><span class="pre">write_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/write_html.html#write_html"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.write_html.write_html" title="この定義へのパーマリンク"></a></dt>
 <dd><p>htmlファイルとして保存する</p>
 <p>Parameters:</p>
 <dl>

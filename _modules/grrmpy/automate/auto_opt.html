@@ -41,6 +41,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/toy_tools.html">地味に便利な機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/SearchByPurpose.html">目的から探す</a></li>
@@ -81,7 +82,7 @@
 <span class="c1"># USER</span>
 <span class="kn">from</span> <span class="nn">grrmpy.io</span> <span class="kn">import</span> <span class="n">log2atoms</span>
 <span class="kn">from</span> <span class="nn">grrmpy.optimize.attach</span> <span class="kn">import</span> <span class="n">automate_maxstep</span>
-<span class="kn">from</span> <span class="nn">grrmpy</span> <span class="kn">import</span> <span class="n">pfp_calculator</span>
+<span class="kn">from</span> <span class="nn">grrmpy.calculator</span> <span class="kn">import</span> <span class="n">pfp_calculator</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">grrmpy.optimize</span> <span class="kn">import</span> <span class="n">FIRELBFGS</span>
 <span class="k">except</span><span class="p">:</span>
@@ -176,11 +177,6 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="c1"># フォルダが存在しなければ作成</span>
             <span class="n">p</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># 存在する場合は中身が空か確認</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()))</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">内にファイルが存在します.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span>
-                                <span class="s2">&quot;フォルダを削除するか,インスタンス引数のfoldernameを変更してください&quot;</span><span class="p">)</span>
         
     <span class="k">def</span> <span class="nf">set_maxstep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">maxstep</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">maxstep</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>

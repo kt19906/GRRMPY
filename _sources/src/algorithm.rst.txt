@@ -22,8 +22,8 @@
    pseudo_energy = False,  :math:`O(E log V)`
    pseudo_energy = True, :math:`O(EV log V)`
 
-アルゴリズム解説
-===================
+アルゴリズム解説(pseudo_energy=False)
+==========================================
 
 - 青矢印はTSまたはPTを表し, 添え字の数字は活性化エネルギーである.
 - EQ0,EQ1,EQ3は同じ構造なのでGroup0としてまとめている.

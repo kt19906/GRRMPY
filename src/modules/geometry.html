@@ -130,7 +130,7 @@
 <h2>grouping<a class="headerlink" href="#grouping" title="この見出しへのパーマリンク"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="grrmpy.geometry.functions.grouping">
-<span class="sig-prename descclassname"><span class="pre">grrmpy.geometry.functions.</span></span><span class="sig-name descname"><span class="pre">grouping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/geometry/functions.html#grouping"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.geometry.functions.grouping" title="この定義へのパーマリンク"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">grrmpy.geometry.functions.</span></span><span class="sig-name descname"><span class="pre">grouping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2D'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/geometry/functions.html#grouping"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.geometry.functions.grouping" title="この定義へのパーマリンク"></a></dt>
 <dd><p>同一構造をまとめる.</p>
 <div class="line-block">
 <div class="line">atoms_list中で同じ構造ごとにindex番号をまとめたリストを返す.</div>
@@ -157,6 +157,12 @@
 </dd>
 <dt>target2: list of int</dt><dd><div class="line-block">
 <div class="line">target0の原子との結合状態を見る.</div>
+</div>
+</dd>
+<dt>rtype: str</dt><dd><div class="line-block">
+<div class="line">戻り値のタイプ. &quot;1D&quot; または &quot;2D&quot;</div>
+<div class="line">&quot;1D&quot;の場合,[0,0,1,2,3,3,4...]のような1次元リストを返す.この場合0,1番目と4,5番目が同じ構造という意味.</div>
+<div class="line">&quot;2D&quot;の場合,[[0,1],[2],[3],[4,5],[6]...]のようなリストを返す.これも0,1番目と4,5番目が同じ構造という意味.</div>
 </div>
 </dd>
 <dt>mult: float</dt><dd><p>結合の判定を行なうための係数.数字の大きい程,遠く離れていても結合していると判断される.</p>

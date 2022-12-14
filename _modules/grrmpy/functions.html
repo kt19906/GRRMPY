@@ -41,6 +41,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../src/basic.html">基本操作</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../src/modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../src/toy_tools.html">地味に便利な機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../src/SearchByPurpose.html">目的から探す</a></li>
@@ -98,6 +99,28 @@
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_forces</span><span class="p">()</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())</span></div>
+
+<span class="k">def</span> <span class="nf">copy_images</span><span class="p">(</span><span class="n">images</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;imagesをコピーする&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">set_calc2images</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;imagesにcalculatorを設定する.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc_func</span><span class="p">()</span>
+        
+<span class="k">def</span> <span class="nf">set_const2images</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">constraints</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;imagesにconstraintsをかける.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">set_constraint</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
+        
+<span class="k">def</span> <span class="nf">get_energy_list</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">calc_func</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">energy_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">image</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">set_calc2images</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">calc_func</span><span class="p">)</span>
+        <span class="n">energy_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">image</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">energy_list</span>
 
 <span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">images</span><span class="p">,</span>
                <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span>
@@ -280,6 +303,9 @@
 <span class="sd">            抽出する数</span>
 <span class="sd">        end: bool</span>
 <span class="sd">            始めと終わりの構造を必ず含める場合True</span>
+<span class="sd">    </span>
+<span class="sd">    Return</span>
+<span class="sd">        list: サンプリング後のリスト</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">division</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
     <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">lst</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">division</span> <span class="o">*</span> <span class="n">i</span><span class="p">):</span><span class="nb">round</span><span class="p">(</span><span class="n">division</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>

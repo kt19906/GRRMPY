@@ -40,8 +40,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/toy_tools.html">地味に便利な機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/SearchByPurpose.html">目的から探す</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のライブラリ</a></li>
 </ul>
 
         </div>
@@ -72,12 +77,9 @@
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">nglview</span> <span class="k">as</span> <span class="nn">nv</span>
 <span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span>
-<span class="kn">from</span> <span class="nn">grrmpy.structure.structure</span> <span class="kn">import</span> <span class="n">EQ</span><span class="p">,</span><span class="n">TS</span><span class="p">,</span><span class="n">PT</span>
 
 <div class="viewcode-block" id="view_with_index"><a class="viewcode-back" href="../../../src/modules/visualize.html#grrmpy.visualize.by_nglview.view_with_index">[ドキュメント]</a><span class="k">def</span> <span class="nf">view_with_index</span><span class="p">(</span><span class="n">atoms</span> <span class="p">,</span> <span class="n">label_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">label_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="n">EQ</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="n">TS</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="n">PT</span><span class="p">:</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">!=</span> <span class="n">Atoms</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">!=</span> <span class="n">Atoms</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;ase.Atomを引数にとって下さい&quot;</span><span class="p">)</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">nv</span><span class="o">.</span><span class="n">show_ase</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s2">&quot;ngl&quot;</span><span class="p">)</span>
     <span class="n">v</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span>
@@ -98,9 +100,7 @@
     <span class="k">return</span> <span class="n">standard_pos</span>
 
 <div class="viewcode-block" id="view_with_coordinate"><a class="viewcode-back" href="../../../src/modules/visualize.html#grrmpy.visualize.by_nglview.view_with_coordinate">[ドキュメント]</a><span class="k">def</span> <span class="nf">view_with_coordinate</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="n">EQ</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="n">TS</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="n">PT</span><span class="p">:</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">!=</span> <span class="n">Atoms</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">!=</span> <span class="n">Atoms</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;ase.Atomを引数にとって下さい&quot;</span><span class="p">)</span>
     <span class="n">darkgrey</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">nv</span><span class="o">.</span><span class="n">show_ase</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s2">&quot;ngl&quot;</span><span class="p">)</span>

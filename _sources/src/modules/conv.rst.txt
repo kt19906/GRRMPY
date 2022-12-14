@@ -4,8 +4,6 @@ Convモジュール
 
 .. module:: grrmpy.conv
 
-.. autofunction:: grrmpy.conv.atoms2log.atoms2log 
-
 Atomsオブジェクト --> molオブジェクト
 -------------------------------------
 .. autofunction:: grrmpy.conv.atoms2mol.atoms2mol
