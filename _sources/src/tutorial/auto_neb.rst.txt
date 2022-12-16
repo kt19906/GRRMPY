@@ -13,7 +13,7 @@ GRRMの反応を再度NEBで計算をする
 
         from grrmpy.io import read_traj
 
-    eq_list = read_traj("Structures")
+        eq_list = read_traj("Structures")
 
 
 - CONNECTIONS情報を抽出する
