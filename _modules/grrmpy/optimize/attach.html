@@ -76,6 +76,7 @@
   <h1>grrmpy.optimize.attach のソースコード</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">ase.neb</span> <span class="kn">import</span>  <span class="n">NEB</span>
 <span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">Trajectory</span>
+<span class="kn">from</span> <span class="nn">ase.units</span> <span class="kn">import</span> <span class="n">mol</span><span class="p">,</span><span class="n">kJ</span><span class="p">,</span><span class="n">Hartree</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span> 
 
@@ -304,7 +305,7 @@
 <span class="sd">        &gt;&gt;&gt; from grrmpy.optimize import OptWithCond</span>
 <span class="sd">        &gt;&gt;&gt; neb = NEB(images,climb=False,parallel=True)</span>
 <span class="sd">        &gt;&gt;&gt; opt = OptWithCond(FIRE,neb,maxstep=0.2)</span>
-<span class="sd">        &gt;&gt;&gt; opt.attach_stop(steep_peak(opt,300,30))</span>
+<span class="sd">        &gt;&gt;&gt; opt.attach_stop(lambda:steep_peak(opt,300,30))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">energy_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span><span class="o">*</span><span class="n">mol</span><span class="o">/</span><span class="n">kJ</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">opt</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">images</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">nsteps</span> <span class="o">&gt;</span> <span class="n">nsteps</span><span class="p">:</span>

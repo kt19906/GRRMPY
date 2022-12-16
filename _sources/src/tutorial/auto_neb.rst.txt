@@ -1,0 +1,65 @@
+###########################
+連続NEB計算 
+###########################
+
+GRRMの反応を再度NEBで計算をする
+---------------------------------
+
+- EQ構造のインポート
+
+すでに :class:`AutoOpt<grrmpy.automate.auto_opt.AutoOpt>` で最適化計算を行なっているものとする
+
+    .. code-block:: python
+
+        from grrmpy.io import read_traj
+
+    eq_list = read_traj("Structures")
+
+
+- CONNECTIONS情報を抽出する
+
+    :class:`read_connections<grrmpy.io.read_listlog.read_connections>` でCONNECTIONを読み取れる
+
+    .. code-block:: python
+
+        from grrmpy.visualize import *
+        from grrmpy.io import log2atoms,read_connections
+        from grrmpy.functions import get_unique_connections
+        from grrmpy.geometry import grouping
+        from grrmpy.automate import AutoNEB
+
+        original_connections = read_connections("XXX_TS_list.log")
+        # --> [[0,1],[1,1],[3,5],[2,4],[5,3],[1,6]]
+
+    ただしこの `original_connections` には
+
+        - [0,0] などの同じ構造を結ぶ反応
+        - [0,1],[1,0] など同じ反応
+        - [0,"??"] など意味のない反応
+    
+    明らかに計算する必要のない反応が含まれているので,
+    :class:`read_connections<grrmpy.functions.get_unique_connections>` でユニークなCONNECTIONのみを抽出する.
+
+    .. code-block:: python
+
+        unique_connections, _ = get_unique_connections(original_connections)
+        # --> [[0,1],[3,5],[2,4],[1,6]]
+
+    このCONNECTION情報を使ってNEB計算を行なっても良いが,さらに同一のgeometryの反応を削除するには,
+    :class:`grouping<grrmpy.geometry.functions.grouping>` でグループ化して同一構造を繋ぐ反応を削除する.
+
+    .. code-block:: python
+
+        group = grouping(eq_list, rtype="1D")
+        # 異なるgroupに所属しているCONNECTIONのみを抽出する
+        connections = [[ini,fin] for ini,fin in unique_connections if group[ini]!=group[fin]]
+
+- NEB計算
+
+    収束した構造は"Structures"フォルダに, 未収束の構造はunconvに保存される.
+
+    .. code-block:: python
+
+        auto_neb = AutoNEB(eq_list, connections)
+        auto_neb.run(16,steps_list=[100,1000,1500])
+

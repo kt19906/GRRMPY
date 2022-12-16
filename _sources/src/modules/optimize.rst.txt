@@ -49,7 +49,7 @@ OptWithCond(STOP機能付きOptimizer)
     neb = NEB(images,climb=False,parallel=True)
     opt = OptWithCond(FIRE,neb,maxstep=0.2) # FIREを継承しOptimizerをインスタンス化
     opt.attach_stop(steep_peak(opt,300,30))
-    opt.attach_stop(same_energy_and_fmax(opt,10,2))
+    opt.attach_stop(lambda:same_energy_and_fmax(opt,10,2))
     opt.attach(lambda:write_html("NEB.html",images))
 
 .. autofunction:: grrmpy.optimize.optimizer.OptWithCond

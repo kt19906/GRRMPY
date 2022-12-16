@@ -4,6 +4,36 @@ NEBモジュール
 
 .. module:: grrmpy.neb.auto_neb
 
+RepetitiveNEB
+=================
+
+| (climb=False,mastep=0.05,step=300)-->(climb=False,mastep=0.1,step=2000)-->(climb=True,mastep=0.25,step=2000)
+| の条件でNEB計算を行ないたい時は.
+
+.. code-block:: python
+
+   from ase.io import write
+   from grrmpy.neb import RepetitiveNEB
+   from grrmpy.io import write_html
+
+   rneb = RepetitiveNEB(images)
+   rneb.attach(lambda:write("NEB.traj",rneb.images))
+   rneb.attach(lambda:write_html("NEB_Diagram.traj",rneb.images))
+
+   # ある条件でNEB計算がを終えるたびに構造を保存する場合(上書きせず別ファイルへ保存).
+   # 3回NEB計算するのでrange(3). それぞれNEB_0.traj,NEB_1.traj,NEB_2.trajに保存される.
+   rneb.update(lambda func:iter([write(f"NEB_{i}.traj",rneb.images) for i in range(3)]):next(func))
+
+   rneb.run(
+      climb_list = [False,False,True],
+      maxstep_list = [0.05,0.1,0.25],
+      fmax_list = [0.05,0.05,0.05],
+      steps_list = [300,2000,2000]
+   )
+
+.. autoclass:: grrmpy.neb.repetitive_neb.RepetitiveNEB
+   :members: run, attach, attach_stop, update, default_param
+
 SNEB
 ==================================
 

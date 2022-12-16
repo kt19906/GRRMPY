@@ -8,7 +8,7 @@ I/O モジュール
     
     - :class:`log2atoms<grrmpy.io.read_listlog.log2atoms>`
     - :class:`read_connections<grrmpy.io.read_listlog.read_connections>`
-    - :class:`write_html<grrmpy.io.write_html.write_html>`
+    - :class:`write_html<grrmpy.io.html.write_html>`
 
 
 Atomsへ変換する
@@ -107,7 +107,7 @@ write_html
         opt.run(fmax=0.001)
         write_html("NEB.html",images,append=True) # 同一ファイル上にのNEBイメージを追記
 
-.. autofunction:: grrmpy.io.write_html.write_html
+.. autofunction:: grrmpy.io.html.write_html
 
 BaderChargeの読み込み
 =======================

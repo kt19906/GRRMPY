@@ -59,3 +59,10 @@ AutoOpt
 
 .. autoclass:: grrmpy.automate.auto_opt.AutoOpt
    :members: set_automaxstep, run
+
+
+AutoNEB
+==================================
+
+.. autoclass:: grrmpy.automate.auto_neb.AutoNEB
+   :members: run,default_param,next_i,update,attach_stop,attach

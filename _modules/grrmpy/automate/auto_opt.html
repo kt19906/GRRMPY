@@ -125,7 +125,7 @@
                  <span class="n">errorfile</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
                  <span class="n">traj_foldername</span> <span class="o">=</span> <span class="s2">&quot;trajectory&quot;</span><span class="p">,</span>
                  <span class="n">log_foldername</span> <span class="o">=</span> <span class="s2">&quot;log&quot;</span><span class="p">,</span>
-                 <span class="n">save_foldername</span> <span class="o">=</span> <span class="s2">&quot;Structure&quot;</span><span class="p">):</span>
+                 <span class="n">save_foldername</span> <span class="o">=</span> <span class="s2">&quot;Structures&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        </span>
 <span class="sd">        最適化後の構造は&#39;Structure&#39;フォルダ内にtrajファイルで保存される.</span>
@@ -153,6 +153,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span> <span class="o">=</span> <span class="n">trajectory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logfile</span> <span class="o">=</span> <span class="n">logfile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">maxstep_dict</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attach_list</span> <span class="o">=</span> <span class="p">[]</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">atomslist</span> <span class="o">=</span> <span class="n">atomslist</span>
         <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomslist</span><span class="p">:</span>
@@ -212,6 +213,9 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errorfile</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">massage</span><span class="p">)</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+    <span class="k">def</span> <span class="nf">attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attach_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">args</span><span class="p">,</span><span class="n">kwargs</span><span class="p">))</span>
         
     <span class="k">def</span> <span class="nf">irun</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">atoms</span><span class="p">,</span><span class="n">name</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span><span class="n">optimizer</span><span class="p">,</span><span class="n">maxstep_list</span><span class="p">,</span><span class="n">steps_list</span><span class="p">,</span><span class="n">fmax</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">logfile</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">log_foldername</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.log&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logfile</span> <span class="k">else</span> <span class="kc">None</span>
@@ -226,8 +230,8 @@
                     <span class="n">opt</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">maxstep</span><span class="o">=</span><span class="n">ms</span><span class="p">,</span><span class="n">logfile</span><span class="o">=</span><span class="n">logfile</span><span class="p">,</span><span class="n">trajectory</span><span class="o">=</span><span class="n">trajectory</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">maxstep</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">opt</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span><span class="n">automate_maxstep</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">maxstep_dict</span><span class="p">))</span>
-                <span class="k">for</span> <span class="n">attach</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attach_list</span><span class="p">:</span>
-                    <span class="n">opt</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="o">**</span><span class="n">attach</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">args</span><span class="p">,</span><span class="n">kwargs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attach_list</span><span class="p">:</span>
+                    <span class="n">opt</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 <span class="n">opt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">,</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">converged</span><span class="p">:</span>
                 <span class="n">write</span><span class="p">(</span><span class="n">savefile</span><span class="p">,</span><span class="n">atoms</span><span class="p">)</span>
@@ -242,7 +246,6 @@
             <span class="n">maxstep_list</span><span class="o">=</span><span class="p">[</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span>
             <span class="n">steps_list</span><span class="o">=</span><span class="p">[</span><span class="mi">200</span><span class="p">,</span><span class="mi">10000</span><span class="p">],</span>
             <span class="n">fmax</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
-            <span class="n">attach_list</span><span class="o">=</span><span class="p">[],</span>
             <span class="n">indexes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">restart</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -263,8 +266,6 @@
 <span class="sd">        restart: int</span>
 <span class="sd">            | 指定した番号から計算を開始する.</span>
 <span class="sd">            | indexesとrestartは同時に指定できない.</span>
-<span class="sd">        attach_list: list of dict</span>
-<span class="sd">            [{&quot;function&quot;:function_obj, &quot;interval&quot;:int}]のように指定する.</span>
 <span class="sd">        kwargs:</span>
 <span class="sd">            その他,optimizer(LBFGSなど)ののインスタンス引数を指定できる.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

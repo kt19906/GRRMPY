@@ -39,12 +39,13 @@ ImagesにConstraintsをかける
     :emphasize-lines: 2,5
 
     from grrmpy.io import read_connections
-    from grrmpy.functions import unique_connections
+    from grrmpy.functions import get_unique_connections
     
     original_connections = read_connections("XXX_TS_list.log") #CONNECTIONを読み取る
-    connections,_ = unique_connections(original_connections)
+    connections,idx = get_unique_connections(original_connections)
+    # 元々どのindex番号なのかidxに入る
 
-.. autofunction:: grrmpy.functions.unique_connections
+.. autofunction:: grrmpy.functions.get_unique_connections
 
 NEB関係
 ==========

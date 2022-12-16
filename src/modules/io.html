@@ -151,7 +151,7 @@
 <div><ul class="simple">
 <li><p><a class="reference internal" href="#grrmpy.io.read_listlog.log2atoms" title="grrmpy.io.read_listlog.log2atoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">log2atoms</span></code></a></p></li>
 <li><p><a class="reference internal" href="#grrmpy.io.read_listlog.read_connections" title="grrmpy.io.read_listlog.read_connections"><code class="xref py py-class docutils literal notranslate"><span class="pre">read_connections</span></code></a></p></li>
-<li><p><a class="reference internal" href="#grrmpy.io.write_html.write_html" title="grrmpy.io.write_html.write_html"><code class="xref py py-class docutils literal notranslate"><span class="pre">write_html</span></code></a></p></li>
+<li><p><a class="reference internal" href="#grrmpy.io.html.write_html" title="grrmpy.io.html.write_html"><code class="xref py py-class docutils literal notranslate"><span class="pre">write_html</span></code></a></p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -259,12 +259,18 @@
 <p><a class="reference internal" href="automate.html#grrmpy.automate.auto_opt.AutoOpt" title="grrmpy.automate.auto_opt.AutoOpt"><code class="xref py py-class docutils literal notranslate"><span class="pre">grrmpy.automate.auto_opt.AutoOpt</span></code></a> で計算を行なった後,計算後の構造を一括でAtomsに変換する際に用いる.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="grrmpy.io.read_traj.read_traj">
-<span class="sig-prename descclassname"><span class="pre">grrmpy.io.read_traj.</span></span><span class="sig-name descname"><span class="pre">read_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/read_traj.html#read_traj"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.read_traj.read_traj" title="この定義へのパーマリンク"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">grrmpy.io.read_traj.</span></span><span class="sig-name descname"><span class="pre">read_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/read_traj.html#read_traj"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.read_traj.read_traj" title="この定義へのパーマリンク"></a></dt>
 <dd><div class="line-block">
 <div class="line">フォルダ内のtrajファイルを検索し,Atomsのリストする.</div>
-<div class="line">trajファイルは0.traj 1.traj 2.traj...のようになっている必要がある.</div>
-<div class="line">また例えば,0.traj 2.traj のように1.trajが抜けていた場合はNoneの要素になる.</div>
-<div class="line">trajの中身がimagesの場合は別の関数である,iread_trajを用いる</div>
+<div class="line">trajファイル名には必ず数字が含まれている必要がある.</div>
+<div class="line">例えば,0.traj, 3.traj, 2.trajファイルが存在する場合, 0.traj, 2.traj, 3.trajの順でファイルの読み込みを行ない,</div>
+<div class="line">blank=Trueの場合,[Atoms,None,Atoms,Atoms]のように数字の存在しないファイルはNoneの要素になる.</div>
+<div class="line">blank=Flaseの場合,None要素は作成されない.</div>
+</div>
+<div class="line-block">
+<div class="line">ファイル名には数字を含む必要があるが,例えばsample_1_1.trajの場合,始めの数字である&quot;1&quot;のみに注目しソートされる.</div>
+<div class="line">従って,blank=Trueの際にsample_1_1.traj, sample_1_2.trajの2つのファイルが存在するとき&quot;1&quot;のファイルが2つ存在すると判断されるためエラーとなる.</div>
+<div class="line">blank=Falseの場合このような問題は起きず,sample_1_1.traj, sample_1_2.trajの順で読み込まれる.</div>
 </div>
 <p>Parameters:</p>
 <dl class="simple">
@@ -286,7 +292,7 @@
 <h3>iread_traj<a class="headerlink" href="#iread-traj" title="この見出しへのパーマリンク"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="grrmpy.io.read_traj.iread_traj">
-<span class="sig-prename descclassname"><span class="pre">grrmpy.io.read_traj.</span></span><span class="sig-name descname"><span class="pre">iread_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/read_traj.html#iread_traj"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.read_traj.iread_traj" title="この定義へのパーマリンク"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">grrmpy.io.read_traj.</span></span><span class="sig-name descname"><span class="pre">iread_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/read_traj.html#iread_traj"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.read_traj.iread_traj" title="この定義へのパーマリンク"></a></dt>
 <dd><p>read_trajのimages版</p>
 </dd></dl>
 
@@ -398,8 +404,8 @@
 </li>
 </ul>
 <dl class="py function">
-<dt class="sig sig-object py" id="grrmpy.io.write_html.write_html">
-<span class="sig-prename descclassname"><span class="pre">grrmpy.io.write_html.</span></span><span class="sig-name descname"><span class="pre">write_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/write_html.html#write_html"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.write_html.write_html" title="この定義へのパーマリンク"></a></dt>
+<dt class="sig sig-object py" id="grrmpy.io.html.write_html">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.io.html.</span></span><span class="sig-name descname"><span class="pre">write_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/html.html#write_html"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.html.write_html" title="この定義へのパーマリンク"></a></dt>
 <dd><p>htmlファイルとして保存する</p>
 <p>Parameters:</p>
 <dl>
