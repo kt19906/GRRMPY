@@ -66,3 +66,18 @@ AutoNEB
 
 .. autoclass:: grrmpy.automate.auto_neb.AutoNEB
    :members: run,default_param,next_i,update,attach_stop,attach
+
+AutoVib
+==================================
+
+.. code-block:: python
+
+    from grrmpy.automate import AutoVib
+
+    vib = AutoVib(ts_list)
+    vib.run()
+    vib.summary() # Summary.htmlに振動数の表を出力
+    vib.write_mode() # vibフォルダ内に虚数振動のtrajファイルが作成される
+
+.. autoclass:: grrmpy.automate.auto_vib.AutoVib
+   :members: run,write_mode,summary
