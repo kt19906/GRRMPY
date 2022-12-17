@@ -5,6 +5,8 @@
 GRRMの反応を再度NEBで計算をする
 ---------------------------------
 
+AutoNEBのドキュメント: :class:`AutoNEB<grrmpy.automate.auto_neb.AutoNEB>`
+
 - EQ構造のインポート
 
 すでに :class:`AutoOpt<grrmpy.automate.auto_opt.AutoOpt>` で最適化計算を行なっているものとする

@@ -8,6 +8,7 @@ Modules
    modules/io
    modules/optimize
    modules/neb
+   modules/opt
    modules/automate
    modules/visualize
    modules/path
