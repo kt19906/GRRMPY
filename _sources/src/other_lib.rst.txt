@@ -1,15 +1,8 @@
 #######################
-その他のライブラリ
+その他のアプリ
 #######################
 
-MatlanticGRRM
-================
-MatlanticGRRMの機能はGRRMPYに移行中
-
-https://kt19906.github.io/MatlanticGrrm/index.html
-
-
-xlwingsを使ったライブラリ
+xlwingsを使ったアプリ
 ==========================
 
 | GRRMの結果をpythonコードを書くことなく,Excelのみで解析できる. 
@@ -32,3 +25,12 @@ xlwingsを使ったライブラリ
     | :download:`Mac用 <../download/Mac.zip>` 
 - ダウンロード方法と使用方法(.pptx)
     | :download:`setup.pptx <../download/setup.pptx>`
+
+.. role:: strike
+    :class: strike
+
+MatlanticGRRM ライブラリ
+================================
+:strike:`MatlanticGRRMの機能はGRRMPYに移行中` → 移行完了
+
+https://kt19906.github.io/MatlanticGrrm/index.html

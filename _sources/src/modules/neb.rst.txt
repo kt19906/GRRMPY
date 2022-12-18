@@ -7,7 +7,7 @@ NEBモジュール
 RepetitiveNEB
 =================
 
-| (climb=False,mastep=0.05,step=300)-->(climb=False,mastep=0.1,step=2000)-->(climb=True,mastep=0.25,step=2000)
+| (climb=False,mastep=0.05,step=300)→(climb=False,mastep=0.1,step=2000)→(climb=True,mastep=0.25,step=2000)
 | の条件でNEB計算を行ないたい時は.
 
 .. code-block:: python
