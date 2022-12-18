@@ -8,3 +8,4 @@
 
    tutorial/auto_opt
    tutorial/auto_neb
+   tutorial/auto_vib
