@@ -6,6 +6,8 @@
 GRRMのEQ構造をMatlantis上で再度構造最適化計算をする
 =========================================================
 
+AutoOptのドキュメント: :class:`AutoOpt<grrmpy.automate.auto_opt.AutoOpt>`
+
 基本的な使い方
 ---------------
 
@@ -52,5 +54,3 @@ GRRMのデータの読み込みには :class:`log2atoms<grrmpy.io.read_listlog.l
 | 例えば,以前の計算でEQ13まで計算してあり,新たにEQ14から計算をしたい場合には `restart` を指定して計算を途中から行なう.
 
 >>> run(restart=14)
-
-            
