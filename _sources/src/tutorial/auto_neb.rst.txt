@@ -76,8 +76,8 @@ NEBのイメージ数について
 
 >>> auto_neb.run([16,18,16,8,16]) # 計算したい構造が５個ある場合
 
-| 自動で最適なNEBイメージ数を求めるには :class:`grouping<grrmpy.neb.functions.get_appropriate_nimages>` 
- を用いると良い
+| :class:`get_appropriate_nimages<grrmpy.neb.functions.get_appropriate_nimages>` 
+ を用いれば最適なNEBイメージの数を求められるため. それぞれの計算に適したNEBイメージ数を与えることができる.
 
 >>> nimages_list = [get_appropriate_nimages(eq_list[ini],eq_list[fin],dist=0.2) for ini,fin in connections]
 >>> auto_neb.run(nimages_list)

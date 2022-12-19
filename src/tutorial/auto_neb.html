@@ -197,8 +197,8 @@
 </pre></div>
 </div>
 <div class="line-block">
-<div class="line">自動で最適なNEBイメージ数を求めるには <a class="reference internal" href="../toy_tools.html#grrmpy.neb.functions.get_appropriate_nimages" title="grrmpy.neb.functions.get_appropriate_nimages"><code class="xref py py-class docutils literal notranslate"><span class="pre">grouping</span></code></a>
-を用いると良い</div>
+<div class="line"><a class="reference internal" href="../toy_tools.html#grrmpy.neb.functions.get_appropriate_nimages" title="grrmpy.neb.functions.get_appropriate_nimages"><code class="xref py py-class docutils literal notranslate"><span class="pre">get_appropriate_nimages</span></code></a>
+を用いれば最適なNEBイメージの数を求められるため. それぞれの計算に適したNEBイメージ数を与えることができる.</div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nimages_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_appropriate_nimages</span><span class="p">(</span><span class="n">eq_list</span><span class="p">[</span><span class="n">ini</span><span class="p">],</span><span class="n">eq_list</span><span class="p">[</span><span class="n">fin</span><span class="p">],</span><span class="n">dist</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span> <span class="k">for</span> <span class="n">ini</span><span class="p">,</span><span class="n">fin</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">auto_neb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">nimages_list</span><span class="p">)</span>
