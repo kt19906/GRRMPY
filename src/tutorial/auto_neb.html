@@ -52,6 +52,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#id2">計算後のデータの取り込み</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">細かいパラメータを指定する</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#connections">インスタンス引数のconnectionsについて</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">NEBのイメージ数について</a></li>
 </ul>
 </li>
 </ul>
@@ -176,10 +177,31 @@
 <div class="line-block">
 <div class="line">基本的にはこのunique_connectionsをAutoNEBのインスタンス引数に与えれば良いが,
 <a class="reference internal" href="../modules/geometry.html#grrmpy.geometry.functions.grouping" title="grrmpy.geometry.functions.grouping"><code class="xref py py-class docutils literal notranslate"><span class="pre">grouping</span></code></a> を用いれば,さらに不要な計算を省くことができる.</div>
-<div class="line">groupingの細かな使用方法の説明は省くが,次のようなコードを書けば,同じgtoup(同じ構造)間でのCONNECTIONを省くことができる.</div>
+<div class="line">groupingの細かな使用方法の説明は省くが,次のようなコードを書けば,同じgtoup(同じ構造)を結ぶCONNECTIONを省くことができる.</div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">grouping</span><span class="p">(</span><span class="n">eq_list</span><span class="p">,</span> <span class="n">rtype</span><span class="o">=</span><span class="s2">&quot;1D&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">connections</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ini</span><span class="p">,</span><span class="n">fin</span><span class="p">]</span> <span class="k">for</span> <span class="n">ini</span><span class="p">,</span><span class="n">fin</span> <span class="ow">in</span> <span class="n">unique_connections</span> <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="n">ini</span><span class="p">]</span><span class="o">!=</span><span class="n">group</span><span class="p">[</span><span class="n">fin</span><span class="p">]]</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>NEBのイメージ数について<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto_neb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">とすれば,全てのNEBは16イメージで計算されるが,サンプルによってイメージ数を変えたい場合もあるだろう.</div>
+<div class="line">その場合,リストで与えれば良い</div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto_neb</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="mi">16</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">])</span> <span class="c1"># 計算したい構造が５個ある場合</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">自動で最適なNEBイメージ数を求めるには <a class="reference internal" href="../toy_tools.html#grrmpy.neb.functions.get_appropriate_nimages" title="grrmpy.neb.functions.get_appropriate_nimages"><code class="xref py py-class docutils literal notranslate"><span class="pre">grouping</span></code></a>
+を用いると良い</div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nimages_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_appropriate_nimages</span><span class="p">(</span><span class="n">eq_list</span><span class="p">[</span><span class="n">ini</span><span class="p">],</span><span class="n">eq_list</span><span class="p">[</span><span class="n">fin</span><span class="p">],</span><span class="n">dist</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span> <span class="k">for</span> <span class="n">ini</span><span class="p">,</span><span class="n">fin</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">auto_neb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">nimages_list</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

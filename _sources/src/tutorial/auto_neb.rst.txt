@@ -61,10 +61,24 @@ AutoNEBのドキュメント: :class:`AutoNEB<grrmpy.automate.auto_neb.AutoNEB>`
 
 | 基本的にはこのunique_connectionsをAutoNEBのインスタンス引数に与えれば良いが,
  :class:`grouping<grrmpy.geometry.functions.grouping>` を用いれば,さらに不要な計算を省くことができる.
-| groupingの細かな使用方法の説明は省くが,次のようなコードを書けば,同じgtoup(同じ構造)間でのCONNECTIONを省くことができる.
+| groupingの細かな使用方法の説明は省くが,次のようなコードを書けば,同じgtoup(同じ構造)を結ぶCONNECTIONを省くことができる.
 
 >>> group = grouping(eq_list, rtype="1D")
 >>> connections = [[ini,fin] for ini,fin in unique_connections if group[ini]!=group[fin]]
 
+NEBのイメージ数について
+-----------------------------
 
+>>> auto_neb.run(16)
+
+| とすれば,全てのNEBは16イメージで計算されるが,サンプルによってイメージ数を変えたい場合もあるだろう.
+| その場合,リストで与えれば良い
+
+>>> auto_neb.run([16,18,16,8,16]) # 計算したい構造が５個ある場合
+
+| 自動で最適なNEBイメージ数を求めるには :class:`grouping<grrmpy.neb.functions.get_appropriate_nimages>` 
+ を用いると良い
+
+>>> nimages_list = [get_appropriate_nimages(eq_list[ini],eq_list[fin],dist=0.2) for ini,fin in connections]
+>>> auto_neb.run(nimages_list)
 
