@@ -15,6 +15,7 @@ GRRMPYドキュメント
    src/modules
    src/toy_tools
    src/SearchByPurpose
+   src/tips
    src/algorithm
    src/other_lib
 
