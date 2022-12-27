@@ -37,15 +37,29 @@ AutoOpt
     opt = AutoOpt(eq_list,optimizer=FIRELBFGS)
     opt.run()
 
-計算後にはStructureフォルダに最適化後の構造が保存されるので
+
+計算後のデータの取り出し方
+------------------------------
+計算後にはStructuresフォルダに最適化後の構造が保存されるので
 
 .. code-block:: python
 
     from grrmpy.io import read_traj
 
-    opted_eq_list = read_traj("Structure")
+    opted_eq_list = read_traj("Structures")
 
 で構造を取り出せる.
+
+細かな条件を設定する方法
+------------------------------
+細かい計算条件は `run` の引数で設定する.
+(maxstep=0.02,steps=200)→(maxstep=0.05,steps=500)→(maxstep=0.2,steps=1000)の条件で計算する場合.
+
+.. code-block:: python
+
+    opt.run(maxstep_list=[0.02,0.05,0.2],steps_list=[200,500,10000])
+
+`maxstep_list` と `steps_list` の要素数が一致していないとエラーになるので注意する
 
 続きから計算する場合
 ----------------------

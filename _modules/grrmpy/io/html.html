@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../src/tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other.html">その他</a></li>
 </ul>
 
         </div>
@@ -242,15 +243,19 @@
                     <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span>
                     <span class="n">full_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span>
+                    <span class="n">highlight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">annotation</span><span class="o">=</span><span class="p">[],</span>
                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">full_html</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="n">full_html</span>
     <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
     <span class="n">html_txt</span> <span class="o">=</span> <span class="n">to_html_nebgraph</span><span class="p">(</span>
         <span class="n">neb_obj</span><span class="p">,</span>
-        <span class="n">calc_func</span><span class="p">,</span>
-        <span class="n">full_html</span><span class="p">,</span>
-        <span class="n">unit</span><span class="p">,</span>
+        <span class="n">calc_func</span><span class="o">=</span><span class="n">calc_func</span><span class="p">,</span>
+        <span class="n">full_html</span><span class="o">=</span><span class="n">full_html</span><span class="p">,</span>
+        <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
         <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span>
+        <span class="n">highlight</span><span class="o">=</span><span class="n">highlight</span><span class="p">,</span>
+        <span class="n">annotation</span><span class="o">=</span><span class="n">annotation</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">html</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">html_txt</span>
@@ -264,16 +269,20 @@
                          <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span>
                          <span class="n">full_html</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span>
+                         <span class="n">highlight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                         <span class="n">annotation</span><span class="o">=</span><span class="p">[],</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">full_html</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="n">full_html</span>
     <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span> <span class="k">if</span> <span class="n">append</span> <span class="k">else</span> <span class="s2">&quot;w&quot;</span>
     <span class="n">html_txt</span> <span class="o">=</span> <span class="n">to_html_energy_diagram</span><span class="p">(</span>
         <span class="n">images</span><span class="p">,</span>
-        <span class="n">calc_func</span><span class="p">,</span>
-        <span class="n">full_html</span><span class="p">,</span>
-        <span class="n">unit</span><span class="p">,</span>
-        <span class="n">title</span><span class="p">,</span>
+        <span class="n">calc_func</span><span class="o">=</span><span class="n">calc_func</span><span class="p">,</span>
+        <span class="n">full_html</span><span class="o">=</span><span class="n">full_html</span><span class="p">,</span>
+        <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
         <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span>
+        <span class="n">highlight</span><span class="o">=</span><span class="n">highlight</span><span class="p">,</span>
+        <span class="n">annotation</span><span class="o">=</span><span class="n">annotation</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">html</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">html_txt</span>

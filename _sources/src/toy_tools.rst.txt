@@ -27,6 +27,24 @@ ImagesにConstraintsをかける
 --------------------------------
 .. autofunction:: grrmpy.functions.set_const2images
 
+Notebook上にエネルギーダイアグラムを作成する
+-----------------------------------------------
+
+NEBや振動数のエネルギーダイアグラムの可視化に使える.
+
+.. code-block:: python
+
+    from grrmpy.functions import draw_graph
+
+    draw_graph(images)
+
+.. image:: ./img/draw_graph.png
+   :scale: 50%
+   :align: center
+
+.. autofunction:: grrmpy.functions.draw_graph
+
+
 
 ユニークなCONNECTIONを返す
 ==============================
@@ -49,13 +67,18 @@ ImagesにConstraintsをかける
 
 NEB関係
 ==========
+
+TSのindex番号を返す(&バリアレスの判定)
+--------------------------------------------------------
+.. autofunction:: grrmpy.neb.functions.get_imax
+
 活性化エネルギーを算出する
 -----------------------------
 .. autofunction:: grrmpy.neb.functions.get_ea
 
 NEBイメージの中の極小点のindex番号を返す
 ----------------------------------------
-.. autofunction:: grrmpy.neb.functions.find_local_minimum_points
+.. autofunction:: grrmpy.neb.functions.find_local_minimum_points_and_ea
 
 最適なimage数を算出する
 ---------------------------------------------------

@@ -57,7 +57,9 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#autoopt">AutoOpt</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id1">基本的な使用方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">続きから計算する場合</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">計算後のデータの取り出し方</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">細かな条件を設定する方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">続きから計算する場合</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#autoneb">AutoNEB</a><ul>
@@ -84,6 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other.html">その他</a></li>
 </ul>
 
         </div>
@@ -344,16 +347,28 @@ with_stop(add_stop_to)の引数. デフォルト2</p>
 <span class="n">opt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>計算後にはStructureフォルダに最適化後の構造が保存されるので</p>
+</section>
+<section id="id2">
+<h3>計算後のデータの取り出し方<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h3>
+<p>計算後にはStructuresフォルダに最適化後の構造が保存されるので</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.io</span> <span class="kn">import</span> <span class="n">read_traj</span>
 
-<span class="n">opted_eq_list</span> <span class="o">=</span> <span class="n">read_traj</span><span class="p">(</span><span class="s2">&quot;Structure&quot;</span><span class="p">)</span>
+<span class="n">opted_eq_list</span> <span class="o">=</span> <span class="n">read_traj</span><span class="p">(</span><span class="s2">&quot;Structures&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>で構造を取り出せる.</p>
 </section>
-<section id="id2">
-<h3>続きから計算する場合<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h3>
+<section id="id3">
+<h3>細かな条件を設定する方法<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h3>
+<p>細かい計算条件は <cite>run</cite> の引数で設定する.
+(maxstep=0.02,steps=200)→(maxstep=0.05,steps=500)→(maxstep=0.2,steps=1000)の条件で計算する場合.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">maxstep_list</span><span class="o">=</span><span class="p">[</span><span class="mf">0.02</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span><span class="n">steps_list</span><span class="o">=</span><span class="p">[</span><span class="mi">200</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">10000</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><cite>maxstep_list</cite> と <cite>steps_list</cite> の要素数が一致していないとエラーになるので注意する</p>
+</section>
+<section id="id4">
+<h3>続きから計算する場合<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h3>
 <div class="line-block">
 <div class="line">XXX_EQ_list.logが更新されて,新たに追加された構造のみを計算したい場合,run()の引数のrestartを指定すればよい</div>
 <div class="line">例えば,EQ16まで既に計算していた場合</div>
@@ -594,7 +609,7 @@ with_stop(add_stop_to)の引数. デフォルト2</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="grrmpy.automate.auto_neb.AutoNEB.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nimages</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/auto_neb.html#AutoNEB.run"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.auto_neb.AutoNEB.run" title="この定義へのパーマリンク"></a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nimages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/auto_neb.html#AutoNEB.run"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.auto_neb.AutoNEB.run" title="この定義へのパーマリンク"></a></dt>
 <dd><p>Parameters:</p>
 <dl class="simple">
 <dt>nimages: int or list of int</dt><dd><p>NEBのイメージの数. listで指定した場合はサンプル毎に違うイメージ数でNEB計算できる.</p>
@@ -609,6 +624,10 @@ with_stop(add_stop_to)の引数. デフォルト2</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">param</span> <span class="o">=</span> <span class="n">auto_neb</span><span class="o">.</span><span class="n">default_param</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">param</span><span class="p">[</span><span class="s2">&quot;steps_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1500</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">auto_neb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="o">**</span><span class="n">param</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>途中から計算を再開するには</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto_neb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="n">restart</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> <span class="c1"># NEB8から計算を開始する</span>
 </pre></div>
 </div>
 </dd></dl>

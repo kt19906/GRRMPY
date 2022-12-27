@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../src/tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../src/algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../src/other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../src/other.html">その他</a></li>
 </ul>
 
         </div>
@@ -90,6 +91,9 @@
 <span class="kn">from</span> <span class="nn">ase.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span><span class="p">,</span><span class="n">natural_cutoffs</span>
 <span class="c1"># User</span>
 <span class="kn">from</span> <span class="nn">grrmpy.calculator</span> <span class="kn">import</span> <span class="n">pfp_calculator</span>
+<span class="c1"># 本来デフォルトのレンダラーを使用したいが，なぜかうまく作動しないため追加</span>
+<span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;sphinx_gallery&quot;</span>
 
 <div class="viewcode-block" id="get_fmax"><a class="viewcode-back" href="../../src/toy_tools.html#grrmpy.functions.get_fmax">[ドキュメント]</a><span class="k">def</span> <span class="nf">get_fmax</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;fmaxを返す</span>
@@ -123,29 +127,50 @@
         <span class="n">energy_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">image</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">energy_list</span></div>
 
-<span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">images</span><span class="p">,</span>
-               <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span>
+<div class="viewcode-block" id="draw_graph"><a class="viewcode-back" href="../../src/toy_tools.html#grrmpy.functions.draw_graph">[ドキュメント]</a><span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">images</span><span class="p">,</span>
+               <span class="n">highlight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">annotation</span><span class="o">=</span><span class="p">[],</span> <span class="c1">#[((x,y),&quot;text&quot;,{kwargs})]</span>
                <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span>
                <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Energy Diagram&quot;</span><span class="p">,</span>
                <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-               <span class="n">yaxis_title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+               <span class="n">yaxis_title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,):</span>
     <span class="sd">&quot;&quot;&quot;エネルギーダイアグラムのグラフを作成する</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters:</span>
 <span class="sd">    </span>
 <span class="sd">    images: list of Atoms</span>
-<span class="sd">        Atomsオブジェクトのリスト</span>
-<span class="sd">    full_html: bool</span>
-<span class="sd">        | &lt;html&gt;タグたか始まる完全なhtmlテキストを出力する場合,True</span>
-<span class="sd">        | Falseの場合&lt;div&gt;タグのみ</span>
+<span class="sd">        | Atomsオブジェクトのリスト</span>
+<span class="sd">    highlight: list of int</span>
+<span class="sd">        指定したindex番号のプロットのみ赤色になる</span>
+<span class="sd">    annotation:list</span>
+<span class="sd">        | アノテーションを入れたい場合に設定</span>
+<span class="sd">        | [((x座標,y座標),&quot;テキスト&quot;,{その他}),]のタプルのリストで与える</span>
+<span class="sd">        | y座標もなくても良い,[x座標,テキスト]で与える</span>
+<span class="sd">        | {その他}はなくても良い.(2要素で与える)</span>
+<span class="sd">        | その他には例えば</span>
+<span class="sd">        | &quot;showarrow&quot;:True 矢印で示す</span>
+<span class="sd">        | &quot;arrowsize&quot;:2 矢印の大きさ</span>
+<span class="sd">        | &quot;arrowhead&quot;:3 矢印の種類</span>
+<span class="sd">        | &quot;ax:0&quot; 矢印の向き</span>
+<span class="sd">        | &quot;ay&quot;:-50 矢印の向きなど</span>
 <span class="sd">    unit: string</span>
-<span class="sd">        &#39;eV&#39;, &#39;kJ/mol&#39;, &#39;Hartree&#39;, &#39;kcal/mol&#39;のいずれか</span>
+<span class="sd">        | &#39;eV&#39;, &#39;kJ/mol&#39;, &#39;Hartree&#39;, &#39;kcal/mol&#39;のいずれか</span>
 <span class="sd">    xaxis_title: str</span>
-<span class="sd">        x軸のタイトル  </span>
+<span class="sd">        | x軸のタイトル  </span>
 <span class="sd">    yaxis_title: string</span>
-<span class="sd">        Noneの場合,Energy({unit})</span>
+<span class="sd">        | Noneの場合,Energy({unit})</span>
 <span class="sd">    </span>
-<span class="sd">    &quot;&quot;&quot;</span>        
+<span class="sd">    &quot;&quot;&quot;</span>   
+    <span class="k">def</span> <span class="nf">find_y_value</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y_list</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">is_integer</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">y_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x_ini</span><span class="p">,</span><span class="n">x_fin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">y_ini</span><span class="p">,</span><span class="n">y_fin</span> <span class="o">=</span> <span class="n">y_list</span><span class="p">[</span><span class="n">x_ini</span><span class="p">],</span><span class="n">y_list</span><span class="p">[</span><span class="n">x_fin</span><span class="p">]</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x_ini</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y_fin</span><span class="o">-</span><span class="n">y_ini</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x_fin</span><span class="o">-</span><span class="n">x_ini</span><span class="p">)</span><span class="o">+</span><span class="n">y_ini</span>
+            <span class="k">return</span> <span class="n">y</span>
+      
     <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">))]</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">images</span><span class="p">]</span>
@@ -166,14 +191,35 @@
         <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
                    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">))</span>
     <span class="p">)</span>
+    <span class="k">if</span> <span class="n">highlight</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+            <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">highlight</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">highlight</span><span class="p">],</span>
+                       <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span>
+                       <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">))</span>
+        <span class="p">)</span>
+        
+    <span class="k">for</span> <span class="n">position</span><span class="p">,</span><span class="o">*</span><span class="n">args</span> <span class="ow">in</span> <span class="n">annotation</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">position</span><span class="p">)</span><span class="o">==</span><span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">position</span><span class="p">)</span><span class="o">==</span><span class="nb">tuple</span><span class="p">:</span>
+            <span class="n">x_pos</span><span class="p">,</span><span class="n">y_pos</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x_pos</span> <span class="o">=</span> <span class="n">position</span>
+            <span class="n">y_pos</span> <span class="o">=</span> <span class="n">find_y_value</span><span class="p">(</span><span class="n">x_pos</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span><span class="p">,</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        
     <span class="k">if</span> <span class="n">yaxis_title</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">yaxis_title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Energy(</span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s2">)&quot;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
         <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
         <span class="n">xaxis_title</span><span class="o">=</span><span class="n">xaxis_title</span><span class="p">,</span>
-        <span class="n">yaxis_title</span><span class="o">=</span><span class="n">unit</span>
+        <span class="n">yaxis_title</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+        <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">fig</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
     
 <span class="k">def</span> <span class="nf">to_html_energy_diagram</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">,</span>
                            <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -181,6 +227,8 @@
                            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Energy Diagram&quot;</span><span class="p">,</span>
                            <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                            <span class="n">yaxis_title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">highlight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">annotation</span><span class="o">=</span><span class="p">[],</span>
                            <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;エネルギーダイアグラムのhtmlテキストを作成する</span>
 <span class="sd">    </span>
@@ -188,6 +236,19 @@
 <span class="sd">    </span>
 <span class="sd">    images: list of Atoms</span>
 <span class="sd">        Atomsオブジェクトのリスト</span>
+<span class="sd">    highlight: list of int</span>
+<span class="sd">        指定したindex番号のプロットのみ赤色になる</span>
+<span class="sd">    annotation:list</span>
+<span class="sd">        | アノテーションを入れたい場合に設定</span>
+<span class="sd">        | [((x座標,y座標),&quot;テキスト&quot;,{その他}),]のタプルのリストで与える</span>
+<span class="sd">        | y座標もなくても良い,[x座標,テキスト]で与える</span>
+<span class="sd">        | {その他}はなくても良い.(2要素で与える)</span>
+<span class="sd">        | その他には例えば</span>
+<span class="sd">        | &quot;showarrow&quot;:True 矢印で示す</span>
+<span class="sd">        | &quot;arrowsize&quot;:2 矢印の大きさ</span>
+<span class="sd">        | &quot;arrowhead&quot;:3 矢印の種類</span>
+<span class="sd">        | &quot;ax:0&quot; 矢印の向き</span>
+<span class="sd">        | &quot;ay&quot;:-50 矢印の向きなど</span>
 <span class="sd">    full_html: bool</span>
 <span class="sd">        | &lt;html&gt;タグたか始まる完全なhtmlテキストを出力する場合,True</span>
 <span class="sd">        | Falseの場合&lt;div&gt;タグのみ</span>
@@ -201,6 +262,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">draw_graph</span><span class="p">(</span>
         <span class="n">images</span><span class="p">,</span>
+        <span class="n">highlight</span> <span class="o">=</span> <span class="n">highlight</span><span class="p">,</span>
+        <span class="n">annotation</span> <span class="o">=</span> <span class="n">annotation</span><span class="p">,</span>
         <span class="n">calc_func</span><span class="o">=</span><span class="n">calc_func</span><span class="p">,</span>
         <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>

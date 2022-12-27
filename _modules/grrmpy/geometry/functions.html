@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../src/tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other.html">その他</a></li>
 </ul>
 
         </div>
@@ -77,6 +78,7 @@
   <h1>grrmpy.geometry.functions のソースコード</h1><div class="highlight"><pre>
 <span></span><span class="c1"># USER</span>
 <span class="kn">from</span> <span class="nn">grrmpy.conv.atoms2smiles</span> <span class="kn">import</span> <span class="n">atomslist2smileses</span><span class="p">,</span><span class="n">atoms2smiles</span>
+<span class="kn">from</span> <span class="nn">grrmpy.functions</span> <span class="kn">import</span> <span class="n">get_bond</span>
 
 
 <div class="viewcode-block" id="grouping"><a class="viewcode-back" href="../../../src/modules/geometry.html#grrmpy.geometry.functions.grouping">[ドキュメント]</a><span class="k">def</span> <span class="nf">grouping</span><span class="p">(</span><span class="n">atoms_list</span><span class="p">,</span> <span class="n">target0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target1</span><span class="o">=</span><span class="p">[],</span> <span class="n">target2</span><span class="o">=</span><span class="p">[],</span><span class="n">mult</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">rtype</span><span class="o">=</span><span class="s2">&quot;2D&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -148,6 +150,38 @@
     <span class="k">if</span> <span class="n">smiles1</span> <span class="o">==</span> <span class="n">smiles2</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="kc">False</span></div>
+
+<span class="k">def</span> <span class="nf">get_bond_diff</span><span class="p">(</span><span class="n">atoms1</span><span class="p">,</span><span class="n">atoms2</span><span class="p">,</span><span class="n">mult</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;atoms1とatoms2の結合の差分</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    </span>
+<span class="sd">    atoms1: Atoms</span>
+<span class="sd">        Atomsオブジェクト</span>
+<span class="sd">    atoms2: Atoms:</span>
+<span class="sd">        Atomsオブジェクト</span>
+<span class="sd">    </span>
+<span class="sd">    retruns: Tuple(List[List[int,int]],List[List[int,int]])</span>
+<span class="sd">        | 2要素のタプルを返す.</span>
+<span class="sd">        | 1要素目は生成した結合(atoms1--&gt;atoms2)のインデックス番号のリスト</span>
+<span class="sd">        | 2要素目は開裂した結合(atoms1--&gt;atoms2)のインデックス番号のリスト</span>
+<span class="sd">        </span>
+<span class="sd">    Note:</span>
+<span class="sd">        | atoms1とatoms2が同じ組成であるかの検証は行わないので注意.</span>
+<span class="sd">        | 当たり前だか異なる組成の構造を比較しても意味がない.</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bond1</span> <span class="o">=</span> <span class="n">get_bond</span><span class="p">(</span><span class="n">atoms1</span><span class="p">,</span><span class="n">mult</span><span class="o">=</span><span class="n">mult</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">bond2</span> <span class="o">=</span> <span class="n">get_bond</span><span class="p">(</span><span class="n">atoms2</span><span class="p">,</span><span class="n">mult</span><span class="o">=</span><span class="n">mult</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">cleavage</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">formation</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">bond1</span><span class="p">,</span><span class="n">bond2</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">set_a</span><span class="o">:=</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="o">==</span><span class="p">(</span><span class="n">set_b</span><span class="o">:=</span><span class="nb">set</span><span class="p">(</span><span class="n">b</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">((</span><span class="n">dif</span><span class="o">:=</span><span class="n">set_a</span><span class="o">-</span><span class="n">set_b</span><span class="p">))</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">cleavage</span> <span class="o">+=</span> <span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">)]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dif</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">((</span><span class="n">dif</span><span class="o">:=</span><span class="n">set_b</span><span class="o">-</span><span class="n">set_a</span><span class="p">))</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">formation</span> <span class="o">+=</span> <span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">)]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dif</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">formation</span><span class="p">,</span> <span class="n">cleavage</span>
 </pre></div>
 
            </div>

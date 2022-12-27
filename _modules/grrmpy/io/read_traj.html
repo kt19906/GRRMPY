@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../src/tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other.html">その他</a></li>
 </ul>
 
         </div>
@@ -99,7 +100,7 @@
 <span class="sd">        フォルダ名</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        list: Atomsのリスト</span>
+<span class="sd">        tuple: Atomsのリスト,元々のファイルパス</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_read_traj_in_folder</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span><span class="n">read</span><span class="p">,</span><span class="n">blank</span><span class="p">)</span></div>
 
@@ -117,12 +118,13 @@
         <span class="n">file_num</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">traj_files</span><span class="p">]</span>
         <span class="n">max_i</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">file_num</span><span class="p">)</span>
         <span class="n">file_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">file_num</span><span class="p">,</span><span class="n">traj_files</span><span class="p">))</span> <span class="c1">#{数字:ファイルパス}</span>
-        <span class="n">atoms_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">read_func</span><span class="p">(</span><span class="n">file_dict</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">file_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="n">traj_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">file_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="n">atoms_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">read_func</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">traj_files</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">traj_files</span> <span class="o">=</span> <span class="n">natsorted</span><span class="p">(</span><span class="n">traj_files</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="n">atoms_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">read_func</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">traj_files</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">atoms_list</span>
+    <span class="k">return</span> <span class="n">atoms_list</span><span class="p">,</span><span class="n">traj_files</span>
 </pre></div>
 
            </div>

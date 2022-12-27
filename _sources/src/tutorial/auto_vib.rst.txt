@@ -24,16 +24,6 @@
 
     >>> vib[3].write_mode(2) # TS3のn=2のモードのtrajファイルが作成される.
 
-.. code-block:: python
-
-    from grrmpy.io import iread_traj
-    from grmpy.neb.functions import get_ts_image
-
-    neb_list = read_traj("Structures") # これでNEBのイメージを取り出す(この地点で2Dのリスト)
-    ts_list = [get_ts_image(images) for images in neb_list] # これで各NEBからTS構造のみ抽出する
-    # その後
-    vib = AutoVib(ts_list)
-    vib.run()
 
 Tips
 ============
@@ -47,7 +37,7 @@ Tips
         from grrmpy.io import iread_traj
         from grmpy.neb.functions import get_ts_image
 
-        neb_list = read_traj("Structures") # これでNEBのイメージを取り出す(この地点で2Dのリスト)
+        neb_list,_ = iread_traj("Structures") # これでNEBのイメージを取り出す(この地点で2Dのリスト)
         ts_list = [get_ts_image(images) for images in neb_list] # これで各NEBからTS構造のみ抽出する
         # その後
         vib = AutoVib(ts_list)

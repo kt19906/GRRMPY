@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../src/tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other.html">その他</a></li>
 </ul>
 
         </div>
@@ -170,7 +171,7 @@
 <span class="sd">            | maxstepのリスト</span>
 <span class="sd">            | Noneの要素を指定した場合はfmaxに応じて自動でmaxstep値を変化させる.</span>
 <span class="sd">            | どのように変化させるかはautomate_maxstepで指定できる.</span>
-<span class="sd">        fmax_steps: list of float</span>
+<span class="sd">        fmax_list: list of float</span>
 <span class="sd">            famxのリスト</span>
 <span class="sd">        steps_list: list of int</span>
 <span class="sd">            stepsのリスト</span>
@@ -182,7 +183,7 @@
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="n">OPTIMIZER</span><span class="p">,</span>
             <span class="s2">&quot;maxstep_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.02</span><span class="p">,</span><span class="kc">None</span><span class="p">],</span>
-            <span class="s2">&quot;fmax_list&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
+            <span class="s2">&quot;fmax_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span><span class="mf">0.001</span><span class="p">],</span>
             <span class="s2">&quot;steps_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span><span class="mi">10000</span><span class="p">],</span>
             <span class="s2">&quot;opt_kwargs&quot;</span><span class="p">:{},</span>
             <span class="s2">&quot;automate_maxstep&quot;</span><span class="p">:{}</span>
@@ -198,7 +199,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">opt_param</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;maxstep&quot;</span><span class="p">:</span><span class="n">ms</span><span class="p">}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">opt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atoms</span><span class="p">,</span>
-                                      <span class="bp">self</span><span class="o">.</span><span class="n">logfile</span><span class="p">,</span>
+                                      <span class="n">logfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logfile</span><span class="p">,</span>
                                       <span class="o">**</span><span class="n">opt_param</span><span class="p">,</span>
                                       <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">opt_kwargs</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">args</span><span class="p">,</span><span class="n">kwargs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attach_list</span><span class="p">:</span>

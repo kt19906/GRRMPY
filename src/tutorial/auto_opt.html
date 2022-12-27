@@ -65,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other.html">その他</a></li>
 </ul>
 
         </div>
@@ -126,18 +127,18 @@
 <div class="line-block">
 <div class="line">収束後のtrajファイルは&quot;Structures&quot;フォルダに保存される</div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.visualize</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">grrmpy.io</span> <span class="kn">import</span> <span class="n">log2atoms</span>
-<span class="kn">from</span> <span class="nn">grrmpy.automate</span> <span class="kn">import</span> <span class="n">AutoOpt</span>
-<span class="kn">from</span> <span class="nn">grrmpy.optimize</span> <span class="kn">import</span> <span class="n">FIRELBFGS</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">grrmpy.visualize</span> <span class="kn">import</span> <span class="o">*</span>
+ <span class="kn">from</span> <span class="nn">grrmpy.io</span> <span class="kn">import</span> <span class="n">log2atoms</span>
+<span class="hll"> <span class="kn">from</span> <span class="nn">grrmpy.automate</span> <span class="kn">import</span> <span class="n">AutoOpt</span>
+</span> <span class="kn">from</span> <span class="nn">grrmpy.optimize</span> <span class="kn">import</span> <span class="n">FIRELBFGS</span>
 
-<span class="n">log</span> <span class="o">=</span> <span class="s2">&quot;XXX_EQ_list.log&quot;</span>
-<span class="n">com</span> <span class="o">=</span> <span class="s2">&quot;XXX.com&quot;</span>
-<span class="n">poscar</span> <span class="o">=</span> <span class="s2">&quot;POSCAR&quot;</span>
-<span class="n">eqs</span> <span class="o">=</span> <span class="n">log2atoms</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">com</span><span class="p">,</span> <span class="n">poscar</span><span class="p">)</span> <span class="c1"># GRRMのデータからEQ構造を読み込む</span>
-<span class="n">opt</span> <span class="o">=</span> <span class="n">AutoOpt</span><span class="p">(</span><span class="n">eqs</span><span class="p">,</span><span class="n">optimizer</span><span class="o">=</span><span class="n">FIRELBFGS</span><span class="p">)</span>
-<span class="n">opt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div>
+ <span class="n">log</span> <span class="o">=</span> <span class="s2">&quot;XXX_EQ_list.log&quot;</span>
+ <span class="n">com</span> <span class="o">=</span> <span class="s2">&quot;XXX.com&quot;</span>
+ <span class="n">poscar</span> <span class="o">=</span> <span class="s2">&quot;POSCAR&quot;</span>
+ <span class="n">eqs</span> <span class="o">=</span> <span class="n">log2atoms</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">com</span><span class="p">,</span> <span class="n">poscar</span><span class="p">)</span> <span class="c1"># GRRMのデータからEQ構造を読み込む</span>
+<span class="hll"> <span class="n">opt</span> <span class="o">=</span> <span class="n">AutoOpt</span><span class="p">(</span><span class="n">eqs</span><span class="p">,</span><span class="n">optimizer</span><span class="o">=</span><span class="n">FIRELBFGS</span><span class="p">)</span>
+</span><span class="hll"> <span class="n">opt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></pre></div>
 </div>
 <p>GRRMのデータの読み込みには <a class="reference internal" href="../modules/io.html#grrmpy.io.read_listlog.log2atoms" title="grrmpy.io.read_listlog.log2atoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">log2atoms</span></code></a> を用いた.</p>
 </section>

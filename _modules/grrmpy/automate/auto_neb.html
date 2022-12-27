@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../src/tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other.html">その他</a></li>
 </ul>
 
         </div>
@@ -300,7 +301,7 @@
     <span class="k">def</span> <span class="nf">images</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rneb</span><span class="o">.</span><span class="n">images</span>
     
-<div class="viewcode-block" id="AutoNEB.run"><a class="viewcode-back" href="../../../src/modules/automate.html#grrmpy.automate.auto_neb.AutoNEB.run">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">nimages</span><span class="p">,</span><span class="o">**</span><span class="n">param</span><span class="p">):</span>
+<div class="viewcode-block" id="AutoNEB.run"><a class="viewcode-back" href="../../../src/modules/automate.html#grrmpy.automate.auto_neb.AutoNEB.run">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">nimages</span><span class="p">,</span><span class="n">restart</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="o">**</span><span class="n">param</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters:</span>
@@ -320,12 +321,19 @@
 <span class="sd">            &gt;&gt;&gt; param[&quot;steps_list&quot;] = [100,1000,1500]</span>
 <span class="sd">            &gt;&gt;&gt; auto_neb.run(16,**param)</span>
 <span class="sd">            </span>
+<span class="sd">            途中から計算を再開するには</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; auto_neb.run(16,restart=8) # NEB8から計算を開始する</span>
+<span class="sd">            </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">make_folder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logfolder</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">make_folder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">savefolder</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">make_folder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">htmlfolder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">make_folder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unconvergedfolder</span><span class="p">)</span>
         <span class="n">nimages_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_nimages_list</span><span class="p">(</span><span class="n">nimages</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">nimage</span><span class="p">,</span><span class="n">connection</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">nimages_list</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">)):</span>
+        <span class="n">nimages_list</span> <span class="o">=</span> <span class="n">nimages_list</span><span class="p">[</span><span class="n">restart</span><span class="p">:]</span>
+        <span class="n">connections</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">restart</span><span class="p">:]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">nimage</span><span class="p">,</span><span class="n">connection</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">nimages_list</span><span class="p">),</span><span class="n">connections</span><span class="p">),</span><span class="n">start</span><span class="o">=</span><span class="n">restart</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">=</span> <span class="n">i</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span>
             <span class="k">try</span><span class="p">:</span>

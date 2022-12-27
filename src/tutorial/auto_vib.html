@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other.html">その他</a></li>
 </ul>
 
         </div>
@@ -137,16 +138,6 @@
 </div>
 </li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.io</span> <span class="kn">import</span> <span class="n">iread_traj</span>
-<span class="kn">from</span> <span class="nn">grmpy.neb.functions</span> <span class="kn">import</span> <span class="n">get_ts_image</span>
-
-<span class="n">neb_list</span> <span class="o">=</span> <span class="n">read_traj</span><span class="p">(</span><span class="s2">&quot;Structures&quot;</span><span class="p">)</span> <span class="c1"># これでNEBのイメージを取り出す(この地点で2Dのリスト)</span>
-<span class="n">ts_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_ts_image</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="k">for</span> <span class="n">images</span> <span class="ow">in</span> <span class="n">neb_list</span><span class="p">]</span> <span class="c1"># これで各NEBからTS構造のみ抽出する</span>
-<span class="c1"># その後</span>
-<span class="n">vib</span> <span class="o">=</span> <span class="n">AutoVib</span><span class="p">(</span><span class="n">ts_list</span><span class="p">)</span>
-<span class="n">vib</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div>
-</div>
 <section id="tips">
 <h2>Tips<a class="headerlink" href="#tips" title="この見出しへのパーマリンク"></a></h2>
 <ul>
@@ -156,7 +147,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.io</span> <span class="kn">import</span> <span class="n">iread_traj</span>
 <span class="kn">from</span> <span class="nn">grmpy.neb.functions</span> <span class="kn">import</span> <span class="n">get_ts_image</span>
 
-<span class="n">neb_list</span> <span class="o">=</span> <span class="n">read_traj</span><span class="p">(</span><span class="s2">&quot;Structures&quot;</span><span class="p">)</span> <span class="c1"># これでNEBのイメージを取り出す(この地点で2Dのリスト)</span>
+<span class="n">neb_list</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">iread_traj</span><span class="p">(</span><span class="s2">&quot;Structures&quot;</span><span class="p">)</span> <span class="c1"># これでNEBのイメージを取り出す(この地点で2Dのリスト)</span>
 <span class="n">ts_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_ts_image</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="k">for</span> <span class="n">images</span> <span class="ow">in</span> <span class="n">neb_list</span><span class="p">]</span> <span class="c1"># これで各NEBからTS構造のみ抽出する</span>
 <span class="c1"># その後</span>
 <span class="n">vib</span> <span class="o">=</span> <span class="n">AutoVib</span><span class="p">(</span><span class="n">ts_list</span><span class="p">)</span>

@@ -68,6 +68,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#grrmpy.functions.set_const2images"><code class="docutils literal notranslate"><span class="pre">set_const2images()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#notebook">Notebook上にエネルギーダイアグラムを作成する</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.functions.draw_graph"><code class="docutils literal notranslate"><span class="pre">draw_graph()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#connection">ユニークなCONNECTIONを返す</a><ul>
@@ -75,12 +79,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#neb">NEB関係</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tsindex">TSのindex番号を返す(&amp;バリアレスの判定)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.neb.functions.get_imax"><code class="docutils literal notranslate"><span class="pre">get_imax()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">活性化エネルギーを算出する</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#grrmpy.neb.functions.get_ea"><code class="docutils literal notranslate"><span class="pre">get_ea()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#nebindex">NEBイメージの中の極小点のindex番号を返す</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#grrmpy.neb.functions.find_local_minimum_points"><code class="docutils literal notranslate"><span class="pre">find_local_minimum_points()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.neb.functions.find_local_minimum_points_and_ea"><code class="docutils literal notranslate"><span class="pre">find_local_minimum_points_and_ea()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">最適なimage数を算出する</a><ul>
@@ -115,6 +123,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other.html">その他</a></li>
 </ul>
 
         </div>
@@ -215,6 +224,56 @@
 </dd></dl>
 
 </section>
+<section id="notebook">
+<h3>Notebook上にエネルギーダイアグラムを作成する<a class="headerlink" href="#notebook" title="この見出しへのパーマリンク"></a></h3>
+<p>NEBや振動数のエネルギーダイアグラムの可視化に使える.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.functions</span> <span class="kn">import</span> <span class="n">draw_graph</span>
+
+<span class="n">draw_graph</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/draw_graph.png"><img alt="../_images/draw_graph.png" class="align-center" src="../_images/draw_graph.png" style="width: 689.0px; height: 257.5px;" /></a>
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.draw_graph">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">draw_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highlight=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation=[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit='kJ/mol'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title='Energy</span> <span class="pre">Diagram'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xaxis_title=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis_title=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#draw_graph"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.draw_graph" title="この定義へのパーマリンク"></a></dt>
+<dd><p>エネルギーダイアグラムのグラフを作成する</p>
+<p>Parameters:</p>
+<dl>
+<dt>images: list of Atoms</dt><dd><div class="line-block">
+<div class="line">Atomsオブジェクトのリスト</div>
+</div>
+</dd>
+<dt>highlight: list of int</dt><dd><p>指定したindex番号のプロットのみ赤色になる</p>
+</dd>
+<dt>annotation:list</dt><dd><div class="line-block">
+<div class="line">アノテーションを入れたい場合に設定</div>
+<div class="line">[((x座標,y座標),&quot;テキスト&quot;,{その他}),]のタプルのリストで与える</div>
+<div class="line">y座標もなくても良い,[x座標,テキスト]で与える</div>
+<div class="line">{その他}はなくても良い.(2要素で与える)</div>
+<div class="line">その他には例えば</div>
+<div class="line">&quot;showarrow&quot;:True 矢印で示す</div>
+<div class="line">&quot;arrowsize&quot;:2 矢印の大きさ</div>
+<div class="line">&quot;arrowhead&quot;:3 矢印の種類</div>
+<div class="line">&quot;ax:0&quot; 矢印の向き</div>
+<div class="line">&quot;ay&quot;:-50 矢印の向きなど</div>
+</div>
+</dd>
+<dt>unit: string</dt><dd><div class="line-block">
+<div class="line">'eV', 'kJ/mol', 'Hartree', 'kcal/mol'のいずれか</div>
+</div>
+</dd>
+<dt>xaxis_title: str</dt><dd><div class="line-block">
+<div class="line">x軸のタイトル</div>
+</div>
+</dd>
+<dt>yaxis_title: string</dt><dd><div class="line-block">
+<div class="line">Noneの場合,Energy({unit})</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 <section id="connection">
 <h2>ユニークなCONNECTIONを返す<a class="headerlink" href="#connection" title="この見出しへのパーマリンク"></a></h2>
@@ -259,11 +318,48 @@
 </section>
 <section id="neb">
 <h2>NEB関係<a class="headerlink" href="#neb" title="この見出しへのパーマリンク"></a></h2>
+<section id="tsindex">
+<h3>TSのindex番号を返す(&amp;バリアレスの判定)<a class="headerlink" href="#tsindex" title="この見出しへのパーマリンク"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.neb.functions.get_imax">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.neb.functions.</span></span><span class="sig-name descname"><span class="pre">get_imax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/grrmpy/neb/functions.html#get_imax"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.neb.functions.get_imax" title="この定義へのパーマリンク"></a></dt>
+<dd><p>TSのindex番号を返す</p>
+<div class="line-block">
+<div class="line">バリアレス(極大値・極小値: 0個)の場合Noneを返す.</div>
+<div class="line">山が1つ(極大値: 1個,極小値: 0個)かつ,活性化障壁がthreshold[kJ/mol]以下であればバリアレスと考えNoneを返す.</div>
+<div class="line">(正反応,逆反応のとちらかがthreshold[kJ/mol]以下の場合)</div>
+</div>
+<p>Parameters:</p>
+<dl>
+<dt>images: list of Atoms</dt><dd><div class="line-block">
+<div class="line">NEBイメージ</div>
+</div>
+</dd>
+<dt>threshold: float</dt><dd><div class="line-block">
+<div class="line">活性化障壁がthreshold(kJ/mol)以下の場合はバリアレスと判定する</div>
+</div>
+</dd>
+<dt>calc_func: function object</dt><dd><div class="line-block">
+<div class="line">imagesにcalcuatorが設定されていない場合に必要</div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p>TSのindex番号,バリアレスの場合None.</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>int or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="id2">
 <h3>活性化エネルギーを算出する<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="grrmpy.neb.functions.get_ea">
-<span class="sig-prename descclassname"><span class="pre">grrmpy.neb.functions.</span></span><span class="sig-name descname"><span class="pre">get_ea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit='kJ/mol'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/neb/functions.html#get_ea"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.neb.functions.get_ea" title="この定義へのパーマリンク"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">grrmpy.neb.functions.</span></span><span class="sig-name descname"><span class="pre">get_ea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit='kJ/mol'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/neb/functions.html#get_ea"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.neb.functions.get_ea" title="この定義へのパーマリンク"></a></dt>
 <dd><p>活性化エネルギーを算出する</p>
 <p>Parameters:</p>
 <dl>
@@ -272,7 +368,7 @@
 </div>
 </dd>
 <dt>reverse: bool</dt><dd><div class="line-block">
-<div class="line">Trueの場合,逆反応のEaを返す</div>
+<div class="line">Trueの場合,逆反応のEaを返す. Noneの場合,どちらか高い方を返す.</div>
 </div>
 </dd>
 <dt>calc_func: function object</dt><dd><div class="line-block">
@@ -298,16 +394,15 @@
 <section id="nebindex">
 <h3>NEBイメージの中の極小点のindex番号を返す<a class="headerlink" href="#nebindex" title="この見出しへのパーマリンク"></a></h3>
 <dl class="py function">
-<dt class="sig sig-object py" id="grrmpy.neb.functions.find_local_minimum_points">
-<span class="sig-prename descclassname"><span class="pre">grrmpy.neb.functions.</span></span><span class="sig-name descname"><span class="pre">find_local_minimum_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/neb/functions.html#find_local_minimum_points"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.neb.functions.find_local_minimum_points" title="この定義へのパーマリンク"></a></dt>
+<dt class="sig sig-object py" id="grrmpy.neb.functions.find_local_minimum_points_and_ea">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.neb.functions.</span></span><span class="sig-name descname"><span class="pre">find_local_minimum_points_and_ea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minenergy=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/neb/functions.html#find_local_minimum_points_and_ea"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.neb.functions.find_local_minimum_points_and_ea" title="この定義へのパーマリンク"></a></dt>
 <dd><p>NEBイメージの中から極小値を見つけそのindex番号を返す</p>
 <p>Parameters:</p>
 <dl>
 <dt>images: list of Atoms</dt><dd><p>Atomsのリスト(NEBイメージ)</p>
 </dd>
-<dt>order: int</dt><dd><div class="line-block">
-<div class="line">比較に使用する両側のポイント数</div>
-<div class="line">order=1の場合は1点だけ谷になる部分も極小値と見做す</div>
+<dt>minenergy: int</dt><dd><div class="line-block">
+<div class="line">極小点を見つけたとしてもその両側の山との高さの差がどちらもminenergy以下であればそれは極小値とは見做さない.</div>
 </div>
 </dd>
 </dl>

@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../src/tips.html">Tips</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other.html">その他</a></li>
 </ul>
 
         </div>
@@ -117,11 +118,14 @@
 <span class="sd">            | デフォルトではPFP.</span>
 <span class="sd">        mask: list of bool</span>
 <span class="sd">            dot線を書かない部分をFalseにする.Noneの場合全てTrueのリスト</span>
+<span class="sd">        barrier_less_index: list of int</span>
+<span class="sd">            | バリアレスの部分のindex番号(設定は任意)</span>
+<span class="sd">            | EQ1-TS0-EQ2-EQ3でEQ2-EQ3の部分がバリアレスの場合,barrier_less_index=[2]</span>
 <span class="sd">            </span>
 <span class="sd">        Note:</span>
 <span class="sd">            constraintsはFixAtomsだけfromdict,frompkl変換できる</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span><span class="n">positions</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">unit</span><span class="o">=</span><span class="s2">&quot;eV&quot;</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span><span class="n">positions</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">barrier_less_index</span><span class="o">=</span><span class="p">[],</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">unit</span><span class="o">=</span><span class="s2">&quot;eV&quot;</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Parameters:</span>
@@ -163,6 +167,8 @@
         <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">barrier_less_index</span> <span class="o">=</span> <span class="n">barrier_less_index</span>
         
         <span class="k">if</span> <span class="s1">&#39;atoms&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]:</span>
@@ -254,7 +260,7 @@
         <span class="n">reac_name</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="n">ea_idx</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="n">ea_idx</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="n">ea_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="n">reac_name</span>
           
-    <span class="k">def</span> <span class="nf">write_excel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">outfile</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ReactPath.write_excel"><a class="viewcode-back" href="../../../src/modules/path.html#grrmpy.path.reaction_path.ReactPath.write_excel">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">write_excel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">outfile</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Excellにグラフを作成する</span>
 <span class="sd">        </span>
 <span class="sd">        その他の引数はreaction_path.functions.to_excell()を参照</span>
@@ -262,15 +268,15 @@
 <span class="sd">        Parameters:</span>
 <span class="sd">        </span>
 <span class="sd">        outfile: str</span>
-<span class="sd">            Excelファイル名</span>
+<span class="sd">            | Excelファイル名</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">table_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
         <span class="n">solid_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_solid_df</span><span class="p">()</span>
         <span class="n">dot_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dot_df</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
-        <span class="n">to_excell</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span><span class="n">table_data</span><span class="p">,</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">to_excell</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span><span class="n">table_data</span><span class="p">,</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
         
-    <span class="k">def</span> <span class="nf">write_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ReactPath.write_html"><a class="viewcode-back" href="../../../src/modules/path.html#grrmpy.path.reaction_path.ReactPath.write_html">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">write_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">annotation</span><span class="o">=</span><span class="p">[],</span><span class="n">barrier_less_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;反応座標グラフをhtmlに保存する</span>
 
 <span class="sd">        Parameters:</span>
@@ -278,67 +284,75 @@
 <span class="sd">        outfile: str or Path</span>
 <span class="sd">            | 出力先のhtmlファイル</span>
 <span class="sd">            | Noneの場合は標準出力する</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">        </span>
+<span class="sd">            通常</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; path.write_html(&quot;Sample.html&quot;)</span>
+<span class="sd">            </span>
+<span class="sd">            アノテーション(x座標が14.5の部分に&quot;Sample text&quot;と入力)</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; path.write_html(&quot;Sample.html&quot;,annotation=[(14.5,&quot;Sample text&quot;)])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">solid_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_solid_df</span><span class="p">()</span>
         <span class="n">dot_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dot_df</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">barrier_less_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">barrier_less_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">barrier_less_index</span>
+        <span class="n">annotation</span> <span class="o">+=</span> <span class="p">[(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mf">2.5</span><span class="p">,</span><span class="s2">&quot;barrier less&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">barrier_less_index</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">to_plotly</span><span class="p">(</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">)</span>
-        <span class="n">html_text</span> <span class="o">=</span> <span class="n">to_html</span><span class="p">(</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">to_plotly</span><span class="p">(</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">,</span><span class="n">annotation</span><span class="o">=</span><span class="n">annotation</span><span class="p">)</span>
+        <span class="n">html_text</span> <span class="o">=</span> <span class="n">to_html</span><span class="p">(</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">,</span><span class="n">annotation</span><span class="o">=</span><span class="n">annotation</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_text</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html_text</span><span class="p">)</span></div>
         
-    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ReactPath.preview"><a class="viewcode-back" href="../../../src/modules/path.html#grrmpy.path.reaction_path.ReactPath.preview">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Notebook上でグラフを表示(matplotlib)&quot;&quot;&quot;</span>
         <span class="n">solid_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_solid_df</span><span class="p">()</span>
         <span class="n">dot_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dot_df</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
-        <span class="n">to_fig</span><span class="p">(</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Energy [kJ/mol]&quot;</span><span class="p">)</span>
+        <span class="n">to_fig</span><span class="p">(</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Energy [kJ/mol]&quot;</span><span class="p">)</span></div>
         
-    <span class="k">def</span> <span class="nf">get_fig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ReactPath.get_fig"><a class="viewcode-back" href="../../../src/modules/path.html#grrmpy.path.reaction_path.ReactPath.get_fig">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">get_fig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;matplotlibのfigを返す&quot;&quot;&quot;</span>
         <span class="n">solid_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_solid_df</span><span class="p">()</span>
         <span class="n">dot_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dot_df</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">to_fig</span><span class="p">(</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">to_fig</span><span class="p">(</span><span class="n">solid_data</span><span class="p">,</span><span class="n">dot_data</span><span class="p">)</span></div>
     
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
-        <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_energy</span><span class="p">()</span>
-        <span class="n">ea</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ea</span><span class="p">()</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Title:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="se">\n</span><span class="s2">Path</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">,Energy:</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">,Ea:</span><span class="si">{</span><span class="n">ea</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="c1"># def __str__(self):</span>
+    <span class="c1">#     p = self.get_name()</span>
+    <span class="c1">#     e = self.get_energy()</span>
+    <span class="c1">#     ea = self.get_ea()</span>
+    <span class="c1">#     return f&quot;Title:{self.title}\nPath{p},Energy:{e},Ea:{ea}&quot;</span>
     
-    <span class="k">def</span> <span class="nf">todict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">energy</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]]</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span>
-        <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="n">name</span><span class="p">,</span><span class="s2">&quot;energy&quot;</span><span class="p">:</span><span class="n">energy</span><span class="p">,</span><span class="s2">&quot;positions&quot;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span><span class="s2">&quot;title&quot;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">}</span>
+<div class="viewcode-block" id="ReactPath.topkl"><a class="viewcode-back" href="../../../src/modules/path.html#grrmpy.path.reaction_path.ReactPath.topkl">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">topkl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">outfile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;現在のオブジェクトをpickle化する</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; path.topkl(&quot;Path.pickle&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># with open(outfile, &quot;wb&quot;) as f:</span>
+        <span class="c1">#     pickle.dump(self.todict(),f)</span>
         <span class="k">if</span> <span class="s1">&#39;atoms&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-            <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">atoms</span><span class="o">.</span><span class="n">todict</span><span class="p">()</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]]</span>
-            <span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoms</span>
-        <span class="k">return</span> <span class="n">data_dict</span>
-    
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
-        <span class="n">energy</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]]</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span>
-        <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="n">name</span><span class="p">,</span><span class="s2">&quot;energy&quot;</span><span class="p">:</span><span class="n">energy</span><span class="p">}</span>
-        <span class="k">if</span> <span class="s2">&quot;atoms&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="n">constraints_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">atoms_dict</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]:</span>
-                <span class="n">constraints_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atoms_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;constraints&quot;</span><span class="p">,</span> <span class="p">[]))</span>
-            <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Atoms</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]]</span>
-            <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">constraints_list</span><span class="p">):</span>
-                <span class="n">a</span><span class="o">.</span><span class="n">set_constraint</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># ASEのバグ？によってfromdictが使えないのでconstraintsは手動で設定</span>
-            <span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoms</span>
-        <span class="n">positions</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;positions&quot;</span><span class="p">]</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
-        <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span><span class="n">positions</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">unit</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">topkl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">outfile</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]:</span>
+                <span class="k">del</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">todict</span><span class="p">(),</span><span class="n">f</span><span class="p">)</span>
-        
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">frompkl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">openfile</span><span class="p">):</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">f</span><span class="p">)</span></div>
+            
+            
+<div class="viewcode-block" id="ReactPath.frompkl"><a class="viewcode-back" href="../../../src/modules/path.html#grrmpy.path.reaction_path.ReactPath.frompkl">[ドキュメント]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">frompkl</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">openfile</span><span class="p">,</span><span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;topklで作成したpickleファイルからオブジェクト再生する</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; path = ReactPath.frompkl(&quot;Path.pickle&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># with open(openfile, &quot;rb&quot;) as f:</span>
+        <span class="c1">#     data_dict = pickle.load(f)</span>
+        <span class="c1"># return self.fromdict(data_dict)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">openfile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">data_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span></div>
+            <span class="n">react_path</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;atoms&#39;</span> <span class="ow">in</span> <span class="n">react_path</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">react_path</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]:</span>
+                <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc_func</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">react_path</span></div></div>
 </pre></div>
 
            </div>
