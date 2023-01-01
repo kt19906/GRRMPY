@@ -113,8 +113,15 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#n">リストから等間隔にn個のデータを抽出する</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#grrmpy.functions.n_sampling"><code class="docutils literal notranslate"><span class="pre">n_sampling()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">リスト操作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">リストをずらして取得する</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.functions.partially_overlapping_groupings"><code class="docutils literal notranslate"><span class="pre">partially_overlapping_groupings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#n">リストから等間隔にn個のデータを抽出する</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.functions.n_sampling"><code class="docutils literal notranslate"><span class="pre">n_sampling()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -543,8 +550,36 @@ Noneの場合,全ての原子を対象とする.</p>
 
 </section>
 </section>
+<section id="id8">
+<h2>リスト操作<a class="headerlink" href="#id8" title="この見出しへのパーマリンク"></a></h2>
+<section id="id9">
+<h3>リストをずらして取得する<a class="headerlink" href="#id9" title="この見出しへのパーマリンク"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">functions</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1"># [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9)]</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">functions</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1"># [(0, 1, 2),</span>
+<span class="c1"># (1, 2, 3),</span>
+<span class="c1"># (2, 3, 4),</span>
+<span class="c1"># (3, 4, 5),</span>
+<span class="c1"># (4, 5, 6),</span>
+<span class="c1"># (5, 6, 7),</span>
+<span class="c1"># (6, 7, 8),</span>
+<span class="c1"># (7, 8, 9)]</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">functions</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1"># [(0, 1, 2), (2, 3, 4), (4, 5, 6), (6, 7, 8), (9,)]</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">functions</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="c1"># [(0, 1, 2), (2, 3, 4), (4, 5, 6), (6, 7, 8)]</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.functions.partially_overlapping_groupings">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">partially_overlapping_groupings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#partially_overlapping_groupings"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.partially_overlapping_groupings" title="この定義へのパーマリンク"></a></dt>
+<dd></dd></dl>
+
+</section>
 <section id="n">
-<h2>リストから等間隔にn個のデータを抽出する<a class="headerlink" href="#n" title="この見出しへのパーマリンク"></a></h2>
+<h3>リストから等間隔にn個のデータを抽出する<a class="headerlink" href="#n" title="この見出しへのパーマリンク"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="grrmpy.functions.n_sampling">
 <span class="sig-prename descclassname"><span class="pre">grrmpy.functions.</span></span><span class="sig-name descname"><span class="pre">n_sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/grrmpy/functions.html#n_sampling"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.functions.n_sampling" title="この定義へのパーマリンク"></a></dt>
@@ -567,6 +602,7 @@ Noneの場合,全ての原子を対象とする.</p>
 </dl>
 </dd></dl>
 
+</section>
 </section>
 </section>
 

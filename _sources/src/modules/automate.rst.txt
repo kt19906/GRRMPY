@@ -4,7 +4,15 @@ Automateモジュール
 
 .. module:: grrmpy.automate
 
-   
+PinNEB
+==================================
+.. autoclass:: grrmpy.automate.pin_neb.PinNEB 
+    :members: default_param, set_param, get_param,opt_attach,preneb_attach,neb_attach
+
+is_similar
+--------------------------
+.. autofunction:: grrmpy.automate.pin_neb.is_similar
+
 SinglePath
 ==================================
 

@@ -77,6 +77,7 @@
              
   <h1>grrmpy.path.reaction_path のソースコード</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ase.units</span> <span class="kn">import</span> <span class="n">eV</span><span class="p">,</span> <span class="n">kJ</span><span class="p">,</span> <span class="n">mol</span><span class="p">,</span> <span class="n">Hartree</span>
 <span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span>
 <span class="kn">from</span> <span class="nn">ase.constraints</span> <span class="kn">import</span> <span class="n">FixAtoms</span>
@@ -85,6 +86,7 @@
 <span class="c1">#user</span>
 <span class="kn">from</span> <span class="nn">grrmpy.path.functions</span> <span class="kn">import</span> <span class="n">to_excell</span><span class="p">,</span><span class="n">to_fig</span><span class="p">,</span> <span class="n">to_html</span><span class="p">,</span> <span class="n">to_plotly</span>
 <span class="kn">from</span> <span class="nn">grrmpy.calculator</span> <span class="kn">import</span> <span class="n">pfp_calculator</span>
+<span class="kn">from</span> <span class="nn">grrmpy.functions</span> <span class="kn">import</span> <span class="n">set_calc2images</span>
 
 <div class="viewcode-block" id="ReactPath"><a class="viewcode-back" href="../../../src/modules/path.html#grrmpy.path.reaction_path.ReactPath">[ドキュメント]</a><span class="k">class</span> <span class="nc">ReactPath</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -353,6 +355,115 @@
             <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">react_path</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]:</span>
                 <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc_func</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">react_path</span></div></div>
+    
+<span class="k">class</span> <span class="nc">newReactPath</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">data</span><span class="p">,</span>
+                 <span class="n">mask</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">positions</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">barrier_less_index</span><span class="o">=</span><span class="p">[],</span>
+                 <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">calc_func</span><span class="o">=</span><span class="n">pfp_calculator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        </span>
+<span class="sd">        data: dict</span>
+<span class="sd">            {name:Atoms}のリスト</span>
+<span class="sd">        calc_func: function object</span>
+<span class="sd">            calculatorを返す関数 </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_func</span> <span class="o">=</span> <span class="n">calc_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_positions</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_barrier_less_index</span><span class="p">(</span><span class="n">barrier_less_index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        
+    <span class="k">def</span> <span class="nf">set_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mask</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">mask</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;maskは要素数</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2">のリストです&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span>
+        
+    <span class="k">def</span> <span class="nf">set_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">positions</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">positions</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;positionsには</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">個のTrueを含める必要があります&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">positions</span> 
+        
+    <span class="k">def</span> <span class="nf">set_barrier_less_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">barrier_less_index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">barrier_less_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;barrier_less_indexに不適切な数字が含まれています.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">barrier_less_index</span> <span class="o">=</span> <span class="n">barrier_less_index</span>
+        
+    <span class="k">def</span> <span class="nf">set_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">-&gt;</span><span class="si">{</span><span class="n">names</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+    
+    <span class="k">def</span> <span class="nf">get_original_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Atomsのエネルギーを返す(単位:eV)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">set_calc2images</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+    
+    <span class="k">def</span> <span class="nf">get_energy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">unit</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span><span class="n">reference_energy</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        | 基準のエネルギー(reference_energy)の差分のエネルギーを返す(デフォルトの単位はkJ/mol)</span>
+<span class="sd">        | reference_energyを指定しない場合,0番目の要素のエネルギーを基準にする.つまり0番目を0 kJ/molとする</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;eV&quot;</span><span class="p">:</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;kJ/mol&quot;</span><span class="p">:</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="n">mol</span><span class="o">/</span><span class="n">kJ</span>
+        <span class="k">elif</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;Hartree&quot;</span><span class="p">:</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">Hartree</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">factor</span><span class="si">}</span><span class="s2">は使用できません.&#39;kJ/mol&#39;,&#39;eV&#39;,&#39;Hartree&#39;のいずれかです.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reference_energy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">reference_energy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_original_energy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_original_energy</span><span class="p">()</span> <span class="o">*</span> <span class="n">factor</span> <span class="o">-</span> <span class="n">reference_energy</span>
+           
+    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    
+    <span class="k">def</span> <span class="nf">solid_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">positions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">unit</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">,</span><span class="n">reference_energy</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Excel等に貼り付けるためのデータ(実線)&quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+        <span class="n">solid_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">solid_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_energy</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span><span class="n">reference_energy</span><span class="o">=</span><span class="n">reference_energy</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;solid_xini&quot;</span><span class="p">:</span><span class="n">solid_x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s2">&quot;solid_xfin&quot;</span><span class="p">:</span><span class="n">solid_x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;solid_yini&quot;</span><span class="p">:</span><span class="n">solid_y</span><span class="p">,</span>
+            <span class="s2">&quot;solid_yfin&quot;</span><span class="p">:</span><span class="n">solid_y</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>        
+    
+    <span class="c1"># def dot_df(self,unit:str=&quot;kJ/mol&quot;,reference_energy:float=None):</span>
+    <span class="c1">#     &quot;&quot;&quot;Excel等に貼り付けるためのデータ(破線)&quot;&quot;&quot;</span>
+    <span class="c1">#     data = {</span>
+    <span class="c1">#         &quot;dot_xini&quot;:,</span>
+    <span class="c1">#         &quot;dot_xfin&quot;:,</span>
+    <span class="c1">#         &quot;dot_name&quot;:,</span>
+    <span class="c1">#         &quot;dot_yini&quot;:,</span>
+    <span class="c1">#         &quot;dot_yfin&quot;:,</span>
+    <span class="c1">#         }</span>
+        
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;--&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">())</span>
+    
+    
+    
+    
+    
+    
 </pre></div>
 
            </div>

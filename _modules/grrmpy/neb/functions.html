@@ -339,6 +339,8 @@
     <span class="n">min_idxes</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">argrelmin</span><span class="p">(</span><span class="n">energy_list</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="n">max_idxes</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">argrelmax</span><span class="p">(</span><span class="n">energy_list</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="n">marge_idxes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">min_idxes</span><span class="o">+</span><span class="n">max_idxes</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">marge_idxes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[],[]</span>
     <span class="c1"># 極大値,最小値,極大値,最小値......極大値になるようにする</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">marge_idxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">max_idxes</span><span class="p">:</span>
         <span class="n">marge_idxes</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>

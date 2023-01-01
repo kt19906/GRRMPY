@@ -77,8 +77,8 @@ create_reactpath
 ======================
 テキストファイルからReactPathオブジェクトを作成する
 
-例としてEQ_Listフォルダに0.traj,1.traj...のEQ構造が,TS_Listフォルダに0.traj,1.traj...のTS構造がある事を想定する.
-Path.datファイルの中身は
+| 例としてEQ_Listフォルダに0.traj,1.traj...のEQ構造が,TS_Listフォルダに0.traj,1.traj...のTS構造がある事を想定する.
+| Path.datファイルの中身は
 
 .. code-block:: 
 

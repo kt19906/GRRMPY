@@ -51,6 +51,11 @@
 <li class="toctree-l2"><a class="reference internal" href="neb.html">NEBモジュール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="opt.html">OPTモジュール</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Automateモジュール</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pinneb">PinNEB</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.automate.pin_neb.PinNEB"><code class="docutils literal notranslate"><span class="pre">PinNEB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-similar">is_similar</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#singlepath">SinglePath</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#grrmpy.automate.by_neb.SinglePath"><code class="docutils literal notranslate"><span class="pre">SinglePath</span></code></a></li>
 </ul>
@@ -140,6 +145,120 @@
 </style>
 <section id="module-grrmpy.automate">
 <span id="automate"></span><h1>Automateモジュール<a class="headerlink" href="#module-grrmpy.automate" title="この見出しへのパーマリンク"></a></h1>
+<section id="pinneb">
+<h2>PinNEB<a class="headerlink" href="#pinneb" title="この見出しへのパーマリンク"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="grrmpy.automate.pin_neb.PinNEB">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">grrmpy.automate.pin_neb.</span></span><span class="sig-name descname"><span class="pre">PinNEB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints=[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mic=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eq_folder='EQ_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_folder='Images_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unconv_img_folder='unconv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_folder='TS_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorfile='ERROR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_html='Path.html'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_dat='Path.dat'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/pin_neb.html#PinNEB"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.pin_neb.PinNEB" title="この定義へのパーマリンク"></a></dt>
+<dd><div class="line-block">
+<div class="line">NEBダイアグラム中に中間体とみられるエネルギーの谷間があれば,最適化計算する.</div>
+<div class="line">それが新たな中間体と判断した際はNEBイメージを切断し(つまり素反応に切り分けて)それぞれをNEB計算する.</div>
+<div class="line">中間体らしき構造を見つける度にこれを行ない,全ての素反応のNEB計算を行なう.</div>
+</div>
+<p>Parameters:</p>
+<dl>
+<dt>images: list of images</dt><dd><div class="line-block">
+<div class="line">初期images. calculatorを設定すう必要はない</div>
+</div>
+</dd>
+<dt>constraints: ASE constraint object</dt><dd><div class="line-block">
+<div class="line">ASEのConstraint</div>
+</div>
+</dd>
+<dt>parallel: bool</dt><dd><div class="line-block">
+<div class="line">NEBを並列計算する場合True</div>
+</div>
+</dd>
+<dt>mic: bool</dt><dd><div class="line-block">
+<div class="line">最小イメージ規則を適用する場合Ture.Noneの場合与えられたimagesが周期境界の場合Trueにする.</div>
+</div>
+</dd>
+<dt>calc_func: function object</dt><dd><div class="line-block">
+<div class="line">calculatorを返す関数</div>
+</div>
+</dd>
+</dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">grrmpy.automate</span> <span class="kn">import</span> <span class="n">Queue</span><span class="p">,</span><span class="n">PinNEB</span><span class="p">,</span><span class="n">is_similar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pin_neb</span> <span class="o">=</span> <span class="n">PinNEB</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">que</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">pin_neb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">que</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="grrmpy.automate.pin_neb.PinNEB.default_param">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_param</span></span><a class="headerlink" href="#grrmpy.automate.pin_neb.PinNEB.default_param" title="この定義へのパーマリンク"></a></dt>
+<dd><p>デフォルトのパラメータを返す</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="grrmpy.automate.pin_neb.PinNEB.get_param">
+<span class="sig-name descname"><span class="pre">get_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/pin_neb.html#PinNEB.get_param"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.pin_neb.PinNEB.get_param" title="この定義へのパーマリンク"></a></dt>
+<dd><dl>
+<dt>separate_completely:bool</dt><dd><p>NEBが収束したとしても,谷間がある場合分割してさらに計算を進める場合True.</p>
+</dd>
+<dt>minenergy: float</dt><dd><p>minenergy(kJ/mol)以下のEaの場合は谷間があっても分割しない.</p>
+</dd>
+<dt>barrier_less:bool</dt><dd><p>Eaがbarrier_less(kJ/mol)以下の場合バリアレスと見做す.</p>
+</dd>
+<dt>nimages: int or tuple with 3 elements</dt><dd><div class="line-block">
+<div class="line">intで与えた場合,nimages(個)のイメージ数でNEBを計算する.</div>
+<div class="line">3要素のタプルで与えた場合.(dist,nmax,nmin).</div>
+<div class="line">基本的に,始構造と終構造で最も動いた原子の移動距離Dをdistで割った値int(D/dist)個のイメージ数で作成する.</div>
+<div class="line">最低でもnmax,最大でnmax個のイメージ数で作成する.</div>
+</div>
+</dd>
+<dt>isomorphism_func: functions object</dt><dd><div class="line-block">
+<div class="line">同一構造を判定する関数.atoms1,atoms2を引数にとり,atoms1とatoms2が同じ構造ならTrue,違う構造ならFalseを返すように設定する.</div>
+<div class="line">atoms1とatoms2以外にも引数を与えても良いが必ずデフォルト引数を設定すること.</div>
+<div class="line">常にデフォルト引数が適用される.</div>
+<div class="line">PinNEBではis_similarをデフォルトのisomorphism_funcとする.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="grrmpy.automate.pin_neb.PinNEB.set_param">
+<span class="sig-name descname"><span class="pre">set_param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/pin_neb.html#PinNEB.set_param"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.pin_neb.PinNEB.set_param" title="この定義へのパーマリンク"></a></dt>
+<dd><p>パラメータを設定する</p>
+<p>現在適応されているパラメータは <cite>get_param()</cite>
+デフォルトのパラメータは <cite>default_param</cite> で確認できる.</p>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pin_neb</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">minenergy</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<section id="is-similar">
+<h3>is_similar<a class="headerlink" href="#is-similar" title="この見出しへのパーマリンク"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.automate.pin_neb.is_similar">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.automate.pin_neb.</span></span><span class="sig-name descname"><span class="pre">is_similar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy_dif</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_dif</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/pin_neb.html#is_similar"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.pin_neb.is_similar" title="この定義へのパーマリンク"></a></dt>
+<dd><p>atoms1とatoms2を同一構造とみなすか(NEBでつなぐ必要はないか?)</p>
+<p>PinNEBの引数:isomorphism_funcのための関数</p>
+<p>基本的には結合状態が同じ且つ,エネルギー差がenergy_dif(kJ/mol)以下であれば同一構造とみなす.
+また,bond_dif[0] 本以下の結合状態の違いであり,その結合の差がbond_dif[1] Å以下の時も同一構造とする.</p>
+<p>Parameters:</p>
+<dl>
+<dt>atoms1: Atoms</dt><dd><p>Atomsオブジェクト</p>
+</dd>
+<dt>atoms2: Atoms:</dt><dd><p>Atomsオブジェクト</p>
+</dd>
+<dt>energy_dif: float</dt><dd><p>同じ結合状態かつ,エネルギー差がenergy_dif(kJ/mol)の時,同一構造とする</p>
+</dd>
+<dt>bond_dif: Tuple[int,flaot]</dt><dd><div class="line-block">
+<div class="line">1要素目は許容できる結合の差(結合本数)</div>
+<div class="line">2要素目は結合状態の異なる部分の許容できる結合距離の差(Å)</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
 <section id="singlepath">
 <h2>SinglePath<a class="headerlink" href="#singlepath" title="この見出しへのパーマリンク"></a></h2>
 <p>SinglePathはSNEB( <a class="reference internal" href="neb.html#grrmpy.neb.auto_neb.SNEB" title="grrmpy.neb.auto_neb.SNEB"><code class="xref py py-class docutils literal notranslate"><span class="pre">grrmpy.neb.auto_neb.SNEB</span></code></a> ),振動数計算,IRC計算をiniとfinが繋がるまで繰り返す.</p>

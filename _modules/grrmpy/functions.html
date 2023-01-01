@@ -520,6 +520,22 @@
         <span class="n">unique</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ini</span><span class="p">,</span><span class="n">fin</span><span class="p">])</span>
         <span class="n">original_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">unique</span><span class="p">,</span><span class="n">original_idx</span></div>
+
+<div class="viewcode-block" id="partially_overlapping_groupings"><a class="viewcode-back" href="../../src/toy_tools.html#grrmpy.functions.partially_overlapping_groupings">[ドキュメント]</a><span class="k">def</span> <span class="nf">partially_overlapping_groupings</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">iterable</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">li</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                <span class="n">li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">iterable</span><span class="p">))</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="o">+</span> <span class="n">li</span>
+            <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">strict</span> <span class="ow">and</span> <span class="n">li</span><span class="o">!=</span><span class="p">[]</span> <span class="p">:</span>
+                <span class="k">yield</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">li</span><span class="p">)</span>
+            <span class="k">break</span></div>
 </pre></div>
 
            </div>

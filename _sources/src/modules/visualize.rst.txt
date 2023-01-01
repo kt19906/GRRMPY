@@ -30,19 +30,20 @@ View
 
 
 .. image:: ./img/View.png
-   :scale: 100%
+   :scale: 60%
    :align: center
 
+| スタイルの色からいくつかの色を選択することができる
+| 色の定義ファイルはライブラリの根本にある `default_color.ini` `vesta_color.ini` `jmol_color,csv` .
+| Viewクラスはnglviewライブラリを用いて作成している. nglviewのデフォルトの色の設定はelementであり,その他のdefaut,vesta,jmolの色は
+ grrmpy用に作成したものであり, **不具合によって稀に色が反映できず原子が全て黒く着色される** 場合がある.(原因はわからない)
+| **その場合はelenetを選択** する(elementはそのような不具合が起きない). もしくはカーネルを再起動すると直る.
 
-.. hint:: 保存について
-    
-    | 基本的には :ase:`ASEのwrite <io/io.html#ase.io.write>` を実行し保存を行なう.
-    | ただし, **".png"と".html"だけは例外** でそれぞれ，スクリーンショット, 
-      htmlで表示可能なインタラクティブなViewerを作成する.
-    |
-    | またファイル名を"POSCAR"または"CONTCAR"にした場合vaspファイルが作成される.
+.. image:: ./img/color.png
+   :scale: 15%
+   :align: center
 
-.. autoclass:: grrmpy.visualize.ngl_display.View
+.. autoclass:: grrmpy.visualize.custum_viewer.View
 
 view
 ==================================
