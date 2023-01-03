@@ -149,43 +149,8 @@
 <h2>PinNEB<a class="headerlink" href="#pinneb" title="この見出しへのパーマリンク"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="grrmpy.automate.pin_neb.PinNEB">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">grrmpy.automate.pin_neb.</span></span><span class="sig-name descname"><span class="pre">PinNEB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints=[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mic=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eq_folder='EQ_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_folder='Images_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unconv_img_folder='unconv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_folder='TS_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorfile='ERROR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_html='Path.html'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_dat='Path.dat'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/pin_neb.html#PinNEB"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.pin_neb.PinNEB" title="この定義へのパーマリンク"></a></dt>
-<dd><div class="line-block">
-<div class="line">NEBダイアグラム中に中間体とみられるエネルギーの谷間があれば,最適化計算する.</div>
-<div class="line">それが新たな中間体と判断した際はNEBイメージを切断し(つまり素反応に切り分けて)それぞれをNEB計算する.</div>
-<div class="line">中間体らしき構造を見つける度にこれを行ない,全ての素反応のNEB計算を行なう.</div>
-</div>
-<p>Parameters:</p>
-<dl>
-<dt>images: list of images</dt><dd><div class="line-block">
-<div class="line">初期images. calculatorを設定すう必要はない</div>
-</div>
-</dd>
-<dt>constraints: ASE constraint object</dt><dd><div class="line-block">
-<div class="line">ASEのConstraint</div>
-</div>
-</dd>
-<dt>parallel: bool</dt><dd><div class="line-block">
-<div class="line">NEBを並列計算する場合True</div>
-</div>
-</dd>
-<dt>mic: bool</dt><dd><div class="line-block">
-<div class="line">最小イメージ規則を適用する場合Ture.Noneの場合与えられたimagesが周期境界の場合Trueにする.</div>
-</div>
-</dd>
-<dt>calc_func: function object</dt><dd><div class="line-block">
-<div class="line">calculatorを返す関数</div>
-</div>
-</dd>
-</dl>
-<p class="rubric">サンプル</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">grrmpy.automate</span> <span class="kn">import</span> <span class="n">Queue</span><span class="p">,</span><span class="n">PinNEB</span><span class="p">,</span><span class="n">is_similar</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pin_neb</span> <span class="o">=</span> <span class="n">PinNEB</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">que</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">pin_neb</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">que</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div>
-</div>
-<dl class="py property">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">grrmpy.automate.pin_neb.</span></span><span class="sig-name descname"><span class="pre">PinNEB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints=[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mic=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_func=&lt;function</span> <span class="pre">pfp_calculator&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eq_folder='EQ_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_folder='Images_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unconv_img_folder='unconv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_folder='TS_List'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorfile='ERROR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_html='Path.html'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_dat='Path.dat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxjob=20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/pin_neb.html#PinNEB"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.pin_neb.PinNEB" title="この定義へのパーマリンク"></a></dt>
+<dd><dl class="py property">
 <dt class="sig sig-object py" id="grrmpy.automate.pin_neb.PinNEB.default_param">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_param</span></span><a class="headerlink" href="#grrmpy.automate.pin_neb.PinNEB.default_param" title="この定義へのパーマリンク"></a></dt>
 <dd><p>デフォルトのパラメータを返す</p>

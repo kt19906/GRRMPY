@@ -4,7 +4,19 @@ PinNEB
 
 PinNEBの概要
 ==============
+| PinNEBはNEBエネルギーダイアグラム中に谷間を見つけたら最適化し,素反応に切り分けて計算を行なう.
+| 次のステップで行う
+| 
+| **STEP1** : 通常のNEB計算を行なう
+| **STEP2** : STEP1のエネルギーダイアグラム中に谷間(極小点)があれば最適化し, 新たなEQとする
+| **STEP3** : STEP2で見つけたEQ(中間体)を経由する新たなNEBイメージを作成し,STEP1,STEP2を行なう
+| **STEP4** : 極小点がなくなるまで(つまり素反応が見つかるまで)STEP1,2,3を繰り返す
+| 
+| より詳細なフローはこのページの最後に示した．
 
+.. image:: ./img/PinNEB_View.png
+   :scale: 15%
+   :align: center
 
 基本操作
 =============
@@ -13,26 +25,25 @@ PinNEBの概要
 
     from grrmpy.automate import Queue,PinNEB
 
-    executor = PinNEB(images,constraints=[])
-    que = Queue(executor)
-    que.run()
+    pin_neb = PinNEB(images,constraints=[])
+    pin_neb.run()
 
 細かいパラメータを指定する
 ============================
 例えば極小点があってもNEBが収束すれば,NEBイメージを分解しないようにする場合, ``separate_completely`` をFalseにする.
 
->>> executor.set_param(separate_completely=False)
+>>> pin_neb.set_param(separate_completely=False)
 
 | その他指定可能な引数は :class:`PinNEB<grrmpy.automate.pin_neb.PinNEB>` を参照する.
 | また,指定可能な全ての引数は ``get_param()`` で確認できる.
 
->>> executor.get_param()
+>>> pin_neb.get_param()
 
 | PinNEBは :class:`Queue<grrmpy.automate.queue.Queue>` クラスを用いてQueueの管理を行なっている.
 | Queueはデフォルトでは幅優先でQueueの取り出しを行なう(priority=0)が, PinNEBの場合priority=1に設定すると,
  活性化障壁の高い順にQueueからイメージが取り出される
 
->>> que = Queue(executor,priority=1)
+>>> pin_neb = PinNEB(images,constraints=[],priority=1)
 
 同一構造判定
 ----------------
@@ -61,7 +72,7 @@ PinNEBの概要
 
 このような関数を定義し,
 
->>> executor.set_param(isomorphism_func=user_function)
+>>> pin_neb.set_param(isomorphism_func=user_function)
 
 ``set_param`` で適用する事ができる.
 
@@ -70,6 +81,11 @@ PinNEBのフロー
 .. image:: ./img/PinNEB_flowchart.png
    :scale: 15%
    :align: center
+
+.. image:: ./img/PinNEB_relationship.png
+   :scale: 20%
+   :align: center
+
 
 
 

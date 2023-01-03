@@ -122,28 +122,39 @@
 <h1>PinNEB<a class="headerlink" href="#pinneb" title="この見出しへのパーマリンク"></a></h1>
 <section id="id1">
 <h2>PinNEBの概要<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
+<div class="line-block">
+<div class="line">PinNEBはNEBエネルギーダイアグラム中に谷間を見つけたら最適化し,素反応に切り分けて計算を行なう.</div>
+<div class="line">次のステップで行う</div>
+<div class="line"><br /></div>
+<div class="line"><strong>STEP1</strong> : 通常のNEB計算を行なう</div>
+<div class="line"><strong>STEP2</strong> : STEP1のエネルギーダイアグラム中に谷間(極小点)があれば最適化し, 新たなEQとする</div>
+<div class="line"><strong>STEP3</strong> : STEP2で見つけたEQ(中間体)を経由する新たなNEBイメージを作成し,STEP1,STEP2を行なう</div>
+<div class="line"><strong>STEP4</strong> : 極小点がなくなるまで(つまり素反応が見つかるまで)STEP1,2,3を繰り返す</div>
+<div class="line"><br /></div>
+<div class="line">より詳細なフローはこのページの最後に示した．</div>
+</div>
+<a class="reference internal image-reference" href="../../_images/PinNEB_View.png"><img alt="../../_images/PinNEB_View.png" class="align-center" src="../../_images/PinNEB_View.png" style="width: 600.0px; height: 270.0px;" /></a>
 </section>
 <section id="id2">
 <h2>基本操作<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.automate</span> <span class="kn">import</span> <span class="n">Queue</span><span class="p">,</span><span class="n">PinNEB</span>
 
-<span class="n">executor</span> <span class="o">=</span> <span class="n">PinNEB</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">constraints</span><span class="o">=</span><span class="p">[])</span>
-<span class="n">que</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">executor</span><span class="p">)</span>
-<span class="n">que</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">pin_neb</span> <span class="o">=</span> <span class="n">PinNEB</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">constraints</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">pin_neb</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="id3">
 <h2>細かいパラメータを指定する<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h2>
 <p>例えば極小点があってもNEBが収束すれば,NEBイメージを分解しないようにする場合, <code class="docutils literal notranslate"><span class="pre">separate_completely</span></code> をFalseにする.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">executor</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">separate_completely</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pin_neb</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">separate_completely</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="line-block">
 <div class="line">その他指定可能な引数は <a class="reference internal" href="../modules/automate.html#grrmpy.automate.pin_neb.PinNEB" title="grrmpy.automate.pin_neb.PinNEB"><code class="xref py py-class docutils literal notranslate"><span class="pre">PinNEB</span></code></a> を参照する.</div>
 <div class="line">また,指定可能な全ての引数は <code class="docutils literal notranslate"><span class="pre">get_param()</span></code> で確認できる.</div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">executor</span><span class="o">.</span><span class="n">get_param</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pin_neb</span><span class="o">.</span><span class="n">get_param</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -151,7 +162,7 @@
 <div class="line">Queueはデフォルトでは幅優先でQueueの取り出しを行なう(priority=0)が, PinNEBの場合priority=1に設定すると,
 活性化障壁の高い順にQueueからイメージが取り出される</div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">que</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">executor</span><span class="p">,</span><span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pin_neb</span> <span class="o">=</span> <span class="n">PinNEB</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">constraints</span><span class="o">=</span><span class="p">[],</span><span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="id4">
@@ -179,7 +190,7 @@
 </pre></div>
 </div>
 <p>このような関数を定義し,</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">executor</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">isomorphism_func</span><span class="o">=</span><span class="n">user_function</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pin_neb</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">isomorphism_func</span><span class="o">=</span><span class="n">user_function</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">set_param</span></code> で適用する事ができる.</p>
@@ -188,6 +199,7 @@
 <section id="id5">
 <h2>PinNEBのフロー<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h2>
 <a class="reference internal image-reference" href="../../_images/PinNEB_flowchart.png"><img alt="../../_images/PinNEB_flowchart.png" class="align-center" src="../../_images/PinNEB_flowchart.png" style="width: 658.65px; height: 516.6px;" /></a>
+<a class="reference internal image-reference" href="../../_images/PinNEB_relationship.png"><img alt="../../_images/PinNEB_relationship.png" class="align-center" src="../../_images/PinNEB_relationship.png" style="width: 641.6px; height: 335.40000000000003px;" /></a>
 </section>
 </section>
 
