@@ -1,0 +1,36 @@
+#######################
+その他のアプリ
+#######################
+
+xlwingsを使ったアプリ
+==========================
+
+| GRRMの結果をpythonコードを書くことなく,Excelのみで解析できる. 
+| 主な機能は
+
+- 反応経路検索(もっともEaの低い経路を検索する)
+- 反応座標の作図
+- Graphmlファイルへエクスポート.
+- 構造の可視化(ExcelからJmol, VESTAを呼び出し可視化)
+- 構造の保存(xyzデータに保存する)
+
+| 反応経路検索に関してはExcel上で操作できるのはWindowsのみ.
+| Macユーザーはpythonのnotebookを利用することで使用できる.
+
+ダウンロード
+---------------------
+
+- ダウンロードファイル(.zip)
+    | :download:`Windows用 <../download/Windows.zip>`
+    | :download:`Mac用 <../download/Mac.zip>` 
+- ダウンロード方法と使用方法(.pptx)
+    | :download:`setup.pptx <../download/setup.pptx>`
+
+.. role:: strike
+    :class: strike
+
+MatlanticGRRM ライブラリ
+================================
+:strike:`MatlanticGRRMの機能はGRRMPYに移行中` → 移行完了
+
+https://kt19906.github.io/MatlanticGrrm/index.html

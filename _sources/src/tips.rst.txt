@@ -1,0 +1,25 @@
+#################
+Tips
+#################
+
+- 構造をhtmlに保存する
+
+    | Viewで表示した構造をhtmlに保存する
+    | Viewで可視化した時と同じインタラクティブな状態でhtmlに保存される.
+
+    .. code-block:: python
+
+        from grrmpy.visualize import View
+        from ase.io import read
+        import nglview as nv
+
+        atoms = read("atoms.cif")
+        v = View(atoms) 
+        v # またはdisplay(v)
+        # ↑一度必ずnote book上で可視化する必要がある.
+
+    その後
+        
+    .. code-block:: python
+
+        nv.write_html("atoms.html",v.view) # htmlに保存される

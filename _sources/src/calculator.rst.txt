@@ -1,0 +1,43 @@
+##################
+PFP Calculator
+##################
+
+
+PFP
+-------------------------------------
+
+PFPは3種類のDFT計算条件による学習データを持っています。これに対応して、計算モードと呼ばれる機能を提供しています.
+計算モードを切り替えることによってどちらの学習データに合った挙動をするかを選べます。(Matlantisから引用)
+
+- 使用方法
+   .. code-block:: python
+
+      from grrmpy import pfp_calculator
+      atoms.calc = pfp_calculator()
+
+   これは次のコードと同じ意味である.
+
+   .. code-block:: python
+
+      from pfp_api_client.pfp.calculators.ase_calculator import ASECalculator
+      from pfp_api_client.pfp.estimator import Estimator, EstimatorCalcMode
+      estimator = Estimator(calc_mode=EstimatorCalcMode.CRYSTAL_PLUS_D3)
+      atoms.calc = ASECalculator(estimator)
+
+   pfp_api_clientから呼び出すとコード量が多くなってしまうため,GRRMPYから簡単に呼び出せるようにした.
+
+.. csv-table::
+   :header: 計算モード, 説明
+   :widths: 5, 20
+
+   **CRYSTAL**, 結晶系(Hubbard補正あり)
+   **MOLECULE**, 分子系
+   **CRYSTAL_PLUS_D3**, 結晶系(Hubbard補正あり)+DFT-D3補正
+   **CRYSTAL_U0**, 結晶系(Hubbard補正なし)
+   **CRYSTAL_U0_PLUS_D3**, 結晶系(Hubbard補正なし)+DFT-D3補正
+
+
+.. module:: grrmpy.calculator
+
+.. autofunction:: grrmpy.calculator.pfp_calculator
+
