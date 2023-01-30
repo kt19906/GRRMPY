@@ -58,7 +58,7 @@ blenderファイルを開き,テキストエディターを開く(windows: Shift
 
 .. image:: ./img/view.png
    :scale: 30%
-   :align: center
+   :align: center 
 
 | キーフレームは0から開始し,3フレーム毎にキーが挿入されている.
 | :class:`make_animation<grrmpy.blender.make_animation.make_animation>` の引数で
