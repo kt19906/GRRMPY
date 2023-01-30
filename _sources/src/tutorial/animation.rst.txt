@@ -56,7 +56,7 @@ blenderファイルを開き,テキストエディターを開く(windows: Shift
 | 元素の色を変えたい場合はBlender上で操作するか, :class:`make_animation<grrmpy.blender.make_animation.make_animation>`
  `color_dict` の引数を設定する.
 
-.. image:: ./img/view.png
+.. image:: ./img/blender_view.png
    :scale: 30%
    :align: center 
 
@@ -67,3 +67,16 @@ blenderファイルを開き,テキストエディターを開く(windows: Shift
 .. image:: ./img/key_frame.png
    :scale: 30%
    :align: center
+
+最後にスムーズシェードを手動で行う.
+
+
+細かい話
+--------------
+
+| このPythonスクリプトは既存のオブジェクトに追記されるようにインポートされるため,
+ 他のオブジェクトの存在下でも実行可能. 逆に初期状態で配置されているCubeは手動で削除する必要がある.
+
+| 構造のインポートとアニメーションのレンダリングには時間がかかるため, trajの構造は最高でも200イメージ程度
+ にすることを勧める.
+

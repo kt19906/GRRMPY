@@ -56,6 +56,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id1">作成方法</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#matlantis">Matlantis上での操作</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pc">ローカルPC上での操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">細かい話</a></li>
 </ul>
 </li>
 </ul>
@@ -158,13 +159,25 @@
 <div class="line">元素の色を変えたい場合はBlender上で操作するか, <a class="reference internal" href="../modules/blender.html#grrmpy.blender.make_animation.make_animation" title="grrmpy.blender.make_animation.make_animation"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_animation</span></code></a>
 <cite>color_dict</cite> の引数を設定する.</div>
 </div>
-<a class="reference internal image-reference" href="../../_images/view.png"><img alt="../../_images/view.png" class="align-center" src="../../_images/view.png" style="width: 570.9px; height: 278.09999999999997px;" /></a>
+<a class="reference internal image-reference" href="../../_images/blender_view.png"><img alt="../../_images/blender_view.png" class="align-center" src="../../_images/blender_view.png" style="width: 570.9px; height: 278.09999999999997px;" /></a>
 <div class="line-block">
 <div class="line">キーフレームは0から開始し,3フレーム毎にキーが挿入されている.</div>
 <div class="line"><a class="reference internal" href="../modules/blender.html#grrmpy.blender.make_animation.make_animation" title="grrmpy.blender.make_animation.make_animation"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_animation</span></code></a> の引数で
 start=0, step=3 としたため.</div>
 </div>
 <a class="reference internal image-reference" href="../../_images/key_frame.png"><img alt="../../_images/key_frame.png" class="align-center" src="../../_images/key_frame.png" style="width: 475.2px; height: 111.0px;" /></a>
+<p>最後にスムーズシェードを手動で行う.</p>
+</section>
+<section id="id2">
+<h3>細かい話<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h3>
+<div class="line-block">
+<div class="line">このPythonスクリプトは既存のオブジェクトに追記されるようにインポートされるため,
+他のオブジェクトの存在下でも実行可能. 逆に初期状態で配置されているCubeは手動で削除する必要がある.</div>
+</div>
+<div class="line-block">
+<div class="line">構造のインポートとアニメーションのレンダリングには時間がかかるため, trajの構造は最高でも200イメージ程度
+にすることを勧める.</div>
+</div>
 </section>
 </section>
 </section>
