@@ -40,6 +40,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/install.html">インストール</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
@@ -82,14 +83,11 @@
 <span class="kn">from</span> <span class="nn">ase.units</span> <span class="kn">import</span> <span class="n">kJ</span><span class="p">,</span> <span class="n">mol</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span><span class="p">,</span> <span class="n">ExtendedInterpolation</span>
 <span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tqdm_notebook</span> <span class="k">as</span> <span class="n">tqdm</span>
 <span class="c1"># USER</span>
 <span class="kn">from</span> <span class="nn">grrmpy.calculator</span> <span class="kn">import</span> <span class="n">pfp_calculator</span>
-<span class="kn">from</span> <span class="nn">grrmpy.automate.queue</span> <span class="kn">import</span> <span class="n">Executor</span>
-<span class="kn">from</span> <span class="nn">grrmpy.functions</span> <span class="kn">import</span> <span class="n">set_calc2images</span><span class="p">,</span><span class="n">set_const2images</span><span class="p">,</span><span class="n">copy_images</span><span class="p">,</span><span class="n">get_bond</span>
-<span class="kn">from</span> <span class="nn">grrmpy.neb.functions</span> <span class="kn">import</span> <span class="n">get_ea</span><span class="p">,</span><span class="n">find_local_minimum_points_and_ea</span><span class="p">,</span><span class="n">get_appropriate_nimages</span><span class="p">,</span><span class="n">get_imax</span>
+<span class="kn">from</span> <span class="nn">grrmpy.neb.functions</span> <span class="kn">import</span> <span class="n">find_local_minimum_points_and_ea</span><span class="p">,</span><span class="n">get_appropriate_nimages</span><span class="p">,</span><span class="n">get_imax</span>
 <span class="kn">from</span> <span class="nn">grrmpy.functions</span> <span class="kn">import</span> <span class="n">partially_overlapping_groupings</span>
 <span class="kn">from</span> <span class="nn">grrmpy.neb.repetitive_neb</span> <span class="kn">import</span> <span class="n">RepetitiveNEB</span>
 <span class="kn">from</span> <span class="nn">grrmpy.opt.repetitive_opt</span> <span class="kn">import</span> <span class="n">RepetitiveOpt</span>
@@ -147,428 +145,6 @@
     <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc_func</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span>
-
-<span class="c1"># class PinNebExecutor(Executor):</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-    
-<span class="c1">#     | NEBダイアグラム中に中間体とみられるエネルギーの谷間があれば,最適化計算する.</span>
-<span class="c1">#     | それが新たな中間体と判断した際はNEBイメージを切断し(つまり素反応に切り分けて)それぞれをNEB計算する.</span>
-<span class="c1">#     | 中間体らしき構造を見つける度にこれを行ない,全ての素反応のNEB計算を行なう.</span>
-
-<span class="c1">#     Parameters:</span>
-    
-<span class="c1">#     images: list of images</span>
-<span class="c1">#         | 初期images. calculatorを設定すう必要はない</span>
-<span class="c1">#     constraints: ASE constraint object</span>
-<span class="c1">#         | ASEのConstraint</span>
-<span class="c1">#     parallel: bool</span>
-<span class="c1">#         | NEBを並列計算する場合True</span>
-<span class="c1">#     mic: bool</span>
-<span class="c1">#         | 最小イメージ規則を適用する場合Ture.Noneの場合与えられたimagesが周期境界の場合Trueにする.</span>
-<span class="c1">#     calc_func: function object</span>
-<span class="c1">#         | calculatorを返す関数</span>
-        
-<span class="c1">#     Example:</span>
-    
-<span class="c1">#         &gt;&gt;&gt; from grrmpy.automate import Queue,PinNEB,is_similar</span>
-<span class="c1">#         &gt;&gt;&gt; pin_neb = PinNEB(images)</span>
-<span class="c1">#         &gt;&gt;&gt; que = Queue(pin_neb)</span>
-<span class="c1">#         &gt;&gt;&gt; que.run()</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     def __init__(self, </span>
-<span class="c1">#                  images, </span>
-<span class="c1">#                  constraints=[], </span>
-<span class="c1">#                  parallel=True,</span>
-<span class="c1">#                  mic=None, </span>
-<span class="c1">#                  calc_func=pfp_calculator, </span>
-<span class="c1">#                  eq_folder=&quot;EQ_List&quot;,</span>
-<span class="c1">#                  img_folder=&quot;Images_List&quot;,</span>
-<span class="c1">#                  unconv_img_folder=&quot;unconv&quot;,</span>
-<span class="c1">#                  ts_folder=&quot;TS_List&quot;,</span>
-<span class="c1">#                  errorfile=&quot;ERROR&quot;,</span>
-<span class="c1">#                  path_html=&quot;Path.html&quot;,</span>
-<span class="c1">#                  path_dat = &quot;Path.dat&quot;):</span>
-<span class="c1">#         &quot;&quot;&quot;</span>
-        
-<span class="c1">#         | NEBダイアグラム中に中間体とみられるエネルギーの谷間があれば,最適化計算する.</span>
-<span class="c1">#         | それが新たな中間体と判断した際はNEBイメージを切断し(つまり素反応に切り分けて)それぞれをNEB計算する.</span>
-<span class="c1">#         | 中間体らしき構造を見つける度にこれを行ない,全ての素反応のNEB計算を行なう.</span>
-
-<span class="c1">#         Parameters:</span>
-<span class="c1">#         images: list of images</span>
-<span class="c1">#             初期images. calculatorを設定すう必要はない</span>
-<span class="c1">#         constraints: ASE constraint object</span>
-<span class="c1">#             ASEのConstraint</span>
-<span class="c1">#         parallel: bool</span>
-<span class="c1">#             NEBを並列計算する場合True</span>
-<span class="c1">#         mic: bool</span>
-<span class="c1">#             最小イメージ規則を適用する場合Ture.Noneの場合与えられたimagesが周期境界の場合Trueにする.</span>
-<span class="c1">#         calc_func: function object</span>
-<span class="c1">#             calculatorを返す関数</span>
-            
-<span class="c1">#         Example:</span>
-        
-<span class="c1">#             &gt;&gt;&gt; from grrmpy.automate import Queue,PinNEB,is_similar</span>
-<span class="c1">#             &gt;&gt;&gt; pin_neb = PinNEB(images)</span>
-<span class="c1">#             &gt;&gt;&gt; que = Queue(pin_neb)</span>
-<span class="c1">#             &gt;&gt;&gt; que.run()</span>
-<span class="c1">#         &quot;&quot;&quot;</span>
-<span class="c1">#         super().__init__(images, constraints, calc_func)</span>
-<span class="c1">#         self.images = copy_images(self.images)</span>
-<span class="c1">#         set_calc2images(self.images,self.calc_func)</span>
-<span class="c1">#         set_const2images(self.images, self.constraints)</span>
-<span class="c1">#         self.parallel = parallel</span>
-<span class="c1">#         if mic is None:</span>
-<span class="c1">#             mic = True if any(images[0].get_pbc()) else False</span>
-<span class="c1">#         self.mic = mic</span>
-<span class="c1">#         self.path_html = path_html</span>
-<span class="c1">#         self.path_dat = path_dat</span>
-<span class="c1">#         self.errorfile = errorfile</span>
-<span class="c1">#         self.param = self.default_param</span>
-<span class="c1">#         self.set_param(**self.param)</span>
-<span class="c1">#         self.opt_attach_list = []</span>
-<span class="c1">#         self.preneb_attach_list = []</span>
-<span class="c1">#         self.neb_attach_list = []</span>
-<span class="c1">#         self.eq_list = []</span>
-<span class="c1">#         self.ts_list = []</span>
-<span class="c1">#         self.path = [] # [(iniEQnum,TSnum(int:TS番号,False:未収束,True:バリアレス),finEQnum,トラッキングナンバー)]</span>
-<span class="c1">#         self.eq_folder = eq_folder</span>
-<span class="c1">#         self.ts_folder = ts_folder</span>
-<span class="c1">#         self.img_folder = img_folder</span>
-<span class="c1">#         self.unconv_img_folder = unconv_img_folder</span>
-<span class="c1">#         for folder in [self.eq_folder,self.ts_folder,self.img_folder,self.unconv_img_folder]:</span>
-<span class="c1">#             self.mkdir(folder)</span>
-<span class="c1">#         self.path_txt = &quot;&quot;</span>
-<span class="c1">#         self.write_path_dat(self.path_txt)</span>
-    
-<span class="c1">#     def mkdir(self,folder):</span>
-<span class="c1">#         p = Path(folder)</span>
-<span class="c1">#         if not p.exists():</span>
-<span class="c1">#             p.mkdir()</span>
-            
-<span class="c1">#     def write_path_dat(self,path_txt):</span>
-<span class="c1">#         with open(self.path_dat,&quot;w&quot;) as f:</span>
-<span class="c1">#             f.write(&quot;[Dir]\n&quot;)</span>
-<span class="c1">#             f.write(f&quot;EQ: ./{self.eq_folder}/\n&quot;)</span>
-<span class="c1">#             f.write(f&quot;TS: ./{self.ts_folder}/\n&quot;)</span>
-<span class="c1">#             f.write(&quot;[ReactPath]\n&quot;)</span>
-<span class="c1">#             f.write(f&quot;path: {path_txt}\n&quot;)</span>
-<span class="c1">#         self.path_obj = create_reactpath(self.path_dat)</span>
-        
-<span class="c1">#     def make_path_txt(self,path_txt,ini_name,fin_name,add_data):</span>
-<span class="c1">#         &quot;&quot;&quot;</span>
-<span class="c1">#         path_txt: 現在のpath_txt</span>
-<span class="c1">#         add_data: list of int</span>
-<span class="c1">#             EQを追加する(EQのindex番号のリスト)</span>
-<span class="c1">#         add_data: int:</span>
-<span class="c1">#             TSを追加する</span>
-<span class="c1">#         add_data: None</span>
-<span class="c1">#             バリアレスを追加</span>
-<span class="c1">#         &quot;&quot;&quot;</span>
-<span class="c1">#         if add_data is None:</span>
-<span class="c1">#             new_path_txt = re.sub(f&quot;(EQ{ini_name}).(EQ{fin_name})&quot;,f&quot;\\1~\\2&quot;,path_txt)</span>
-<span class="c1">#         elif type(add_data) == int:</span>
-<span class="c1">#             new_path_txt = re.sub(f&quot;(EQ{ini_name}).(EQ{fin_name})&quot;,f&quot;\\1;TS{add_data};\\2&quot;,path_txt)</span>
-<span class="c1">#         elif type(add_data)==str:</span>
-<span class="c1">#             new_path_txt = re.sub(f&quot;EQ{ini_name}.EQ{fin_name}&quot;,f&quot;{add_data}&quot;,path_txt)</span>
-<span class="c1">#         return new_path_txt</span>
-            
-<span class="c1">#     def write_path_dat_and_html(self,ini_name,fin_name,add_data):</span>
-<span class="c1">#         self.path_txt = self.make_path_txt(self.path_txt,ini_name,fin_name,add_data)</span>
-<span class="c1">#         self.write_path_dat(self.path_txt)</span>
-<span class="c1">#         create_reactpath(self.path_dat).write_html(self.path_html)</span>
-            
-<span class="c1">#     def set_param(self,**param):</span>
-<span class="c1">#         &quot;&quot;&quot;パラメータを設定する</span>
-        
-<span class="c1">#         現在適応されているパラメータは `get_param()`</span>
-<span class="c1">#         デフォルトのパラメータは `default_param` で確認できる.</span>
-        
-<span class="c1">#         Example:</span>
-        
-<span class="c1">#             &gt;&gt;&gt; pin_neb.set_param(minenergy=10)</span>
-<span class="c1">#         &quot;&quot;&quot;</span>
-<span class="c1">#         default_param = self.param</span>
-<span class="c1">#         unexpected_argument = set(param)-set(default_param)</span>
-<span class="c1">#         if len(unexpected_argument) != 0:</span>
-<span class="c1">#             raise Exception(f&quot;予期しない引数({&#39;, &#39;.join(unexpected_argument)})が存在します.\n&quot;+</span>
-<span class="c1">#                             f&quot;&#39;self.default_param??&#39;で引数を確認できます\n&quot;</span>
-<span class="c1">#                            f&quot;Parameters:\n{&#39;, &#39;.join(self.default_param.keys())}&quot;)</span>
-<span class="c1">#         self.param.update(param)</span>
-<span class="c1">#         for key,val in default_param.items():</span>
-<span class="c1">#             setattr(self, key, val)</span>
-        
-<span class="c1">#     def get_param(self):</span>
-<span class="c1">#         &quot;&quot;&quot;</span>
-<span class="c1">#         separate_completely:bool</span>
-<span class="c1">#             NEBが収束したとしても,谷間がある場合分割してさらに計算を進める場合True.</span>
-<span class="c1">#         minenergy: float</span>
-<span class="c1">#             minenergy(kJ/mol)以下のEaの場合は谷間があっても分割しない.</span>
-<span class="c1">#         barrier_less:bool</span>
-<span class="c1">#             Eaがbarrier_less(kJ/mol)以下の場合バリアレスと見做す.</span>
-<span class="c1">#         nimages: int or tuple with 3 elements</span>
-<span class="c1">#             | intで与えた場合,nimages(個)のイメージ数でNEBを計算する.</span>
-<span class="c1">#             | 3要素のタプルで与えた場合.(dist,nmax,nmin).</span>
-<span class="c1">#             | 基本的に,始構造と終構造で最も動いた原子の移動距離Dをdistで割った値int(D/dist)個のイメージ数で作成する.</span>
-<span class="c1">#             | 最低でもnmax,最大でnmax個のイメージ数で作成する.</span>
-<span class="c1">#         isomorphism_func: functions object</span>
-<span class="c1">#             | 同一構造を判定する関数.atoms1,atoms2を引数にとり,atoms1とatoms2が同じ構造ならTrue,違う構造ならFalseを返すように設定する.</span>
-<span class="c1">#             | atoms1とatoms2以外にも引数を与えても良いが必ずデフォルト引数を設定すること.</span>
-<span class="c1">#             | 常にデフォルト引数が適用される.</span>
-<span class="c1">#             | PinNEBではis_similarをデフォルトのisomorphism_funcとする.</span>
-<span class="c1">#         &quot;&quot;&quot;</span>
-<span class="c1">#         return self.param</span>
-    
-<span class="c1">#     @property</span>
-<span class="c1">#     def default_param(self):</span>
-<span class="c1">#         &quot;&quot;&quot;デフォルトのパラメータを返す&quot;&quot;&quot;</span>
-<span class="c1">#         return {</span>
-<span class="c1">#         &quot;separate_completely&quot;:True,</span>
-<span class="c1">#         &quot;minenergy&quot;:10,</span>
-<span class="c1">#         &quot;barrier_less&quot;:0,</span>
-<span class="c1">#         &quot;nimages&quot;:(0.2,32,12),</span>
-<span class="c1">#         &quot;isomorphism_func&quot;:is_similar,</span>
-<span class="c1">#         &quot;preneb_optimizer&quot;:FIRE,</span>
-<span class="c1">#         &quot;preneb_climb_list&quot;:[False,False,False,False,False],</span>
-<span class="c1">#         &quot;preneb_maxstep_list&quot;:[0.02,0.05,0.1,0.2,0.25],</span>
-<span class="c1">#         &quot;preneb_automaxstep_climb_false&quot;:{1:0.05, 0.5:0.1, 0.1:0.2, 0.05:0.3, 0:0.35},</span>
-<span class="c1">#         &quot;preneb_automaxstep_climb_true&quot;:{0.1:0.03,0:0.01},</span>
-<span class="c1">#         &quot;preneb_fmax_list&quot;:[30,5,1,0.3,0.1],</span>
-<span class="c1">#         &quot;preneb_steps_list&quot;:[500,500,500,500,500],</span>
-<span class="c1">#         &quot;preneb_kwargs&quot;:{},</span>
-<span class="c1">#         &quot;prenebopt_kwargs&quot;:{},</span>
-<span class="c1">#         &quot;neb_optimizer&quot;:FIRE,</span>
-<span class="c1">#         &quot;neb_climb_list&quot;:[False,False,False,False,True,True],</span>
-<span class="c1">#         &quot;neb_maxstep_list&quot;:[0.02,0.05,0.1,None,0.01,None],</span>
-<span class="c1">#         &quot;neb_automaxstep_climb_false&quot;:{1:0.05, 0.5:0.1, 0.1:0.2, 0.05:0.3, 0:0.35},</span>
-<span class="c1">#         &quot;neb_automaxstep_climb_true&quot;:{0.1:0.03,0:0.01},</span>
-<span class="c1">#         &quot;neb_fmax_list&quot;:[0.05,0.05,0.05,0.05,0.05,0.05],</span>
-<span class="c1">#         &quot;neb_steps_list&quot;:[100,200,200,2000,500,1500],</span>
-<span class="c1">#         &quot;neb_kwargs&quot;:{},</span>
-<span class="c1">#         &quot;nebopt_kwargs&quot;:{},</span>
-<span class="c1">#         &quot;opt_optimizer&quot;:DEFAULT_OPTIMIZER,</span>
-<span class="c1">#         &quot;opt_maxstep_list&quot;:[0.02,0.05,0.1,0.2],</span>
-<span class="c1">#         &quot;opt_automaxstep&quot;:{1:0.1, 0.5:0.2, 0.1:0.3, 0.05:0.4, 0:0.5},</span>
-<span class="c1">#         &quot;opt_fmax_list&quot;:[0.001,0.001,0.001,0.001],</span>
-<span class="c1">#         &quot;opt_steps_list&quot;:[50,100,300,10000],</span>
-<span class="c1">#         &quot;opt_kwargs&quot;:{},</span>
-<span class="c1">#         &quot;same_energy_and_fmax_arg&quot;:{&quot;times&quot;:10,&quot;row&quot;:2,&quot;force_digit&quot;:4,&quot;energy_digit&quot;:6},</span>
-<span class="c1">#         &quot;steep_peak_arg&quot;:{&quot;max_ea&quot;:800, &quot;nsteps&quot;:100},</span>
-<span class="c1">#         }</span>
-        
-<span class="c1">#     @property</span>
-<span class="c1">#     def preneb_param(self):</span>
-<span class="c1">#         attrs = [&quot;preneb_optimizer&quot;, &quot;preneb_climb_list&quot;, &quot;preneb_maxstep_list&quot;,</span>
-<span class="c1">#                 &quot;preneb_automaxstep_climb_false&quot;, &quot;preneb_automaxstep_climb_true&quot;,</span>
-<span class="c1">#                 &quot;preneb_fmax_list&quot;, &quot;preneb_steps_list&quot;, &quot;preneb_kwargs&quot;,</span>
-<span class="c1">#                 &quot;prenebopt_kwargs&quot;,&quot;same_energy_and_fmax_arg&quot;,&quot;steep_peak_arg&quot;]</span>
-<span class="c1">#         keys = [&quot;base_optimizer&quot;, &quot;climb_list&quot;, &quot;maxstep_list&quot;,</span>
-<span class="c1">#                 &quot;automate_maxstep_false&quot;, &quot;automate_maxstep_true&quot;,</span>
-<span class="c1">#                 &quot;fmax_list&quot;, &quot;steps_list&quot;, &quot;neb_kwargs&quot;,</span>
-<span class="c1">#                 &quot;opt_kwargs&quot;,&quot;same_energy_and_fmax_arg&quot;,&quot;steep_peak_arg&quot;] </span>
-<span class="c1">#         return {key:self.param[attr] for attr,key in zip(attrs,keys)}</span>
-    
-<span class="c1">#     @property</span>
-<span class="c1">#     def neb_param(self):</span>
-<span class="c1">#         attrs = [&quot;neb_optimizer&quot;, &quot;neb_climb_list&quot;, &quot;neb_maxstep_list&quot;,</span>
-<span class="c1">#                 &quot;neb_automaxstep_climb_false&quot;, &quot;neb_automaxstep_climb_true&quot;,</span>
-<span class="c1">#                 &quot;neb_fmax_list&quot;, &quot;neb_steps_list&quot;, &quot;neb_kwargs&quot;,</span>
-<span class="c1">#                 &quot;nebopt_kwargs&quot;,&quot;same_energy_and_fmax_arg&quot;,&quot;steep_peak_arg&quot;]</span>
-<span class="c1">#         keys = [&quot;base_optimizer&quot;, &quot;climb_list&quot;, &quot;maxstep_list&quot;,</span>
-<span class="c1">#                 &quot;automate_maxstep_false&quot;, &quot;automate_maxstep_true&quot;,</span>
-<span class="c1">#                 &quot;fmax_list&quot;, &quot;steps_list&quot;, &quot;neb_kwargs&quot;,</span>
-<span class="c1">#                 &quot;opt_kwargs&quot;,&quot;same_energy_and_fmax_arg&quot;,&quot;steep_peak_arg&quot;] </span>
-<span class="c1">#         return {key:self.param[attr] for key,attr in zip(keys,attrs)}</span>
-    
-<span class="c1">#     @property</span>
-<span class="c1">#     def opt_param(self):</span>
-<span class="c1">#         attrs = [&quot;opt_optimizer&quot;, &quot;opt_maxstep_list&quot;, &quot;opt_automaxstep&quot;,&quot;opt_fmax_list&quot;,</span>
-<span class="c1">#                  &quot;opt_steps_list&quot;, &quot;opt_kwargs&quot;]</span>
-<span class="c1">#         keys = [&quot;optimizer&quot;,&quot;maxstep_list&quot;,&quot;automate_maxstep&quot;,&quot;fmax_list&quot;,&quot;steps_list&quot;,</span>
-<span class="c1">#                 &quot;opt_kwargs&quot;]</span>
-<span class="c1">#         return {key:self.param[attr] for key,attr in zip(keys,attrs)}</span>
-        
-<span class="c1">#     def opt_attach(self,*args,**kwargs):</span>
-<span class="c1">#         self.opt_attach_list.append((args,kwargs))</span>
-    
-<span class="c1">#     def preneb_attach(self, *args,**kwargs):</span>
-<span class="c1">#         self.preneb_attach_list.append((args,kwargs))</span>
-    
-<span class="c1">#     def neb_attach(self, *args,**kwargs):</span>
-<span class="c1">#         self.neb_attach_list.append((args,kwargs))</span>
-    
-<span class="c1">#     def register_eq(self,atoms):</span>
-<span class="c1">#         self.eq_list.append(atoms)</span>
-<span class="c1">#         write(f&quot;{self.eq_folder}/{len(self.eq_list)-1}.traj&quot;,atoms)</span>
-        
-<span class="c1">#     def register_ts(self,atoms):</span>
-<span class="c1">#         self.ts_list.append(atoms)</span>
-<span class="c1">#         write(f&quot;{self.ts_folder}/{len(self.ts_list)-1}.traj&quot;,atoms)</span>
-    
-<span class="c1">#     def first_push(self)-&gt;list:</span>
-<span class="c1">#         &quot;&quot;&quot;必須メソッド&quot;&quot;&quot;</span>
-<span class="c1">#         ea = get_ea(self.images,self.calc_func)</span>
-<span class="c1">#         self.register_eq(self.images[0].copy())</span>
-<span class="c1">#         self.register_eq(self.images[-1].copy())</span>
-<span class="c1">#         self.path_txt = &quot;EQ0|EQ1&quot;</span>
-<span class="c1">#         self.write_path_dat(self.path_txt)</span>
-<span class="c1">#         create_reactpath(self.path_dat).write_html(self.path_html)</span>
-<span class="c1">#         return [[ea,[0,1,0],self.images]] # 活性化障壁,名前(layter),イメージ</span>
-    
-<span class="c1">#     def run_and_push(self,data,layer)-&gt;list:</span>
-<span class="c1">#         &quot;&quot;&quot;必須メソッド&quot;&quot;&quot;</span>
-<span class="c1">#         ea,(self.ini_name,self.fin_name,self.num),images = data</span>
-<span class="c1">#         pre_file_name = f&quot;pre_EQ{self.ini_name}-EQ{self.fin_name}({layer}-{self.num})&quot;</span>
-<span class="c1">#         file_name = f&quot;EQ{self.ini_name}-EQ{self.fin_name}({layer}-{self.num})&quot;</span>
-<span class="c1">#         try:</span>
-<span class="c1">#             ####PreNEB####</span>
-<span class="c1">#             _,images = self.run_neb(images,name=pre_file_name,preneb=True) # PreNEB</span>
-<span class="c1">#             # 極小値を探す</span>
-<span class="c1">#             minimum_point,_ = find_local_minimum_points_and_ea(images,minenergy=self.minenergy)</span>
-<span class="c1">#             write_html(f&quot;{pre_file_name}.html&quot;,images,highlight=minimum_point)</span>
-<span class="c1">#             if len(minimum_point) &gt; 0:</span>
-<span class="c1">#                 push_data = self.run_opt_mkimg(images,minimum_point,pre_file_name)</span>
-<span class="c1">#                 if push_data is not None:</span>
-<span class="c1">#                     return push_data</span>
-<span class="c1">#             #収束させる(NEB)</span>
-<span class="c1">#             converged,images = self.run_neb(images,name=file_name,preneb=False) # NEB</span>
-<span class="c1">#             # 極小値を探す</span>
-<span class="c1">#             minimum_point,_ = find_local_minimum_points_and_ea(images,minenergy=self.minenergy) </span>
-<span class="c1">#             if converged:</span>
-<span class="c1">#                 if len(minimum_point)==0 or not self.separate_completely:</span>
-<span class="c1">#                     write(f&quot;{self.img_folder}/NEB{layer}-{self.num}(EQ{self.ini_name}-TS{len(self.ts_list)}-EQ{self.fin_name}).traj&quot;,self.neb.images)</span>
-<span class="c1">#                     imax = get_imax(images,self.barrier_less,self.calc_func)</span>
-<span class="c1">#                     if imax is not None:</span>
-<span class="c1">#                         self.register_ts(images[imax].copy())</span>
-<span class="c1">#                         self.write_path_dat_and_html(self.ini_name,self.fin_name,len(self.ts_list)-1)</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         # バリアレスの場合</span>
-<span class="c1">#                         self.write_path_dat_and_html(self.ini_name,self.fin_name,None)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     push_data = self.run_opt_mkimg(images,minimum_point,file_name)</span>
-<span class="c1">#                     if push_data is not None:</span>
-<span class="c1">#                         return push_data</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         write(f&quot;{self.img_folder}/NEB{layer}-{self.num}(EQ{self.ini_name}-TS{len(self.ts_list)}-EQ{self.fin_name}).traj&quot;,self.neb.images)</span>
-<span class="c1">#                         imax = get_imax(images,self.barrier_less,self.calc_func)</span>
-<span class="c1">#                         if imax is not None:</span>
-<span class="c1">#                             self.register_ts(images[imax].copy())</span>
-<span class="c1">#                             self.write_path_dat_and_html(self.ini_name,self.fin_name,len(self.ts_list)-1)  </span>
-<span class="c1">#             else:</span>
-<span class="c1">#                 if len(minimum_point)==0:</span>
-<span class="c1">#                     write(f&quot;{self.unconv_img_folder}/NEB{layer}-{self.num}(EQ{self.ini_name}-EQ{self.fin_name}).traj&quot;,self.neb.images)</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     push_data = self.run_opt_mkimg(images,minimum_point,file_name)</span>
-<span class="c1">#                     if push_data is not None:</span>
-<span class="c1">#                         return push_data</span>
-<span class="c1">#                     else:</span>
-<span class="c1">#                         write(f&quot;{self.unconv_img_folder}/NEB{layer}-{self.num}(EQ{self.ini_name}-EQ{self.fin_name}).traj&quot;,self.neb.images)   </span>
-<span class="c1">#             return []</span>
-<span class="c1">#         except Exception as e:</span>
-<span class="c1">#             self.write_errorlog(f&quot;EQ{self.ini_name}-EQ{self.fin_name}の計算:\n{e}\n{traceback.format_exc()}\n&quot;)</span>
-<span class="c1">#             return []</span>
-        
-<span class="c1">#     def write_errorlog(self,text):</span>
-<span class="c1">#         with open(f&quot;{self.errorfile}_{id(self)}&quot;,&quot;a&quot;) as f:</span>
-<span class="c1">#             f.write(text)</span>
-        
-<span class="c1">#     def run_neb(self,images,name,preneb=False):</span>
-<span class="c1">#         self.neb = RepetitiveNEB(images,</span>
-<span class="c1">#                                  constraints=self.constraints,</span>
-<span class="c1">#                                  parallel=self.parallel,</span>
-<span class="c1">#                                  mic=self.mic,</span>
-<span class="c1">#                                  calc_func=self.calc_func,</span>
-<span class="c1">#                                  name=name)</span>
-<span class="c1">#         self.neb.attach(lambda:write_html(f&quot;{name}.html&quot;,self.neb.images),interval=10)</span>
-<span class="c1">#         if preneb:</span>
-<span class="c1">#             self.neb.attach(lambda:write(f&quot;{name}.traj&quot;,self.neb.images),interval=10)</span>
-<span class="c1">#             param = self.preneb_param</span>
-<span class="c1">#         else:</span>
-<span class="c1">#             self.neb.attach(lambda:write(f&quot;Current.traj&quot;,self.neb.images),interval=10)</span>
-<span class="c1">#             param = self.neb_param</span>
-<span class="c1">#             rename_list = [&quot;log&quot;,&quot;html&quot;]</span>
-<span class="c1">#             for r in rename_list:</span>
-<span class="c1">#                 if Path(f&quot;pre_{name}.{r}&quot;).exists():</span>
-<span class="c1">#                     Path(f&quot;pre_{name}.{r}&quot;).rename(f&quot;{name}.{r}&quot;)</span>
-<span class="c1">#             if Path(f&quot;pre_{name}.traj&quot;).exists():</span>
-<span class="c1">#                 Path(f&quot;pre_{name}.traj&quot;).unlink()      </span>
-<span class="c1">#         converged = self.neb.run(**param)</span>
-<span class="c1">#         return converged, self.neb.images</span>
-    
-<span class="c1">#     def run_opt(self,atoms,name):</span>
-<span class="c1">#         # atomsにはconstraintsがかかっているハズ</span>
-<span class="c1">#         self.opt = RepetitiveOpt(atoms,constraints=self.constraints,logfile=f&quot;{name}.log&quot;,calc_func=self.calc_func)</span>
-<span class="c1">#         # self.opt.attach(lambda:write(f&quot;{name}.traj&quot;,self.opt.atoms))</span>
-<span class="c1">#         converged = self.opt.run(**self.opt_param)</span>
-<span class="c1">#         return converged,self.opt.atoms</span>
-    
-<span class="c1">#     def run_opt_mkimg(self,images,minimum_point,name):</span>
-<span class="c1">#         # 最適化--&gt;ジオメトリの検証--&gt;images作成--&gt;queueに渡す</span>
-<span class="c1">#         eq_result_list = []</span>
-<span class="c1">#         eq_num = []</span>
-<span class="c1">#         for min_idx in minimum_point:</span>
-<span class="c1">#             conv,atoms = self.run_opt(images[min_idx].copy(),f&quot;opt_{name}-{min_idx}&quot;)</span>
-<span class="c1">#             if conv:</span>
-<span class="c1">#                 self.register_eq(atoms)</span>
-<span class="c1">#                 eq_result_list.append([conv,atoms]) #収束状況,Atoms,EQ番号</span>
-<span class="c1">#                 eq_num.append(len(self.eq_list)-1)</span>
-<span class="c1">#             else:</span>
-<span class="c1">#                 eq_result_list.append(conv,atoms)</span>
-                
-<span class="c1">#         write_html(f&quot;{name}.html&quot;,images,highlight=minimum_point,</span>
-<span class="c1">#                     annotation=[(i,f&quot;Succeed--&gt;EQ{eq_idx}&quot; if conv else &quot;Failed&quot;) </span>
-<span class="c1">#                                 for  i,(conv,_),eq_idx in zip(minimum_point,eq_result_list,eq_num)])</span>
-<span class="c1">#         # self.write_path_dat_and_html(self.ini_name,self.fin_name,eq_num)</span>
-<span class="c1">#         eq_atoms = [images[0]]+[atoms for conv,atoms in eq_result_list if conv]+[images[-1]] #収束したもの+元々のini,finのみ抽出</span>
-<span class="c1">#         eq_num_list = [self.ini_name] + eq_num + [self.fin_name]</span>
-<span class="c1">#         all_ini_fin_list = [[eq_atoms[i],eq_atoms[i+1],eq_num_list[i],eq_num_list[i+1]] for i in range(len(eq_atoms)-1)] # [[iniAtoms,finAtoms],]</span>
-        
-<span class="c1">#         #ジオメトリの検証</span>
-<span class="c1">#         ini_fin_list = []</span>
-<span class="c1">#         sign = [] # |異なる構造 ;同じ構造</span>
-<span class="c1">#         for ini,fin,ini_eq,fin_eq in all_ini_fin_list:</span>
-<span class="c1">#             if not self.isomorphism_func(ini,fin):</span>
-<span class="c1">#                 ini_fin_list.append([ini,fin,ini_eq,fin_eq])</span>
-<span class="c1">#                 sign.append(&quot;|&quot;)</span>
-<span class="c1">#             else:</span>
-<span class="c1">#                 sign.append(&quot;;&quot;)</span>
-<span class="c1">#         path_txt = f&quot;EQ{eq_num_list[0]}&quot;</span>
-<span class="c1">#         for s,ini_idx in zip(sign,eq_num_list[1:]):</span>
-<span class="c1">#             path_txt+=f&quot;{s}EQ{ini_idx}&quot;</span>
-<span class="c1">#         self.write_path_dat_and_html(self.ini_name,self.fin_name,path_txt)</span>
-        
-        
-<span class="c1">#         # images作成</span>
-<span class="c1">#         push_data = []</span>
-<span class="c1">#         if len(ini_fin_list) != 0:</span>
-<span class="c1">#             for i,(ini,fin,ini_eq,fin_eq) in enumerate(ini_fin_list):</span>
-<span class="c1">#                 if type(self.nimages)==int:</span>
-<span class="c1">#                     n = self.nimages</span>
-<span class="c1">#                 else:</span>
-<span class="c1">#                     n = get_appropriate_nimages(ini,fin,dist=self.nimages[0],nmax=self.nimages[1],nmin=self.nimages[2],mic=self.mic)</span>
-<span class="c1">#                 images = [ini.copy() for _ in range(n)]+[fin.copy()]</span>
-<span class="c1">#                 interpolate(images,mic=self.mic)</span>
-<span class="c1">#                 set_calc2images(images,self.calc_func)</span>
-<span class="c1">#                 set_const2images(images, self.constraints)</span>
-<span class="c1">#                 ea = get_ea(images,calc_func=self.calc_func)</span>
-<span class="c1">#                 push_data.append([ea,[ini_eq,fin_eq,i],images])</span>
-<span class="c1">#             return push_data</span>
-<span class="c1">#         return None</span>
-    
-<span class="c1">#     def data_to_serializable_obj(self,data):</span>
-<span class="c1">#         &quot;&quot;&quot;必須メソッド&quot;&quot;&quot;</span>
-<span class="c1">#         ea,name,images = data</span>
-<span class="c1">#         for image in images:</span>
-<span class="c1">#             del image.calc</span>
-<span class="c1">#         return [ea,name,images]</span>
-    
-<span class="c1">#     @classmethod</span>
-<span class="c1">#     def data_from_serializable_obj(cls,data):</span>
-<span class="c1">#         &quot;&quot;&quot;必須メソッド&quot;&quot;&quot;</span>
-<span class="c1">#         ea,name,images = data</span>
-<span class="c1">#         for image in images:</span>
-<span class="c1">#             image.calc = cls.calc_func()</span>
-<span class="c1">#         return [ea,name,images]</span>
         
 <div class="viewcode-block" id="AutoPinNEB"><a class="viewcode-back" href="../../../src/modules/automate.html#grrmpy.automate.pin_neb.AutoPinNEB">[ドキュメント]</a><span class="k">class</span> <span class="nc">AutoPinNEB</span><span class="p">():</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -697,7 +273,78 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
             
 <div class="viewcode-block" id="AutoPinNEB.get_param"><a class="viewcode-back" href="../../../src/modules/automate.html#grrmpy.automate.pin_neb.AutoPinNEB.get_param">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">get_param</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;parameter&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters:</span>
+<span class="sd">        </span>
+<span class="sd">        separate_completely: bool</span>
+<span class="sd">            | 通常のNEBで収束した時,エネルギーダイアグラム上に極小点があれば,極小点を最適化してNEB分割する.</span>
+<span class="sd">        minenergy: float</span>
+<span class="sd">            | minenergy(kJ/mol)以下の活性化エネルギーの場合は極小点があっても無視する.</span>
+<span class="sd">        barrier_less: float</span>
+<span class="sd">            | barrier_less(kJ/mol)以下の活性化エネルギーの場合,バリアレスとみなす．</span>
+<span class="sd">        nimages: int or tuple</span>
+<span class="sd">            | intので指定した場合,指定した数のイメージ数で新たなNEBイメージを作成する.</span>
+<span class="sd">            | tupleで指定する場合,3要素(a,b,c)のタプルを与える.</span>
+<span class="sd">            | aÅ毎にイメージを作成する.最大でもb個,最低でもc個のイメージを作成する.</span>
+<span class="sd">        isomorphism_func: function object</span>
+<span class="sd">            | 同一構造判定を行なう関数,デフォルトではis_similarを用いる.</span>
+<span class="sd">        rename_preneb_file: bool</span>
+<span class="sd">            | Trueの場合,pre_NEBファイルは消す</span>
+<span class="sd">        preneb_optimizer: Optimizer</span>
+<span class="sd">            PreNEBのOptimizer</span>
+<span class="sd">        preneb_climb_list: list of bool</span>
+<span class="sd">            | climbのリスト</span>
+<span class="sd">        preneb_maxstep_list: list of float</span>
+<span class="sd">            | maxstepのリスト</span>
+<span class="sd">        preneb_automaxstep_climb_false: </span>
+<span class="sd">            | {1:0.05, 0.5:0.1, 0.1:0.2, 0.05:0.3, 0:0.35}</span>
+<span class="sd">        preneb_automaxstep_climb_true: dict</span>
+<span class="sd">            {0.1:0.03,0:0.01}</span>
+<span class="sd">        preneb_fmax_list :list of float</span>
+<span class="sd">            | </span>
+<span class="sd">        preneb_steps_list: list of int</span>
+<span class="sd">            | </span>
+<span class="sd">        preneb_kwargs:</span>
+<span class="sd">            | </span>
+<span class="sd">        prenebopt_kwargs:</span>
+<span class="sd">            | </span>
+<span class="sd">        neb_optimizer: Optimizer</span>
+<span class="sd">            | </span>
+<span class="sd">        &quot;neb_climb_list&quot;: list of bool</span>
+<span class="sd">            | </span>
+<span class="sd">        neb_maxstep_list: </span>
+<span class="sd">            | [0.02,0.05,0.1,None,0.01,None],</span>
+<span class="sd">        neb_automaxstep_climb_false:</span>
+<span class="sd">            | {1:0.05, 0.5:0.1, 0.1:0.2, 0.05:0.3, 0:0.35},</span>
+<span class="sd">        neb_automaxstep_climb_true&quot;:</span>
+<span class="sd">            | {0.1:0.03,0:0.01},</span>
+<span class="sd">        neb_fmax_list:</span>
+<span class="sd">            | [0.01,0.05,0.05,0.05,0.05,0.05],</span>
+<span class="sd">        neb_steps_list:</span>
+<span class="sd">            | [100,200,200,2000,500,1500],</span>
+<span class="sd">        neb_kwargs:</span>
+<span class="sd">            | {}</span>
+<span class="sd">        nebopt_kwargs:</span>
+<span class="sd">            | {}</span>
+<span class="sd">        opt_optimizer:</span>
+<span class="sd">            | DEFAULT_OPTIMIZER</span>
+<span class="sd">        opt_maxstep_list:</span>
+<span class="sd">            | [0.02,0.05,0.1,0.2]</span>
+<span class="sd">        opt_automaxstep:</span>
+<span class="sd">            | {1:0.1, 0.5:0.2, 0.1:0.3, 0.05:0.4, 0:0.5}</span>
+<span class="sd">        opt_fmax_list:</span>
+<span class="sd">            | [0.001,0.001,0.001,0.001]</span>
+<span class="sd">        opt_steps_list:</span>
+<span class="sd">            | [50,100,300,10000]</span>
+<span class="sd">        opt_kwargs:</span>
+<span class="sd">            | {}</span>
+<span class="sd">        same_energy_and_fmax_arg:</span>
+<span class="sd">            | {&quot;times&quot;:10,&quot;row&quot;:2,&quot;force_digit&quot;:4,&quot;energy_digit&quot;:6},</span>
+<span class="sd">        steep_peak_arg:</span>
+<span class="sd">            | {&quot;max_ea&quot;:800, &quot;nsteps&quot;:100}</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span></div>
         
     <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">folder</span><span class="p">):</span>

@@ -118,6 +118,12 @@ read_afc
 .. autofunction:: grrmpy.io.read_acfdat.get_dader
 
 
+VESTAのelement.iniやCSVファイルからclolorの辞書を作成する
+=============================================================
+.. autofunction:: grrmpy.io.read_elementsini.read_elementsini
+.. autofunction:: grrmpy.io.read_elementsini.read_csv
+
+
 高圧縮でシリアライズ化する
 ===========================
 

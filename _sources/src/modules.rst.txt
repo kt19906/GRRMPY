@@ -16,4 +16,5 @@ Modules
    modules/data
    modules/conv
    modules/network
+   modules/blender
    modules/commandline

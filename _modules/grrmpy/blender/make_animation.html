@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>grrmpy.blender.make_animation &mdash; GRRMPY 2022/11/10 ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/ase.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> GRRMPY
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/install.html">インストール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tutorial.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/toy_tools.html">ちょっとした機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/SearchByPurpose.html">目的から探す</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/algorithm.html">最短経路アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../src/other.html">その他</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">GRRMPY</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">モジュールコード</a></li>
+      <li class="breadcrumb-item active">grrmpy.blender.make_animation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>grrmpy.blender.make_animation のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">write</span>
+
+<span class="c1"># USER</span>
+<span class="kn">from</span> <span class="nn">grrmpy.blender.functions</span> <span class="kn">import</span> <span class="n">prop2pkl</span>
+
+<div class="viewcode-block" id="make_animation"><a class="viewcode-back" href="../../../src/modules/blender.html#grrmpy.blender.make_animation.make_animation">[ドキュメント]</a><span class="k">def</span> <span class="nf">make_animation</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span><span class="n">traj</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">pyfile</span><span class="o">=</span><span class="s2">&quot;animation.py&quot;</span><span class="p">,</span><span class="n">x3dfile</span><span class="o">=</span><span class="s2">&quot;Atoms.x3d&quot;</span><span class="p">,</span><span class="n">pklfile</span><span class="o">=</span><span class="s2">&quot;property.pkl&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    </span>
+<span class="sd">    AtomsのImagesからBlenderアニメーションを作成するためのPythonスクリプトを作成する</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    </span>
+<span class="sd">    folder: str</span>
+<span class="sd">        | Pythonスクリプトなどの必要なファイルを格納するためのフォルダ</span>
+<span class="sd">    traj: Trajectory or list of Atoms</span>
+<span class="sd">        | TrajectoryまたはAtomsのリスト</span>
+<span class="sd">        | 構造の数が多い場合はTrajectoryで作成しないとメモリが溢れてしまう.</span>
+<span class="sd">    step: int</span>
+<span class="sd">        | stepフレーム毎にキーを打つ</span>
+<span class="sd">    start: int</span>
+<span class="sd">        startフレームからキーを打つ</span>
+<span class="sd">    color_dict: bool or dict</span>
+<span class="sd">        | Trueにした場合元素毎に着色される</span>
+<span class="sd">        | 色を指定したい場合は辞書型で与える(元素:(R,G,B,A)) RGBは1で規格化する必要がある.</span>
+<span class="sd">        | ex) {&#39;Si&#39;:(1.0, 1.0, 0.0, 1),&#39;O&#39;:(1.0, 0.0, 0.0, 1),`Al`:(0.235, 1.0, 0.0, 1)}</span>
+<span class="sd">        | VESTAのelement.iniからcolor_dictを作成する場合は</span>
+<span class="sd">          :class:`grrmpy.io.read_elementsini.read_elementsini` を用いると良い </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()))</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">内に既にファイルが存在します&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+    <span class="n">make_py_script</span><span class="p">(</span><span class="n">p</span><span class="o">/</span><span class="n">pyfile</span><span class="p">,</span><span class="n">p</span><span class="o">/</span><span class="n">x3dfile</span><span class="p">,</span><span class="n">p</span><span class="o">/</span><span class="n">pklfile</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">write</span><span class="p">(</span><span class="n">p</span><span class="o">/</span><span class="n">x3dfile</span><span class="p">,</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;x3d&quot;</span><span class="p">)</span>
+    <span class="n">prop2pkl</span><span class="p">(</span><span class="n">p</span><span class="o">/</span><span class="n">pklfile</span><span class="p">,</span><span class="n">traj</span><span class="p">,</span><span class="n">color_dict</span><span class="p">)</span></div>
+
+
+<span class="n">text1</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;import pickle</span>
+<span class="s2">from pathlib import Path</span>
+<span class="s2">import bpy</span>
+<span class="s2">import numpy as np</span>
+
+<span class="s2">p = Path(__file__)</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">text2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">bpy.ops.import_scene.x3d(filepath=x3d_path)</span>
+
+<span class="s2">frame_num = start</span>
+
+<span class="s2">with open(pkl_path,&#39;rb&#39;) as f:</span>
+<span class="s2">    nimages = pickle.load(f)</span>
+<span class="s2">    chemical_symbols = pickle.load(f)</span>
+<span class="s2">    color_dict = pickle.load(f)</span>
+<span class="s2">    </span>
+<span class="s2">    if color_dict:</span>
+<span class="s2">        mat_dict = </span><span class="si">{}</span><span class="s2"></span>
+<span class="s2">        for symbol in set(color_dict.keys()):</span>
+<span class="s2">            mat = bpy.data.materials.new(symbol)</span>
+<span class="s2">            mat.use_nodes = True</span>
+<span class="s2">            bsdf = mat.node_tree.nodes[&quot;Principled BSDF&quot;]</span>
+<span class="s2">            bsdf.inputs[0].default_value = color_dict[symbol]</span>
+<span class="s2">            mat_dict[symbol] = mat</span>
+<span class="s2">    </span>
+<span class="s2">    for obj,symbol in zip(bpy.data.objects[-nimages:],chemical_symbols):</span>
+<span class="s2">        if color_dict:</span>
+<span class="s2">            obj.data.materials.append(mat_dict[symbol])</span>
+<span class="s2">        obj.modifiers.new(&quot;subd&quot;, type=&#39;SUBSURF&#39;)</span>
+<span class="s2">        obj.modifiers[&#39;subd&#39;].levels = 3</span>
+<span class="s2">        obj.modifiers[&#39;subd&#39;].render_levels = 3</span>
+<span class="s2">    </span>
+<span class="s2">    while 1:</span>
+<span class="s2">        try:</span>
+<span class="s2">            bpy.context.scene.frame_set(frame_num)</span>
+<span class="s2">            positions = pickle.load(f)</span>
+<span class="s2">            for obj,position in zip(bpy.data.objects[-nimages:],positions):</span>
+<span class="s2">                obj.location = position.tolist()</span>
+<span class="s2">                obj.keyframe_insert(data_path = &#39;location&#39;,index = -1)</span>
+<span class="s2">            frame_num += step</span>
+<span class="s2">        except EOFError:</span>
+<span class="s2">            break</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">make_py_script</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">x3dfile</span><span class="p">,</span><span class="n">pklfile</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">x3d</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">x3dfile</span><span class="p">)</span>
+    <span class="n">pkl</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">pklfile</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text1</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x3d_path = str(p.parent.with_name(&#39;</span><span class="si">{</span><span class="n">x3d</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;).resolve())</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pkl_path = str(p.parent.with_name(&#39;</span><span class="si">{</span><span class="n">pkl</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;).resolve())</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;step = </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="se">\n</span><span class="s2">start= </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kato Taisetsu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

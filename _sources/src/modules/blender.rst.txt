@@ -1,0 +1,13 @@
+##################
+blenderモジュール
+##################
+
+
+
+MD等のTrajectoryをBlenderアニメーションにする
+=============================================
+
+アニメーションにするPythonスクリプトを作成する.
+
+.. autofunction:: grrmpy.blender.make_animation.make_animation
+

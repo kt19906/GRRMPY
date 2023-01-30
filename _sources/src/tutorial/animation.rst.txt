@@ -1,0 +1,69 @@
+==================================
+Blenderのアニメーションを作成する
+==================================
+
+.. image:: ./img/Sample_Movie.gif
+   :scale: 20%
+   :align: center
+
+作成方法
+===============================
+
+Matlantis上での操作
+-------------------------
+
+| Matlantisでアニメーションにしたい構造をTrajectoryとしておき, 
+ :class:`make_animation<grrmpy.blender.make_animation.make_animation>` を実行する.
+| 実行後,指定したフォルダ内に"animation.py","Atoms.x3d","property.pkl"が作成される.
+| これらのファイルをローカルPCにダウンロードする.
+
+.. code-block:: python
+
+    from grrmpy.blender import make_animation
+
+    traj = Trajectory("MD.traj")
+    make_animation("Sample",traj,step=3, start=0)
+    # --> Sampleフォルダに"animation.py","Atoms.x3d","property.pkl"が作成される.
+
+ローカルPC上での操作
+-------------------------------
+
+"animation.py","Atoms.x3d","property.pkl"があるディレクトリ上で blenderファイルを作成する.
+
+.. image:: ./img/folder.png
+   :scale: 50%
+   :align: center
+
+blenderファイルを開き,テキストエディターを開く(windows: Shift+F11).
+
+.. image:: ./img/text_editer.png
+   :scale: 25%
+   :align: center
+
+.. image:: ./img/text_editer2.png
+   :scale: 25%
+   :align: center
+
+
+| テキストエディターからanimation.pyを開き,Pythonスクリプトを実行する(数秒かかる).
+
+.. image:: ./img/text_editer3.png
+   :scale: 30%
+   :align: center
+
+| 3Dビューポートに戻ると構造がインポートされた事が分かる.
+| 原子に色がついていないように見える場合があるが，マテリアルプレビューモードにすればちゃんと着色されている.
+| 元素の色を変えたい場合はBlender上で操作するか, :class:`make_animation<grrmpy.blender.make_animation.make_animation>`
+ `color_dict` の引数を設定する.
+
+.. image:: ./img/view.png
+   :scale: 30%
+   :align: center
+
+| キーフレームは0から開始し,3フレーム毎にキーが挿入されている.
+| :class:`make_animation<grrmpy.blender.make_animation.make_animation>` の引数で
+ start=0, step=3 としたため.
+
+.. image:: ./img/key_frame.png
+   :scale: 30%
+   :align: center

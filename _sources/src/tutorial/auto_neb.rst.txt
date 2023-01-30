@@ -44,32 +44,6 @@ AutoNEBのドキュメント: :class:`AutoNEB<grrmpy.automate.auto_neb.AutoNEB>`
 
 その他のパラメータは :class:`AutoNEB<grrmpy.automate.auto_neb.AutoNEB>` を参照.
 
-インスタンス引数のconnectionsについて
--------------------------------------
-
-| インスタンス引数の `connections` をXXX_TS_list.logやXXX_PT_listから取得したい場合は多いだろう.
-| :class:`read_connections<grrmpy.io.read_listlog.read_connections>` でCONNECTIONを読み取れる
-
->>> original_connections = read_connections("XXX_TS_list.log") 
-
-この状態のままインスタンス引数として与えても良いが,XXX_TS_list.logのCONNECTIONには
-
-- [0,0] などの同じ構造を結ぶ反応
-- [0,1],[1,0] など同じ反応
-- [0,"??"] など意味のない反応
-
-など計算する必要のないCONNECTIONが含まれている.これを除去するには
-:class:`get_unique_connections<grrmpy.functions.get_unique_connections>` を用いる
-
->>> unique_connections, _ = get_unique_connections(original_connections)
-
-| 基本的にはこのunique_connectionsをAutoNEBのインスタンス引数に与えれば良いが,
- :class:`grouping<grrmpy.geometry.functions.grouping>` を用いれば,さらに不要な計算を省くことができる.
-| groupingの細かな使用方法の説明は省くが,次のようなコードを書けば,同じgtoup(同じ構造)を結ぶCONNECTIONを省くことができる.
-
->>> group = grouping(eq_list, rtype="1D")
->>> connections = [[ini,fin] for ini,fin in unique_connections if group[ini]!=group[fin]]
-
 NEBのイメージ数について
 -----------------------------
 

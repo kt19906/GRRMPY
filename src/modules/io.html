@@ -43,6 +43,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">インストール</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../calculator.html">PFP Calculator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Modules</a><ul class="current">
@@ -67,6 +68,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#read-afc">read_afc</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#vestaelement-inicsvclolor">VESTAのelement.iniやCSVファイルからclolorの辞書を作成する</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.io.read_elementsini.read_elementsini"><code class="docutils literal notranslate"><span class="pre">read_elementsini()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.io.read_elementsini.read_csv"><code class="docutils literal notranslate"><span class="pre">read_csv()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">高圧縮でシリアライズ化する</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#grrmpy.io.compressed_pickle.loads"><code class="docutils literal notranslate"><span class="pre">loads()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#grrmpy.io.compressed_pickle.dumps"><code class="docutils literal notranslate"><span class="pre">dumps()</span></code></a></li>
@@ -86,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="data.html">Dataモジュール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="conv.html">Convモジュール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="network.html">Networkモジュール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html">blenderモジュール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="commandline.html">コマンドライン</a></li>
 </ul>
 </li>
@@ -486,6 +493,61 @@
 </dd></dl>
 
 </section>
+</section>
+<section id="vestaelement-inicsvclolor">
+<h2>VESTAのelement.iniやCSVファイルからclolorの辞書を作成する<a class="headerlink" href="#vestaelement-inicsvclolor" title="この見出しへのパーマリンク"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.io.read_elementsini.read_elementsini">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.io.read_elementsini.</span></span><span class="sig-name descname"><span class="pre">read_elementsini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements_ini_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rgba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/read_elementsini.html#read_elementsini"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.read_elementsini.read_elementsini" title="この定義へのパーマリンク"></a></dt>
+<dd><p>構造をViewerで可視化する際の原子の色を規定する辞書を作成する.</p>
+<p>Parameters:</p>
+<dl>
+<dt>elements_ini_path: Union[str, Path]</dt><dd><div class="line-block">
+<div class="line">elements.ini(VESTAで使われるやつ)のパス</div>
+</div>
+</dd>
+<dt>rgba: bool</dt><dd><div class="line-block">
+<div class="line">Trueの場合, (r,g,b,a) のタプル,RGBは最大値が1で規格化される</div>
+<div class="line">Falseの場合, 0xから始めるHEXで与えられる</div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p>元素名,hexカラーコードの辞書.{'H':'0xffffff'}</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="grrmpy.io.read_elementsini.read_csv">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.io.read_elementsini.</span></span><span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rgba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/io/read_elementsini.html#read_csv"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.io.read_elementsini.read_csv" title="この定義へのパーマリンク"></a></dt>
+<dd><p>原子の色を規定したcsvファイルを読み込みcolor_dictを返す</p>
+<p>Parameters:</p>
+<dl>
+<dt>filename: str</dt><dd><div class="line-block">
+<div class="line">csvファイル</div>
+</div>
+</dd>
+<dt>rgba: bool</dt><dd><div class="line-block">
+<div class="line">Trueの場合, (r,g,b,a) のタプル,RGBは最大値が1で規格化される</div>
+<div class="line">Falseの場合, 0xから始めるHEXで与えられる</div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値</dt>
+<dd class="field-odd"><p>元素名,hexカラーコードの辞書.{'H':'0xffffff'}</p>
+</dd>
+<dt class="field-even">戻り値の型</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="id1">
 <h2>高圧縮でシリアライズ化する<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>

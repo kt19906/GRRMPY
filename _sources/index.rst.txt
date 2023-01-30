@@ -10,6 +10,7 @@ GRRMPYドキュメント
    :maxdepth: 2
 
    src/basic
+   src/install
    src/calculator
    src/tutorial
    src/modules

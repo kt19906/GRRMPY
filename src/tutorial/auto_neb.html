@@ -43,15 +43,16 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">インストール</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../calculator.html">PFP Calculator</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorial.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="import_GRRM.html">GRRMの結果をデータをインポートする</a></li>
 <li class="toctree-l2"><a class="reference internal" href="auto_opt.html">連続最適化計算</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">連続NEB計算</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">複数のNEB計算を連続的に行なう</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id2">基本的な使い方</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">計算後のデータの取り込み</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id4">細かいパラメータを指定する</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#connections">インスタンス引数のconnectionsについて</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id5">NEBのイメージ数について</a></li>
 </ul>
 </li>
@@ -60,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="auto_vib.html">連続Vib計算</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pin_neb.html">PinNEB計算</a></li>
 <li class="toctree-l2"><a class="reference internal" href="auto_pinneb.html">連続PinNEB計算</a></li>
+<li class="toctree-l2"><a class="reference internal" href="animation.html">Blenderのアニメーションを作成する</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
@@ -158,36 +160,6 @@
 </pre></div>
 </div>
 <p>その他のパラメータは <a class="reference internal" href="../modules/automate.html#grrmpy.automate.auto_neb.AutoNEB" title="grrmpy.automate.auto_neb.AutoNEB"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoNEB</span></code></a> を参照.</p>
-</section>
-<section id="connections">
-<h3>インスタンス引数のconnectionsについて<a class="headerlink" href="#connections" title="この見出しへのパーマリンク"></a></h3>
-<div class="line-block">
-<div class="line">インスタンス引数の <cite>connections</cite> をXXX_TS_list.logやXXX_PT_listから取得したい場合は多いだろう.</div>
-<div class="line"><a class="reference internal" href="../modules/io.html#grrmpy.io.read_listlog.read_connections" title="grrmpy.io.read_listlog.read_connections"><code class="xref py py-class docutils literal notranslate"><span class="pre">read_connections</span></code></a> でCONNECTIONを読み取れる</div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">original_connections</span> <span class="o">=</span> <span class="n">read_connections</span><span class="p">(</span><span class="s2">&quot;XXX_TS_list.log&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>この状態のままインスタンス引数として与えても良いが,XXX_TS_list.logのCONNECTIONには</p>
-<ul class="simple">
-<li><p>[0,0] などの同じ構造を結ぶ反応</p></li>
-<li><p>[0,1],[1,0] など同じ反応</p></li>
-<li><p>[0,&quot;??&quot;] など意味のない反応</p></li>
-</ul>
-<p>など計算する必要のないCONNECTIONが含まれている.これを除去するには
-<a class="reference internal" href="../toy_tools.html#grrmpy.functions.get_unique_connections" title="grrmpy.functions.get_unique_connections"><code class="xref py py-class docutils literal notranslate"><span class="pre">get_unique_connections</span></code></a> を用いる</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">unique_connections</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_unique_connections</span><span class="p">(</span><span class="n">original_connections</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line">基本的にはこのunique_connectionsをAutoNEBのインスタンス引数に与えれば良いが,
-<a class="reference internal" href="../modules/geometry.html#grrmpy.geometry.functions.grouping" title="grrmpy.geometry.functions.grouping"><code class="xref py py-class docutils literal notranslate"><span class="pre">grouping</span></code></a> を用いれば,さらに不要な計算を省くことができる.</div>
-<div class="line">groupingの細かな使用方法の説明は省くが,次のようなコードを書けば,同じgtoup(同じ構造)を結ぶCONNECTIONを省くことができる.</div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">grouping</span><span class="p">(</span><span class="n">eq_list</span><span class="p">,</span> <span class="n">rtype</span><span class="o">=</span><span class="s2">&quot;1D&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">connections</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ini</span><span class="p">,</span><span class="n">fin</span><span class="p">]</span> <span class="k">for</span> <span class="n">ini</span><span class="p">,</span><span class="n">fin</span> <span class="ow">in</span> <span class="n">unique_connections</span> <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="n">ini</span><span class="p">]</span><span class="o">!=</span><span class="n">group</span><span class="p">[</span><span class="n">fin</span><span class="p">]]</span>
-</pre></div>
-</div>
 </section>
 <section id="id5">
 <h3>NEBのイメージ数について<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h3>

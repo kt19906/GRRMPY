@@ -43,6 +43,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">インストール</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../calculator.html">PFP Calculator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../modules.html">Modules</a><ul class="current">
@@ -88,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="data.html">Dataモジュール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="conv.html">Convモジュール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="network.html">Networkモジュール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blender.html">blenderモジュール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="commandline.html">コマンドライン</a></li>
 </ul>
 </li>
@@ -158,7 +160,135 @@
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="grrmpy.automate.pin_neb.PinNEB.get_param">
 <span class="sig-name descname"><span class="pre">get_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/pin_neb.html#PinNEB.get_param"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.pin_neb.PinNEB.get_param" title="この定義へのパーマリンク"></a></dt>
-<dd><p>parameter</p>
+<dd><p>Parameters:</p>
+<dl>
+<dt>separate_completely: bool</dt><dd><div class="line-block">
+<div class="line">通常のNEBで収束した時,エネルギーダイアグラム上に極小点があれば,極小点を最適化してNEB分割する.</div>
+</div>
+</dd>
+<dt>minenergy: float</dt><dd><div class="line-block">
+<div class="line">minenergy(kJ/mol)以下の活性化エネルギーの場合は極小点があっても無視する.</div>
+</div>
+</dd>
+<dt>barrier_less: float</dt><dd><div class="line-block">
+<div class="line">barrier_less(kJ/mol)以下の活性化エネルギーの場合,バリアレスとみなす．</div>
+</div>
+</dd>
+<dt>nimages: int or tuple</dt><dd><div class="line-block">
+<div class="line">intので指定した場合,指定した数のイメージ数で新たなNEBイメージを作成する.</div>
+<div class="line">tupleで指定する場合,3要素(a,b,c)のタプルを与える.</div>
+<div class="line">aÅ毎にイメージを作成する.最大でもb個,最低でもc個のイメージを作成する.</div>
+</div>
+</dd>
+<dt>isomorphism_func: function object</dt><dd><div class="line-block">
+<div class="line">同一構造判定を行なう関数,デフォルトではis_similarを用いる.</div>
+</div>
+</dd>
+<dt>rename_preneb_file: bool</dt><dd><div class="line-block">
+<div class="line">Trueの場合,pre_NEBファイルは消す</div>
+</div>
+</dd>
+<dt>preneb_optimizer: Optimizer</dt><dd><p>PreNEBのOptimizer</p>
+</dd>
+<dt>preneb_climb_list: list of bool</dt><dd><div class="line-block">
+<div class="line">climbのリスト</div>
+</div>
+</dd>
+<dt>preneb_maxstep_list: list of float</dt><dd><div class="line-block">
+<div class="line">maxstepのリスト</div>
+</div>
+</dd>
+<dt>preneb_automaxstep_climb_false:</dt><dd><div class="line-block">
+<div class="line">{1:0.05, 0.5:0.1, 0.1:0.2, 0.05:0.3, 0:0.35}</div>
+</div>
+</dd>
+<dt>preneb_automaxstep_climb_true: dict</dt><dd><p>{0.1:0.03,0:0.01}</p>
+</dd>
+<dt>preneb_fmax_list :list of float</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>preneb_steps_list: list of int</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>preneb_kwargs:</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>prenebopt_kwargs:</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>neb_optimizer: Optimizer</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>&quot;neb_climb_list&quot;: list of bool</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>neb_maxstep_list:</dt><dd><div class="line-block">
+<div class="line">[0.02,0.05,0.1,None,0.01,None],</div>
+</div>
+</dd>
+<dt>neb_automaxstep_climb_false:</dt><dd><div class="line-block">
+<div class="line">{1:0.05, 0.5:0.1, 0.1:0.2, 0.05:0.3, 0:0.35},</div>
+</div>
+</dd>
+<dt>neb_automaxstep_climb_true&quot;:</dt><dd><div class="line-block">
+<div class="line">{0.1:0.03,0:0.01},</div>
+</div>
+</dd>
+<dt>neb_fmax_list:</dt><dd><div class="line-block">
+<div class="line">[0.01,0.05,0.05,0.05,0.05,0.05],</div>
+</div>
+</dd>
+<dt>neb_steps_list:</dt><dd><div class="line-block">
+<div class="line">[100,200,200,2000,500,1500],</div>
+</div>
+</dd>
+<dt>neb_kwargs:</dt><dd><div class="line-block">
+<div class="line">{}</div>
+</div>
+</dd>
+<dt>nebopt_kwargs:</dt><dd><div class="line-block">
+<div class="line">{}</div>
+</div>
+</dd>
+<dt>opt_optimizer:</dt><dd><div class="line-block">
+<div class="line">DEFAULT_OPTIMIZER</div>
+</div>
+</dd>
+<dt>opt_maxstep_list:</dt><dd><div class="line-block">
+<div class="line">[0.02,0.05,0.1,0.2]</div>
+</div>
+</dd>
+<dt>opt_automaxstep:</dt><dd><div class="line-block">
+<div class="line">{1:0.1, 0.5:0.2, 0.1:0.3, 0.05:0.4, 0:0.5}</div>
+</div>
+</dd>
+<dt>opt_fmax_list:</dt><dd><div class="line-block">
+<div class="line">[0.001,0.001,0.001,0.001]</div>
+</div>
+</dd>
+<dt>opt_steps_list:</dt><dd><div class="line-block">
+<div class="line">[50,100,300,10000]</div>
+</div>
+</dd>
+<dt>opt_kwargs:</dt><dd><div class="line-block">
+<div class="line">{}</div>
+</div>
+</dd>
+<dt>same_energy_and_fmax_arg:</dt><dd><div class="line-block">
+<div class="line">{&quot;times&quot;:10,&quot;row&quot;:2,&quot;force_digit&quot;:4,&quot;energy_digit&quot;:6},</div>
+</div>
+</dd>
+<dt>steep_peak_arg:</dt><dd><div class="line-block">
+<div class="line">{&quot;max_ea&quot;:800, &quot;nsteps&quot;:100}</div>
+</div>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -172,7 +302,135 @@
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="grrmpy.automate.pin_neb.AutoPinNEB.get_param">
 <span class="sig-name descname"><span class="pre">get_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/automate/pin_neb.html#AutoPinNEB.get_param"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.automate.pin_neb.AutoPinNEB.get_param" title="この定義へのパーマリンク"></a></dt>
-<dd><p>parameter</p>
+<dd><p>Parameters:</p>
+<dl>
+<dt>separate_completely: bool</dt><dd><div class="line-block">
+<div class="line">通常のNEBで収束した時,エネルギーダイアグラム上に極小点があれば,極小点を最適化してNEB分割する.</div>
+</div>
+</dd>
+<dt>minenergy: float</dt><dd><div class="line-block">
+<div class="line">minenergy(kJ/mol)以下の活性化エネルギーの場合は極小点があっても無視する.</div>
+</div>
+</dd>
+<dt>barrier_less: float</dt><dd><div class="line-block">
+<div class="line">barrier_less(kJ/mol)以下の活性化エネルギーの場合,バリアレスとみなす．</div>
+</div>
+</dd>
+<dt>nimages: int or tuple</dt><dd><div class="line-block">
+<div class="line">intので指定した場合,指定した数のイメージ数で新たなNEBイメージを作成する.</div>
+<div class="line">tupleで指定する場合,3要素(a,b,c)のタプルを与える.</div>
+<div class="line">aÅ毎にイメージを作成する.最大でもb個,最低でもc個のイメージを作成する.</div>
+</div>
+</dd>
+<dt>isomorphism_func: function object</dt><dd><div class="line-block">
+<div class="line">同一構造判定を行なう関数,デフォルトではis_similarを用いる.</div>
+</div>
+</dd>
+<dt>rename_preneb_file: bool</dt><dd><div class="line-block">
+<div class="line">Trueの場合,pre_NEBファイルは消す</div>
+</div>
+</dd>
+<dt>preneb_optimizer: Optimizer</dt><dd><p>PreNEBのOptimizer</p>
+</dd>
+<dt>preneb_climb_list: list of bool</dt><dd><div class="line-block">
+<div class="line">climbのリスト</div>
+</div>
+</dd>
+<dt>preneb_maxstep_list: list of float</dt><dd><div class="line-block">
+<div class="line">maxstepのリスト</div>
+</div>
+</dd>
+<dt>preneb_automaxstep_climb_false:</dt><dd><div class="line-block">
+<div class="line">{1:0.05, 0.5:0.1, 0.1:0.2, 0.05:0.3, 0:0.35}</div>
+</div>
+</dd>
+<dt>preneb_automaxstep_climb_true: dict</dt><dd><p>{0.1:0.03,0:0.01}</p>
+</dd>
+<dt>preneb_fmax_list :list of float</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>preneb_steps_list: list of int</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>preneb_kwargs:</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>prenebopt_kwargs:</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>neb_optimizer: Optimizer</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>&quot;neb_climb_list&quot;: list of bool</dt><dd><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</dd>
+<dt>neb_maxstep_list:</dt><dd><div class="line-block">
+<div class="line">[0.02,0.05,0.1,None,0.01,None],</div>
+</div>
+</dd>
+<dt>neb_automaxstep_climb_false:</dt><dd><div class="line-block">
+<div class="line">{1:0.05, 0.5:0.1, 0.1:0.2, 0.05:0.3, 0:0.35},</div>
+</div>
+</dd>
+<dt>neb_automaxstep_climb_true&quot;:</dt><dd><div class="line-block">
+<div class="line">{0.1:0.03,0:0.01},</div>
+</div>
+</dd>
+<dt>neb_fmax_list:</dt><dd><div class="line-block">
+<div class="line">[0.01,0.05,0.05,0.05,0.05,0.05],</div>
+</div>
+</dd>
+<dt>neb_steps_list:</dt><dd><div class="line-block">
+<div class="line">[100,200,200,2000,500,1500],</div>
+</div>
+</dd>
+<dt>neb_kwargs:</dt><dd><div class="line-block">
+<div class="line">{}</div>
+</div>
+</dd>
+<dt>nebopt_kwargs:</dt><dd><div class="line-block">
+<div class="line">{}</div>
+</div>
+</dd>
+<dt>opt_optimizer:</dt><dd><div class="line-block">
+<div class="line">DEFAULT_OPTIMIZER</div>
+</div>
+</dd>
+<dt>opt_maxstep_list:</dt><dd><div class="line-block">
+<div class="line">[0.02,0.05,0.1,0.2]</div>
+</div>
+</dd>
+<dt>opt_automaxstep:</dt><dd><div class="line-block">
+<div class="line">{1:0.1, 0.5:0.2, 0.1:0.3, 0.05:0.4, 0:0.5}</div>
+</div>
+</dd>
+<dt>opt_fmax_list:</dt><dd><div class="line-block">
+<div class="line">[0.001,0.001,0.001,0.001]</div>
+</div>
+</dd>
+<dt>opt_steps_list:</dt><dd><div class="line-block">
+<div class="line">[50,100,300,10000]</div>
+</div>
+</dd>
+<dt>opt_kwargs:</dt><dd><div class="line-block">
+<div class="line">{}</div>
+</div>
+</dd>
+<dt>same_energy_and_fmax_arg:</dt><dd><div class="line-block">
+<div class="line">{&quot;times&quot;:10,&quot;row&quot;:2,&quot;force_digit&quot;:4,&quot;energy_digit&quot;:6},</div>
+</div>
+</dd>
+<dt>steep_peak_arg:</dt><dd><div class="line-block">
+<div class="line">{&quot;max_ea&quot;:800, &quot;nsteps&quot;:100}</div>
+</div>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
