@@ -1,0 +1,110 @@
+===================
+Blenderギャラリー
+===================
+
+.. figure:: ./img/ball_and_stick.png
+   :scale: 30%
+   :align: left
+
+   :ref:`ball_and_stick<ball_and_stick>` 
+
+.. figure:: ./img/bicolor.png
+   :scale: 30%
+   :align: right
+
+   :ref:`bicolor<bicolor>` 
+
+.. figure:: ./img/cartoony.png
+   :scale: 30%
+   :align: center
+
+   :ref:`漫画風<cartoony>` 
+
+:ref:`space_filling<space_filling>`
+:ref:`stick<stick>`
+:ref:`animation<animation>`
+:ref:`motion_blur<motion_blur>`
+
+
+
+コード
+==========
+
+.. _ball_and_stick:
+
+ball_and_stick
+------------------
+
+>>> make_py_script("cartoony.py", atoms, style="ball_and_stick", bicolor=False)
+
+
+.. _bicolor:
+
+bicolor
+------------------
+
+>>> make_py_script("bicolor.py", atoms, style="ball_and_stick", bicolor=True)
+
+
+.. _space_filling:
+
+space_filling
+------------------
+
+>>> make_py_script("space_filling.py", atoms, style="space_filling")
+
+
+.. _stick:
+
+stick
+------------------
+
+>>> make_py_script("stick.py", atoms, style="stick")
+
+
+.. _animation:
+
+アニメーション
+------------------
+
+詳しいやり方は :doc:`チュートリアル<./tutorial/animation>` を参考にする
+
+>>> make_py_script("animation.zip", traj)
+
+| animation.zipをローカルPC上にダウンロードして展開する.
+ Python,pickleファイルと同じ場所にblenderファイルを作成する(先にblenderファイルを作成しないとpython実行時にエラーになる).
+| Blenderでpythonコードを実行し,構造をインポートする.
+| アニメーションをレンダリングする(重いのでEeveeの方が良い)
+
+
+.. _cartoony:
+
+漫画風
+----------------
+
+Matlantis上
+^^^^^^^^^^^^^^^^^^
+pyスクリプトを作成する(styleは何でも良い)
+
+>>> make_py_script("cartoony.py", atoms, style="ball_and_stick", bicolor=False)
+
+Local PC上
+^^^^^^^^^^^^^^
+
+| シェダーエディターで,フレネルとミックスを入れ,下の写真のようにノードを繋げる.(シェダーエディターの切り替え方法はBlenderのバージョンによるが,上部の"Shading"のタブから切り替え可能)
+| ミックスの色1に元素の色, 色2に黒(エッジの色)を設定する. フレネルのIORの値を小さくするとエッジが太くなる.
+| 光の反射を抑えるため, BSDFの粗さを1に設定する.
+| 影を柔らかくするために環境光(ワールド背景色)を少し明るくする.
+
+.. image:: ./img/node.png
+   :scale: 60%
+   :align: left
+
+.. _motion_blur:
+
+モーションブラー
+--------------------
+
+キーフレームを打ち,モーションブラーでレンダリングをする.
+
+>>> make_py_script("cartoony.py", atoms, style="ball_and_stick", bicolor=False)

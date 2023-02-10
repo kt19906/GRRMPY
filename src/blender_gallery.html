@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blenderギャラリー &mdash; GRRMPY 2022/11/10 ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/ase.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="ちょっとした機能" href="toy_tools.html" />
+    <link rel="prev" title="コマンドライン" href="modules/commandline.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> GRRMPY
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">基本操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">インストール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculator.html">PFP Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Blenderギャラリー</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">コード</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ball-and-stick">ball_and_stick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bicolor">bicolor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#space-filling">space_filling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stick">stick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#animation">アニメーション</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cartoony">漫画風</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#matlantis">Matlantis上</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#local-pc">Local PC上</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-blur">モーションブラー</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="toy_tools.html">ちょっとした機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SearchByPurpose.html">目的から探す</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">最短経路アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other_lib.html">その他のアプリ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other.html">その他</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GRRMPY</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Blenderギャラリー</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/blender_gallery.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="blender">
+<h1>Blenderギャラリー<a class="headerlink" href="#blender" title="この見出しへのパーマリンク"></a></h1>
+<figure class="align-left" id="id9">
+<a class="reference internal image-reference" href="../_images/ball_and_stick.png"><img alt="../_images/ball_and_stick.png" src="../_images/ball_and_stick.png" style="width: 288.0px; height: 162.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="#ball-and-stick"><span class="std std-ref">ball_and_stick</span></a></span><a class="headerlink" href="#id9" title="この画像へのパーマリンク"></a></p>
+</figcaption>
+</figure>
+<figure class="align-right" id="id10">
+<a class="reference internal image-reference" href="../_images/bicolor.png"><img alt="../_images/bicolor.png" src="../_images/bicolor.png" style="width: 288.0px; height: 162.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="#bicolor"><span class="std std-ref">bicolor</span></a></span><a class="headerlink" href="#id10" title="この画像へのパーマリンク"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id11">
+<a class="reference internal image-reference" href="../_images/cartoony.png"><img alt="../_images/cartoony.png" src="../_images/cartoony.png" style="width: 288.0px; height: 162.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="#cartoony"><span class="std std-ref">漫画風</span></a></span><a class="headerlink" href="#id11" title="この画像へのパーマリンク"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#space-filling"><span class="std std-ref">space_filling</span></a>
+<a class="reference internal" href="#stick"><span class="std std-ref">stick</span></a>
+<a class="reference internal" href="#animation"><span class="std std-ref">animation</span></a>
+<a class="reference internal" href="#motion-blur"><span class="std std-ref">motion_blur</span></a></p>
+<section id="id1">
+<h2>コード<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
+<section id="ball-and-stick">
+<span id="id2"></span><h3>ball_and_stick<a class="headerlink" href="#ball-and-stick" title="この見出しへのパーマリンク"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;cartoony.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bicolor">
+<span id="id3"></span><h3>bicolor<a class="headerlink" href="#bicolor" title="この見出しへのパーマリンク"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;bicolor.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="space-filling">
+<span id="id4"></span><h3>space_filling<a class="headerlink" href="#space-filling" title="この見出しへのパーマリンク"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;space_filling.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;space_filling&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="stick">
+<span id="id5"></span><h3>stick<a class="headerlink" href="#stick" title="この見出しへのパーマリンク"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;stick.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;stick&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="animation">
+<span id="id6"></span><h3>アニメーション<a class="headerlink" href="#animation" title="この見出しへのパーマリンク"></a></h3>
+<p>詳しいやり方は <a class="reference internal" href="tutorial/animation.html"><span class="doc">チュートリアル</span></a> を参考にする</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;animation.zip&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">animation.zipをローカルPC上にダウンロードして展開する.
+Python,pickleファイルと同じ場所にblenderファイルを作成する(先にblenderファイルを作成しないとpython実行時にエラーになる).</div>
+<div class="line">Blenderでpythonコードを実行し,構造をインポートする.</div>
+<div class="line">アニメーションをレンダリングする(重いのでEeveeの方が良い)</div>
+</div>
+</section>
+<section id="cartoony">
+<span id="id7"></span><h3>漫画風<a class="headerlink" href="#cartoony" title="この見出しへのパーマリンク"></a></h3>
+<section id="matlantis">
+<h4>Matlantis上<a class="headerlink" href="#matlantis" title="この見出しへのパーマリンク"></a></h4>
+<p>pyスクリプトを作成する(styleは何でも良い)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;cartoony.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="local-pc">
+<h4>Local PC上<a class="headerlink" href="#local-pc" title="この見出しへのパーマリンク"></a></h4>
+<div class="line-block">
+<div class="line">シェダーエディターで,フレネルとミックスを入れ,下の写真のようにノードを繋げる.(シェダーエディターの切り替え方法はBlenderのバージョンによるが,上部の&quot;Shading&quot;のタブから切り替え可能)</div>
+<div class="line">ミックスの色1に元素の色, 色2に黒(エッジの色)を設定する. フレネルのIORの値を小さくするとエッジが太くなる.</div>
+<div class="line">光の反射を抑えるため, BSDFの粗さを1に設定する.</div>
+<div class="line">影を柔らかくするために環境光(ワールド背景色)を少し明るくする.</div>
+</div>
+<a class="reference internal image-reference" href="../_images/node.png"><img alt="../_images/node.png" class="align-left" src="../_images/node.png" style="width: 478.79999999999995px; height: 369.59999999999997px;" /></a>
+</section>
+</section>
+<section id="motion-blur">
+<span id="id8"></span><h3>モーションブラー<a class="headerlink" href="#motion-blur" title="この見出しへのパーマリンク"></a></h3>
+<p>キーフレームを打ち,モーションブラーでレンダリングをする.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;cartoony.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules/commandline.html" class="btn btn-neutral float-left" title="コマンドライン" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="toy_tools.html" class="btn btn-neutral float-right" title="ちょっとした機能" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kato Taisetsu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

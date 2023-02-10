@@ -53,6 +53,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">チュートリアル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blender_gallery.html">Blenderギャラリー</a></li>
 <li class="toctree-l1"><a class="reference internal" href="toy_tools.html">ちょっとした機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SearchByPurpose.html">目的から探す</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
@@ -128,7 +129,16 @@
 <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">ASECalculator</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>pfp_api_clientから呼び出すとコード量が多くなってしまうため,GRRMPYから簡単に呼び出せるようにした.</p>
+<div class="line-block">
+<div class="line">pfp_api_clientから呼び出すとコード量が多くなってしまうため,GRRMPYから簡単に呼び出せるようにした.</div>
+<div class="line">またclaculatorを関数化することは様々なコードを書く上でも便利になることが多い.</div>
+<div class="line">例えばIRC計算でcalculatorを付ける際にpfp_api_clientの場合</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">i_step</span> <span class="o">=</span> <span class="n">atoms0</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span>
+   <span class="n">estimator</span> <span class="o">=</span> <span class="n">Estimator</span><span class="p">(</span><span class="n">calc_mode</span><span class="o">=</span><span class="n">EstimatorCalcMode</span><span class="o">.</span><span class="n">CRYSTAL_PLUS_D3</span><span class="p">)</span>
+   <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">ASECalculator</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </li>

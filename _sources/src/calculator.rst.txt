@@ -24,7 +24,16 @@ PFPは3種類のDFT計算条件による学習データを持っています。�
       estimator = Estimator(calc_mode=EstimatorCalcMode.CRYSTAL_PLUS_D3)
       atoms.calc = ASECalculator(estimator)
 
-   pfp_api_clientから呼び出すとコード量が多くなってしまうため,GRRMPYから簡単に呼び出せるようにした.
+   
+   | pfp_api_clientから呼び出すとコード量が多くなってしまうため,GRRMPYから簡単に呼び出せるようにした.
+   | またclaculatorを関数化することは様々なコードを書く上でも便利になることが多い.
+   | 例えばIRC計算でcalculatorを付ける際にpfp_api_clientの場合
+
+   .. code-block:: python
+
+      i_step = atoms0.calc = 
+         estimator = Estimator(calc_mode=EstimatorCalcMode.CRYSTAL_PLUS_D3)
+         atoms.calc = ASECalculator(estimator)
 
 .. csv-table::
    :header: 計算モード, 説明

@@ -12,23 +12,25 @@ Blenderのアニメーションを作成する
 Matlantis上での操作
 -------------------------
 
-| Matlantisでアニメーションにしたい構造をTrajectoryとしておき, 
- :class:`make_animation<grrmpy.blender.make_animation.make_animation>` を実行する.
-| 実行後,指定したフォルダ内に"animation.py","Atoms.x3d","property.pkl"が作成される.
-| これらのファイルをローカルPCにダウンロードする.
+.. role:: red
+
+| Matlantisでアニメーションにしたい構造をTrajectoryとしておき, :class:`make_py_script<grrmpy.blender.make_py_script.make_py_script>` 
+ を実行する.zipファイルが作成されるのでローカルPCにダウンロードする.
 
 .. code-block:: python
 
-    from grrmpy.blender import make_animation
+    from grrmpy.blender import make_py_script
 
     traj = Trajectory("MD.traj")
-    make_animation("Sample",traj,step=3, start=0)
-    # --> Sampleフォルダに"animation.py","Atoms.x3d","property.pkl"が作成される.
+    make_py_script("Animation.zip",step=3, start=0)
+    # --> zipファイルが作成される.中身は"animation.py","property.pkl"
 
 ローカルPC上での操作
 -------------------------------
 
-"animation.py","Atoms.x3d","property.pkl"があるディレクトリ上で blenderファイルを作成する.
+| ローカルPCでzipを展開する. 中に"animation.py", "property.pkl"が入っている.
+| "property.pkl"と同じディレクトリ上にblenderファイルを作成し,blender上で"animation.py"を実行する.
+| :red:`Pythonスクリプトを実行する前にblenderファイルを保存する必要があるので注意`
 
 .. image:: ./img/folder.png
    :scale: 50%
@@ -44,7 +46,6 @@ blenderファイルを開き,テキストエディターを開く(windows: Shift
    :scale: 25%
    :align: center
 
-
 | テキストエディターからanimation.pyを開き,Pythonスクリプトを実行する(数秒かかる).
 
 .. image:: ./img/text_editer3.png
@@ -53,30 +54,17 @@ blenderファイルを開き,テキストエディターを開く(windows: Shift
 
 | 3Dビューポートに戻ると構造がインポートされた事が分かる.
 | 原子に色がついていないように見える場合があるが，マテリアルプレビューモードにすればちゃんと着色されている.
-| 元素の色を変えたい場合はBlender上で操作するか, :class:`make_animation<grrmpy.blender.make_animation.make_animation>`
- `color_dict` の引数を設定する.
+| 原子の色はBlender上で変更するか :class:`make_py_script<grrmpy.blender.make_py_script.make_py_script>` 
+ の `color` の引数から元素の色を予め指定しておく.
 
 .. image:: ./img/blender_view.png
    :scale: 30%
    :align: center 
 
 | キーフレームは0から開始し,3フレーム毎にキーが挿入されている.
-| :class:`make_animation<grrmpy.blender.make_animation.make_animation>` の引数で
+
  start=0, step=3 としたため.
 
 .. image:: ./img/key_frame.png
    :scale: 30%
    :align: center
-
-最後にスムーズシェードを手動で行う.
-
-
-細かい話
---------------
-
-| このPythonスクリプトは既存のオブジェクトに追記されるようにインポートされるため,
- 他のオブジェクトの存在下でも実行可能. 逆に初期状態で配置されているCubeは手動で削除する必要がある.
-
-| 構造のインポートとアニメーションのレンダリングには時間がかかるため, trajの構造は最高でも200イメージ程度
- にすることを勧める.
-

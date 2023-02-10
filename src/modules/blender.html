@@ -59,8 +59,9 @@
 <li class="toctree-l2"><a class="reference internal" href="conv.html">Convモジュール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="network.html">Networkモジュール</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">blenderモジュール</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mdtrajectoryblender">MD等のTrajectoryをBlenderアニメーションにする</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#grrmpy.blender.make_animation.make_animation"><code class="docutils literal notranslate"><span class="pre">make_animation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Blenderに構造をインポートする</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#grrmpy.blender.make_py_script.make_py_script"><code class="docutils literal notranslate"><span class="pre">make_py_script()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">キーワード引数</a></li>
 </ul>
 </li>
 </ul>
@@ -68,6 +69,7 @@
 <li class="toctree-l2"><a class="reference internal" href="commandline.html">コマンドライン</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../blender_gallery.html">Blenderギャラリー</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../toy_tools.html">ちょっとした機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../SearchByPurpose.html">目的から探す</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
@@ -127,41 +129,163 @@
 </style>
 <section id="blender">
 <h1>blenderモジュール<a class="headerlink" href="#blender" title="この見出しへのパーマリンク"></a></h1>
-<section id="mdtrajectoryblender">
-<h2>MD等のTrajectoryをBlenderアニメーションにする<a class="headerlink" href="#mdtrajectoryblender" title="この見出しへのパーマリンク"></a></h2>
-<p>アニメーションにするPythonスクリプトを作成する.</p>
+<section id="id1">
+<h2>Blenderに構造をインポートする<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
+<p>Blenderへ構造をインポート, アニメーションを作成する.</p>
+<ul>
+<li><p>単一構造をインポートする場合</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.blender</span> <span class="kn">import</span> <span class="n">make_py_script</span>
+
+<span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;ball_and_stick.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>アニメーションを作成する場合</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.blender</span> <span class="kn">import</span> <span class="n">make_py_script</span>
+<span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">Trajectory</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">Trajectory</span><span class="p">(</span><span class="s2">&quot;MD.traj&quot;</span><span class="p">)</span>
+<span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;animation.zip&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
 <dl class="py function">
-<dt class="sig sig-object py" id="grrmpy.blender.make_animation.make_animation">
-<span class="sig-prename descclassname"><span class="pre">grrmpy.blender.make_animation.</span></span><span class="sig-name descname"><span class="pre">make_animation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pyfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'animation.py'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x3dfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Atoms.x3d'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pklfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'property.pkl'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/blender/make_animation.html#make_animation"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.blender.make_animation.make_animation" title="この定義へのパーマリンク"></a></dt>
-<dd><p>AtomsのImagesからBlenderアニメーションを作成するためのPythonスクリプトを作成する</p>
+<dt class="sig sig-object py" id="grrmpy.blender.make_py_script.make_py_script">
+<span class="sig-prename descclassname"><span class="pre">grrmpy.blender.make_py_script.</span></span><span class="sig-name descname"><span class="pre">make_py_script</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ball_and_stick'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/grrmpy/blender/make_py_script.html#make_py_script"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#grrmpy.blender.make_py_script.make_py_script" title="この定義へのパーマリンク"></a></dt>
+<dd><p>Blenderに構造をインポートするためのPythonスクリプトを作成する</p>
 <p>Parameters:</p>
 <dl>
-<dt>folder: str</dt><dd><div class="line-block">
-<div class="line">Pythonスクリプトなどの必要なファイルを格納するためのフォルダ</div>
+<dt>file: str, path object</dt><dd><div class="line-block">
+<div class="line">アニメーションを作成する場合,zipファイル</div>
+<div class="line">単一構造の場合,pyファイル</div>
 </div>
 </dd>
-<dt>traj: Trajectory or list of Atoms</dt><dd><div class="line-block">
-<div class="line">TrajectoryまたはAtomsのリスト</div>
-<div class="line">構造の数が多い場合はTrajectoryで作成しないとメモリが溢れてしまう.</div>
+<dt>atoms: Atoms, list of Atoms, Trajectory</dt><dd><div class="line-block">
+<div class="line">アニメーションを作成する場合はTrajectoryまたはAtomsのリスト</div>
+<div class="line">単一構造の場合,Atoms</div>
 </div>
 </dd>
-<dt>step: int</dt><dd><div class="line-block">
-<div class="line">stepフレーム毎にキーを打つ</div>
+<dt>style: str</dt><dd><div class="line-block">
+<div class="line">'ball_and_stick','space_filling','stick',のいずれか</div>
+<div class="line">引数のatomsがリストまたはTrajectoryの場合(アニメーションを作成する場合),設定する必要はない.</div>
 </div>
 </dd>
-<dt>start: int</dt><dd><p>startフレームからキーを打つ</p>
-</dd>
-<dt>color_dict: bool or dict</dt><dd><div class="line-block">
-<div class="line">Trueにした場合元素毎に着色される</div>
-<div class="line">色を指定したい場合は辞書型で与える(元素:(R,G,B,A)) RGBは1で規格化する必要がある.</div>
-<div class="line">ex) {'Si':(1.0, 1.0, 0.0, 1),'O':(1.0, 0.0, 0.0, 1),`Al`:(0.235, 1.0, 0.0, 1)}</div>
-<div class="line">VESTAのelement.iniからcolor_dictを作成する場合は
-<a class="reference internal" href="io.html#grrmpy.io.read_elementsini.read_elementsini" title="grrmpy.io.read_elementsini.read_elementsini"><code class="xref py py-class docutils literal notranslate"><span class="pre">grrmpy.io.read_elementsini.read_elementsini</span></code></a> を用いると良い</div>
+<dt>kwargs:</dt><dd><div class="line-block">
+<div class="line">styleによってとることのできるキーワード引数は違う.</div>
+<div class="line">ドキュメントを参照する.</div>
 </div>
 </dd>
 </dl>
 </dd></dl>
 
+<section id="id2">
+<h3>キーワード引数<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h3>
+<ul>
+<li><dl>
+<dt>bicolor: bool</dt><dd><div class="line-block">
+<div class="line">style= <cite>ball_and_stick</cite> の場合に有効.</div>
+<div class="line">結合の色をVESTAのデフォルトの表示方法のようにする.</div>
+<div class="line">blender上でスクリプトを実行する際に少し時間がかかる.</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>colors: dict</dt><dd><div class="line-block">
+<div class="line">原子の色をRGBAで指定する. 1で規格化した値を使用する.</div>
+<div class="line">ex) color = {&quot;H&quot;:(1.0, 0.8, 0.8 ,1),&quot;C&quot;:(0.5, 0.3, 0.15 ,1)}</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>ball_sizes<span class="classifier">dict</span></dt><dd><div class="line-block">
+<div class="line">各原子の大きさを指定する.style= <cite>ball_and_stick</cite>, <cite>space_filling</cite> の場合に有効.</div>
+<div class="line-block">
+<div class="line">実際に表示される大きさはball_sizesにsize_multをかけた値.</div>
+</div>
+<div class="line">ex) ball_sizes = {&quot;H&quot;: 0.52}</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bond_color: tuple</dt><dd><div class="line-block">
+<div class="line">結合(円柱オブジェクト)の色をRGBAで指定する. 1で規格化した値を使用する.</div>
+<div class="line">style= <cite>ball_and_stick</cite> かつ bicolor = False の場合に有効.</div>
+<div class="line">ex) bond_color = (0.5, 0.5, 0.5, 1)</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bond_radius: float</dt><dd><div class="line-block">
+<div class="line">結合(円柱オブジェクト)の太さを指定する.style= <cite>ball_and_stick</cite>, <cite>stick</cite> の場合有効</div>
+<div class="line">bond_radius = 0.08</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>bonds: dict</dt><dd><div class="line-block">
+<div class="line">原子同士の結合状態を判定するためのパラメータ.style= <cite>ball_and_stick</cite>, <cite>stick</cite> の場合有効</div>
+<div class="line">ex) bond = {&quot;mult&quot;:1, &quot;H&quot;: 0.52}</div>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt>mult</dt><dd><p>結合しているか判断するためのカットオフ係数</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>kwargs</dt><dd><p>元素名とそれに対応するカットオフ, 共有結合半径を上書きする</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>pklfile: str or path objct</dt><dd><div class="line-block">
+<div class="line">アニメーションの際に有効.</div>
+<div class="line">保存されるpickleファイル名を指定できる</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>size_mult: flaot</dt><dd><div class="line-block">
+<div class="line">原子の大きさを表す係数. style= <cite>ball_and_stick</cite> の場合に有効.</div>
+<div class="line">1の時, <cite>space_filling</cite> と同じ大きさになる.</div>
+<div class="line">デフォルトは0.4</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>start: int</dt><dd><div class="line-block">
+<div class="line">アニメーションの際に有効.</div>
+<div class="line">最初の構造のキーフレームの位置. デフォルトは0</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>step: int</dt><dd><div class="line-block">
+<div class="line">アニメーションの際に有効.</div>
+<div class="line">step毎にキーフレームを打つ. デフォルトは3</div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
 </section>
 </section>
 

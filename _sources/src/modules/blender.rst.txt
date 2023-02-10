@@ -3,11 +3,73 @@ blenderモジュール
 ##################
 
 
+Blenderに構造をインポートする 
+===============================================
 
-MD等のTrajectoryをBlenderアニメーションにする
-=============================================
+Blenderへ構造をインポート, アニメーションを作成する.
 
-アニメーションにするPythonスクリプトを作成する.
+- 単一構造をインポートする場合
 
-.. autofunction:: grrmpy.blender.make_animation.make_animation
+    .. code-block:: python
+
+        from grrmpy.blender import make_py_script
+
+        make_py_script("ball_and_stick.py", atoms, style="ball_and_stick", bicolor=True)
+
+
+- アニメーションを作成する場合
+
+    .. code-block:: python
+
+        from grrmpy.blender import make_py_script
+        from ase.io import Trajectory
+
+        traj = Trajectory("MD.traj")
+        make_py_script("animation.zip", traj, start=0, step=3)
+
+
+.. autofunction:: grrmpy.blender.make_py_script.make_py_script
+
+キーワード引数
+------------------
+
+- bicolor: bool
+    | style= `ball_and_stick` の場合に有効.
+    | 結合の色をVESTAのデフォルトの表示方法のようにする.
+    | blender上でスクリプトを実行する際に少し時間がかかる.
+- colors: dict
+    | 原子の色をRGBAで指定する. 1で規格化した値を使用する.
+    | ex\) color = {"H":(1.0, 0.8, 0.8 ,1),"C":(0.5, 0.3, 0.15 ,1)}
+- ball_sizes : dict
+    | 各原子の大きさを指定する.style= `ball_and_stick`, `space_filling` の場合に有効.
+    |  実際に表示される大きさはball_sizesにsize_multをかけた値.
+    | ex\) ball_sizes = {"H": 0.52}
+- bond_color: tuple
+    | 結合(円柱オブジェクト)の色をRGBAで指定する. 1で規格化した値を使用する.
+    | style= `ball_and_stick` かつ bicolor = False の場合に有効.
+    | ex\) bond_color = (0.5, 0.5, 0.5, 1)
+- bond_radius: float
+    | 結合(円柱オブジェクト)の太さを指定する.style= `ball_and_stick`, `stick` の場合有効
+    | bond_radius = 0.08
+- bonds: dict
+    | 原子同士の結合状態を判定するためのパラメータ.style= `ball_and_stick`, `stick` の場合有効
+    | ex\) bond = {"mult":1, "H": 0.52}
+
+    - mult
+        結合しているか判断するためのカットオフ係数
+    - kwargs
+        元素名とそれに対応するカットオフ, 共有結合半径を上書きする
+- pklfile: str or path objct
+    | アニメーションの際に有効.
+    | 保存されるpickleファイル名を指定できる
+- size_mult: flaot
+    | 原子の大きさを表す係数. style= `ball_and_stick` の場合に有効.
+    | 1の時, `space_filling` と同じ大きさになる.
+    | デフォルトは0.4
+- start: int
+    | アニメーションの際に有効.
+    | 最初の構造のキーフレームの位置. デフォルトは0
+- step: int
+    | アニメーションの際に有効.
+    | step毎にキーフレームを打つ. デフォルトは3
 

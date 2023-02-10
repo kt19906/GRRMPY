@@ -56,7 +56,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#id1">作成方法</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#matlantis">Matlantis上での操作</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pc">ローカルPC上での操作</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">細かい話</a></li>
 </ul>
 </li>
 </ul>
@@ -64,6 +63,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../blender_gallery.html">Blenderギャラリー</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../toy_tools.html">ちょっとした機能</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../SearchByPurpose.html">目的から探す</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tips.html">Tips</a></li>
@@ -129,22 +129,24 @@
 <section id="matlantis">
 <h3>Matlantis上での操作<a class="headerlink" href="#matlantis" title="この見出しへのパーマリンク"></a></h3>
 <div class="line-block">
-<div class="line">Matlantisでアニメーションにしたい構造をTrajectoryとしておき,
-<a class="reference internal" href="../modules/blender.html#grrmpy.blender.make_animation.make_animation" title="grrmpy.blender.make_animation.make_animation"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_animation</span></code></a> を実行する.</div>
-<div class="line">実行後,指定したフォルダ内に&quot;animation.py&quot;,&quot;Atoms.x3d&quot;,&quot;property.pkl&quot;が作成される.</div>
-<div class="line">これらのファイルをローカルPCにダウンロードする.</div>
+<div class="line">Matlantisでアニメーションにしたい構造をTrajectoryとしておき, <a class="reference internal" href="../modules/blender.html#grrmpy.blender.make_py_script.make_py_script" title="grrmpy.blender.make_py_script.make_py_script"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_py_script</span></code></a>
+を実行する.zipファイルが作成されるのでローカルPCにダウンロードする.</div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.blender</span> <span class="kn">import</span> <span class="n">make_animation</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grrmpy.blender</span> <span class="kn">import</span> <span class="n">make_py_script</span>
 
 <span class="n">traj</span> <span class="o">=</span> <span class="n">Trajectory</span><span class="p">(</span><span class="s2">&quot;MD.traj&quot;</span><span class="p">)</span>
-<span class="n">make_animation</span><span class="p">(</span><span class="s2">&quot;Sample&quot;</span><span class="p">,</span><span class="n">traj</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># --&gt; Sampleフォルダに&quot;animation.py&quot;,&quot;Atoms.x3d&quot;,&quot;property.pkl&quot;が作成される.</span>
+<span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;Animation.zip&quot;</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># --&gt; zipファイルが作成される.中身は&quot;animation.py&quot;,&quot;property.pkl&quot;</span>
 </pre></div>
 </div>
 </section>
 <section id="pc">
 <h3>ローカルPC上での操作<a class="headerlink" href="#pc" title="この見出しへのパーマリンク"></a></h3>
-<p>&quot;animation.py&quot;,&quot;Atoms.x3d&quot;,&quot;property.pkl&quot;があるディレクトリ上で blenderファイルを作成する.</p>
+<div class="line-block">
+<div class="line">ローカルPCでzipを展開する. 中に&quot;animation.py&quot;, &quot;property.pkl&quot;が入っている.</div>
+<div class="line">&quot;property.pkl&quot;と同じディレクトリ上にblenderファイルを作成し,blender上で&quot;animation.py&quot;を実行する.</div>
+<div class="line"><span class="red">Pythonスクリプトを実行する前にblenderファイルを保存する必要があるので注意</span></div>
+</div>
 <a class="reference internal image-reference" href="../../_images/folder.png"><img alt="../../_images/folder.png" class="align-center" src="../../_images/folder.png" style="width: 314.0px; height: 119.0px;" /></a>
 <p>blenderファイルを開き,テキストエディターを開く(windows: Shift+F11).</p>
 <a class="reference internal image-reference" href="../../_images/text_editer.png"><img alt="../../_images/text_editer.png" class="align-center" src="../../_images/text_editer.png" style="width: 450.25px; height: 160.0px;" /></a>
@@ -156,28 +158,17 @@
 <div class="line-block">
 <div class="line">3Dビューポートに戻ると構造がインポートされた事が分かる.</div>
 <div class="line">原子に色がついていないように見える場合があるが，マテリアルプレビューモードにすればちゃんと着色されている.</div>
-<div class="line">元素の色を変えたい場合はBlender上で操作するか, <a class="reference internal" href="../modules/blender.html#grrmpy.blender.make_animation.make_animation" title="grrmpy.blender.make_animation.make_animation"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_animation</span></code></a>
-<cite>color_dict</cite> の引数を設定する.</div>
+<div class="line">原子の色はBlender上で変更するか <a class="reference internal" href="../modules/blender.html#grrmpy.blender.make_py_script.make_py_script" title="grrmpy.blender.make_py_script.make_py_script"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_py_script</span></code></a>
+の <cite>color</cite> の引数から元素の色を予め指定しておく.</div>
 </div>
 <a class="reference internal image-reference" href="../../_images/blender_view.png"><img alt="../../_images/blender_view.png" class="align-center" src="../../_images/blender_view.png" style="width: 570.9px; height: 278.09999999999997px;" /></a>
 <div class="line-block">
 <div class="line">キーフレームは0から開始し,3フレーム毎にキーが挿入されている.</div>
-<div class="line"><a class="reference internal" href="../modules/blender.html#grrmpy.blender.make_animation.make_animation" title="grrmpy.blender.make_animation.make_animation"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_animation</span></code></a> の引数で
-start=0, step=3 としたため.</div>
 </div>
+<blockquote>
+<div><p>start=0, step=3 としたため.</p>
+</div></blockquote>
 <a class="reference internal image-reference" href="../../_images/key_frame.png"><img alt="../../_images/key_frame.png" class="align-center" src="../../_images/key_frame.png" style="width: 475.2px; height: 111.0px;" /></a>
-<p>最後にスムーズシェードを手動で行う.</p>
-</section>
-<section id="id2">
-<h3>細かい話<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h3>
-<div class="line-block">
-<div class="line">このPythonスクリプトは既存のオブジェクトに追記されるようにインポートされるため,
-他のオブジェクトの存在下でも実行可能. 逆に初期状態で配置されているCubeは手動で削除する必要がある.</div>
-</div>
-<div class="line-block">
-<div class="line">構造のインポートとアニメーションのレンダリングには時間がかかるため, trajの構造は最高でも200イメージ程度
-にすることを勧める.</div>
-</div>
 </section>
 </section>
 </section>
