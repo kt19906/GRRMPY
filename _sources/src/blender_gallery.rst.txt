@@ -35,6 +35,8 @@ Blenderギャラリー
 ball_and_stick
 ------------------
 
+Bulk構造でball_and_stickを適用する場合,結合の数が多くなるため,Blender上でのPythonスクリプトの実行にかなり時間がかかるので注意.
+
 >>> make_py_script("cartoony.py", atoms, style="ball_and_stick", bicolor=False)
 
 
@@ -98,7 +100,7 @@ Local PC上
 
 .. image:: ./img/node.png
    :scale: 60%
-   :align: left
+   :align: center
 
 .. _motion_blur:
 
@@ -107,4 +109,10 @@ Local PC上
 
 キーフレームを打ち,モーションブラーでレンダリングをする.
 
+Matlantis上
+^^^^^^^^^^^^^^^^^^
+
 >>> make_py_script("cartoony.py", atoms, style="ball_and_stick", bicolor=False)
+
+Local PC上
+^^^^^^^^^^^^^^

@@ -114,6 +114,11 @@
 <h1>PFP Calculator<a class="headerlink" href="#pfp-calculator" title="この見出しへのパーマリンク"></a></h1>
 <section id="pfp">
 <h2>PFP<a class="headerlink" href="#pfp" title="この見出しへのパーマリンク"></a></h2>
+<p><span class="red">model_version='v3.0.0'がデフォルト値になっている.今後pfpのアップデートによりデフォルト値を変更したい場合, pfp_calculator のソースコードを変更する必要がある.</span>
+<span class="red">もしくは次のようにmodel_versionを指定する</span></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pfp_calculator</span><span class="p">(</span><span class="n">model_version</span><span class="o">=</span><span class="s1">&#39;v3.0.0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>PFPは3種類のDFT計算条件による学習データを持っています。これに対応して、計算モードと呼ばれる機能を提供しています.
 計算モードを切り替えることによってどちらの学習データに合った挙動をするかを選べます。(Matlantisから引用)</p>
 <ul>

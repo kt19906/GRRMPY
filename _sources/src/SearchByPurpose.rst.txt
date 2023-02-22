@@ -56,6 +56,10 @@
 - 座標付きで表示する
     :class:`grrmpy.visualize.by_nglview.view_with_coordinate` 関数
 
+Blender用Pythonスクリプトを作成する
+--------------------------------------
+
+
 
 
 

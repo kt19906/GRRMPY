@@ -59,7 +59,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#local-pc">Local PC上</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#motion-blur">モーションブラー</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-blur">モーションブラー</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Matlantis上</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Local PC上</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -122,22 +126,22 @@
 </style>
 <section id="blender">
 <h1>Blenderギャラリー<a class="headerlink" href="#blender" title="この見出しへのパーマリンク"></a></h1>
-<figure class="align-left" id="id9">
+<figure class="align-left" id="id11">
 <a class="reference internal image-reference" href="../_images/ball_and_stick.png"><img alt="../_images/ball_and_stick.png" src="../_images/ball_and_stick.png" style="width: 288.0px; height: 162.0px;" /></a>
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="#ball-and-stick"><span class="std std-ref">ball_and_stick</span></a></span><a class="headerlink" href="#id9" title="この画像へのパーマリンク"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="#ball-and-stick"><span class="std std-ref">ball_and_stick</span></a></span><a class="headerlink" href="#id11" title="この画像へのパーマリンク"></a></p>
 </figcaption>
 </figure>
-<figure class="align-right" id="id10">
+<figure class="align-right" id="id12">
 <a class="reference internal image-reference" href="../_images/bicolor.png"><img alt="../_images/bicolor.png" src="../_images/bicolor.png" style="width: 288.0px; height: 162.0px;" /></a>
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="#bicolor"><span class="std std-ref">bicolor</span></a></span><a class="headerlink" href="#id10" title="この画像へのパーマリンク"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="#bicolor"><span class="std std-ref">bicolor</span></a></span><a class="headerlink" href="#id12" title="この画像へのパーマリンク"></a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id11">
+<figure class="align-center" id="id13">
 <a class="reference internal image-reference" href="../_images/cartoony.png"><img alt="../_images/cartoony.png" src="../_images/cartoony.png" style="width: 288.0px; height: 162.0px;" /></a>
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="#cartoony"><span class="std std-ref">漫画風</span></a></span><a class="headerlink" href="#id11" title="この画像へのパーマリンク"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="#cartoony"><span class="std std-ref">漫画風</span></a></span><a class="headerlink" href="#id13" title="この画像へのパーマリンク"></a></p>
 </figcaption>
 </figure>
 <p><a class="reference internal" href="#space-filling"><span class="std std-ref">space_filling</span></a>
@@ -148,6 +152,7 @@
 <h2>コード<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
 <section id="ball-and-stick">
 <span id="id2"></span><h3>ball_and_stick<a class="headerlink" href="#ball-and-stick" title="この見出しへのパーマリンク"></a></h3>
+<p>Bulk構造でball_and_stickを適用する場合,結合の数が多くなるため,Blender上でのPythonスクリプトの実行にかなり時間がかかるので注意.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;cartoony.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -200,15 +205,21 @@ Python,pickleファイルと同じ場所にblenderファイルを作成する(�
 <div class="line">光の反射を抑えるため, BSDFの粗さを1に設定する.</div>
 <div class="line">影を柔らかくするために環境光(ワールド背景色)を少し明るくする.</div>
 </div>
-<a class="reference internal image-reference" href="../_images/node.png"><img alt="../_images/node.png" class="align-left" src="../_images/node.png" style="width: 478.79999999999995px; height: 369.59999999999997px;" /></a>
+<a class="reference internal image-reference" href="../_images/node.png"><img alt="../_images/node.png" class="align-center" src="../_images/node.png" style="width: 478.79999999999995px; height: 369.59999999999997px;" /></a>
 </section>
 </section>
 <section id="motion-blur">
 <span id="id8"></span><h3>モーションブラー<a class="headerlink" href="#motion-blur" title="この見出しへのパーマリンク"></a></h3>
 <p>キーフレームを打ち,モーションブラーでレンダリングをする.</p>
+<section id="id9">
+<h4>Matlantis上<a class="headerlink" href="#id9" title="この見出しへのパーマリンク"></a></h4>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;cartoony.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="id10">
+<h4>Local PC上<a class="headerlink" href="#id10" title="この見出しへのパーマリンク"></a></h4>
+</section>
 </section>
 </section>
 </section>
