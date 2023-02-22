@@ -33,7 +33,7 @@ Matlantis上での操作
 | :red:`Pythonスクリプトを実行する前にblenderファイルを保存する必要があるので注意`
 
 .. image:: ./img/folder.png
-   :scale: 50%
+   :scale: 100%
    :align: center
 
 blenderファイルを開き,テキストエディターを開く(windows: Shift+F11).

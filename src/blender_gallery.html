@@ -56,14 +56,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#animation">アニメーション</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cartoony">漫画風</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#matlantis">Matlantis上</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#local-pc">Local PC上</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#motion-blur">モーションブラー</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id9">Matlantis上</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">Local PC上</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-blur">モーションブラー</a></li>
 </ul>
 </li>
 </ul>
@@ -126,22 +121,22 @@
 </style>
 <section id="blender">
 <h1>Blenderギャラリー<a class="headerlink" href="#blender" title="この見出しへのパーマリンク"></a></h1>
-<figure class="align-left" id="id11">
+<figure class="align-left" id="id9">
 <a class="reference internal image-reference" href="../_images/ball_and_stick.png"><img alt="../_images/ball_and_stick.png" src="../_images/ball_and_stick.png" style="width: 288.0px; height: 162.0px;" /></a>
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="#ball-and-stick"><span class="std std-ref">ball_and_stick</span></a></span><a class="headerlink" href="#id11" title="この画像へのパーマリンク"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="#ball-and-stick"><span class="std std-ref">ball_and_stick</span></a></span><a class="headerlink" href="#id9" title="この画像へのパーマリンク"></a></p>
 </figcaption>
 </figure>
-<figure class="align-right" id="id12">
+<figure class="align-right" id="id10">
 <a class="reference internal image-reference" href="../_images/bicolor.png"><img alt="../_images/bicolor.png" src="../_images/bicolor.png" style="width: 288.0px; height: 162.0px;" /></a>
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="#bicolor"><span class="std std-ref">bicolor</span></a></span><a class="headerlink" href="#id12" title="この画像へのパーマリンク"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="#bicolor"><span class="std std-ref">bicolor</span></a></span><a class="headerlink" href="#id10" title="この画像へのパーマリンク"></a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id13">
+<figure class="align-center" id="id11">
 <a class="reference internal image-reference" href="../_images/cartoony.png"><img alt="../_images/cartoony.png" src="../_images/cartoony.png" style="width: 288.0px; height: 162.0px;" /></a>
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="#cartoony"><span class="std std-ref">漫画風</span></a></span><a class="headerlink" href="#id13" title="この画像へのパーマリンク"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="#cartoony"><span class="std std-ref">漫画風</span></a></span><a class="headerlink" href="#id11" title="この画像へのパーマリンク"></a></p>
 </figcaption>
 </figure>
 <p><a class="reference internal" href="#space-filling"><span class="std std-ref">space_filling</span></a>
@@ -153,32 +148,32 @@
 <section id="ball-and-stick">
 <span id="id2"></span><h3>ball_and_stick<a class="headerlink" href="#ball-and-stick" title="この見出しへのパーマリンク"></a></h3>
 <p>Bulk構造でball_and_stickを適用する場合,結合の数が多くなるため,Blender上でのPythonスクリプトの実行にかなり時間がかかるので注意.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;cartoony.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">BallAndStick</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="bicolor">
 <span id="id3"></span><h3>bicolor<a class="headerlink" href="#bicolor" title="この見出しへのパーマリンク"></a></h3>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;bicolor.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">BallAndStick</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">bicolor</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="space-filling">
 <span id="id4"></span><h3>space_filling<a class="headerlink" href="#space-filling" title="この見出しへのパーマリンク"></a></h3>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;space_filling.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;space_filling&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">SpaceFilling</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="stick">
 <span id="id5"></span><h3>stick<a class="headerlink" href="#stick" title="この見出しへのパーマリンク"></a></h3>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;stick.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;stick&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">Stick</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="animation">
 <span id="id6"></span><h3>アニメーション<a class="headerlink" href="#animation" title="この見出しへのパーマリンク"></a></h3>
-<p>詳しいやり方は <a class="reference internal" href="tutorial/animation.html"><span class="doc">チュートリアル</span></a> を参考にする</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;animation.zip&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">)</span>
+<p>詳しいやり方は <a class="reference internal" href="tutorial/blender_tutorial.html"><span class="doc">チュートリアル</span></a> を参考にする</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;Animation.zip&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -192,18 +187,13 @@ Python,pickleファイルと同じ場所にblenderファイルを作成する(�
 <span id="id7"></span><h3>漫画風<a class="headerlink" href="#cartoony" title="この見出しへのパーマリンク"></a></h3>
 <section id="matlantis">
 <h4>Matlantis上<a class="headerlink" href="#matlantis" title="この見出しへのパーマリンク"></a></h4>
-<p>pyスクリプトを作成する(styleは何でも良い)</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;cartoony.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<p>pyスクリプトを作成する(例としてBallAndStick)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">BallAndStick</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">cartoon</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;apply&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">}))</span>
 </pre></div>
 </div>
-</section>
-<section id="local-pc">
-<h4>Local PC上<a class="headerlink" href="#local-pc" title="この見出しへのパーマリンク"></a></h4>
 <div class="line-block">
-<div class="line">シェダーエディターで,フレネルとミックスを入れ,下の写真のようにノードを繋げる.(シェダーエディターの切り替え方法はBlenderのバージョンによるが,上部の&quot;Shading&quot;のタブから切り替え可能)</div>
-<div class="line">ミックスの色1に元素の色, 色2に黒(エッジの色)を設定する. フレネルのIORの値を小さくするとエッジが太くなる.</div>
-<div class="line">光の反射を抑えるため, BSDFの粗さを1に設定する.</div>
-<div class="line">影を柔らかくするために環境光(ワールド背景色)を少し明るくする.</div>
+<div class="line">cartoonでは次のようなシェダーが設定されている.フレネルとミックスを入れ,BSDFの粗さを1に設定にすることで漫画風にしている.</div>
+<div class="line">フレネルのIRC値を変更することで枠線の太さを変えることができる.</div>
 </div>
 <a class="reference internal image-reference" href="../_images/node.png"><img alt="../_images/node.png" class="align-center" src="../_images/node.png" style="width: 478.79999999999995px; height: 369.59999999999997px;" /></a>
 </section>
@@ -211,15 +201,6 @@ Python,pickleファイルと同じ場所にblenderファイルを作成する(�
 <section id="motion-blur">
 <span id="id8"></span><h3>モーションブラー<a class="headerlink" href="#motion-blur" title="この見出しへのパーマリンク"></a></h3>
 <p>キーフレームを打ち,モーションブラーでレンダリングをする.</p>
-<section id="id9">
-<h4>Matlantis上<a class="headerlink" href="#id9" title="この見出しへのパーマリンク"></a></h4>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;cartoony.py&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ball_and_stick&quot;</span><span class="p">,</span> <span class="n">bicolor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="id10">
-<h4>Local PC上<a class="headerlink" href="#id10" title="この見出しへのパーマリンク"></a></h4>
-</section>
 </section>
 </section>
 </section>

@@ -37,7 +37,7 @@ ball_and_stick
 
 Bulk構造でball_and_stickを適用する場合,結合の数が多くなるため,Blender上でのPythonスクリプトの実行にかなり時間がかかるので注意.
 
->>> make_py_script("cartoony.py", atoms, style="ball_and_stick", bicolor=False)
+>>> make_py_script("-",BallAndStick(atoms))
 
 
 .. _bicolor:
@@ -45,7 +45,7 @@ Bulk構造でball_and_stickを適用する場合,結合の数が多くなるた�
 bicolor
 ------------------
 
->>> make_py_script("bicolor.py", atoms, style="ball_and_stick", bicolor=True)
+>>> make_py_script("-",BallAndStick(atoms,bicolor=True))
 
 
 .. _space_filling:
@@ -53,7 +53,7 @@ bicolor
 space_filling
 ------------------
 
->>> make_py_script("space_filling.py", atoms, style="space_filling")
+>>> make_py_script("-", SpaceFilling(atoms))
 
 
 .. _stick:
@@ -61,7 +61,7 @@ space_filling
 stick
 ------------------
 
->>> make_py_script("stick.py", atoms, style="stick")
+>>> make_py_script("-", Stick(atoms))
 
 
 .. _animation:
@@ -69,9 +69,9 @@ stick
 アニメーション
 ------------------
 
-詳しいやり方は :doc:`チュートリアル<./tutorial/animation>` を参考にする
+詳しいやり方は :doc:`チュートリアル<./tutorial/blender_tutorial>` を参考にする
 
->>> make_py_script("animation.zip", traj)
+>>> make_py_script("Animation.zip", traj)
 
 | animation.zipをローカルPC上にダウンロードして展開する.
  Python,pickleファイルと同じ場所にblenderファイルを作成する(先にblenderファイルを作成しないとpython実行時にエラーになる).
@@ -86,17 +86,12 @@ stick
 
 Matlantis上
 ^^^^^^^^^^^^^^^^^^
-pyスクリプトを作成する(styleは何でも良い)
+pyスクリプトを作成する(例としてBallAndStick)
 
->>> make_py_script("cartoony.py", atoms, style="ball_and_stick", bicolor=False)
+>>> make_py_script("-",BallAndStick(atoms,cartoon={"apply":True}))
 
-Local PC上
-^^^^^^^^^^^^^^
-
-| シェダーエディターで,フレネルとミックスを入れ,下の写真のようにノードを繋げる.(シェダーエディターの切り替え方法はBlenderのバージョンによるが,上部の"Shading"のタブから切り替え可能)
-| ミックスの色1に元素の色, 色2に黒(エッジの色)を設定する. フレネルのIORの値を小さくするとエッジが太くなる.
-| 光の反射を抑えるため, BSDFの粗さを1に設定する.
-| 影を柔らかくするために環境光(ワールド背景色)を少し明るくする.
+| cartoonでは次のようなシェダーが設定されている.フレネルとミックスを入れ,BSDFの粗さを1に設定にすることで漫画風にしている.
+| フレネルのIRC値を変更することで枠線の太さを変えることができる.
 
 .. image:: ./img/node.png
    :scale: 60%
@@ -109,10 +104,6 @@ Local PC上
 
 キーフレームを打ち,モーションブラーでレンダリングをする.
 
-Matlantis上
-^^^^^^^^^^^^^^^^^^
 
->>> make_py_script("cartoony.py", atoms, style="ball_and_stick", bicolor=False)
 
-Local PC上
-^^^^^^^^^^^^^^
+
