@@ -12,4 +12,4 @@
    tutorial/auto_vib
    tutorial/pin_neb
    tutorial/auto_pinneb
-   tutorial/animation
+   tutorial/blender_tutorial
