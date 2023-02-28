@@ -26,6 +26,11 @@ GRRMPYドキュメント
 Indices and tables
 ==================
 
+.. toctree::
+   :maxdepth: 1
+
+   src/SearchByPurpose
+   
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`

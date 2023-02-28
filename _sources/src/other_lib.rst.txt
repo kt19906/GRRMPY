@@ -29,6 +29,14 @@ xlwingsを使ったアプリ
 .. role:: strike
     :class: strike
 
+Blender用のPythonスクリプトを作成するためのアプリ
+=====================================================
+
+| Blender上で3D化学構造を作成すつためのPythonスクリプトを作成するGUIアプリ.
+| cif,xyz,POSCARファイル等から構造からPythonスクリプトを作成することができる.
+| 基本的には :class:`make_py_script<grrmpy.blender.make_pyscript.make_py_script>` と同じ機能である. アニメーションを作成する場合,
+ 特にイメージ数の多いアニメーションを作成する場合は :class:`make_py_script<grrmpy.blender.make_pyscript.make_py_script>` を使った方が良い.
+
 MatlanticGRRM ライブラリ
 ================================
 :strike:`MatlanticGRRMの機能はGRRMPYに移行中` → 移行完了
