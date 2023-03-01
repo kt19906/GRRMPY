@@ -172,8 +172,13 @@
 <p><span class="caption-text"><a class="reference internal" href="#combine"><span class="std std-ref">Stick+SpaceFilling</span></a></span><a class="headerlink" href="#id13" title="この画像へのパーマリンク"></a></p>
 </figcaption>
 </figure>
-<p><a class="reference internal" href="#animation"><span class="std std-ref">animation</span></a>
-<a class="reference internal" href="#motion-blur"><span class="std std-ref">motion_blur</span></a></p>
+<figure class="align-left" id="id14">
+<a class="reference internal image-reference" href="../_images/animation.gif"><img alt="../_images/animation.gif" src="../_images/animation.gif" style="width: 288.0px; height: 162.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="#animation"><span class="std std-ref">animation</span></a></span><a class="headerlink" href="#id14" title="この画像へのパーマリンク"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#motion-blur"><span class="std std-ref">motion_blur</span></a></p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="../_images/blank.png"><img alt="../_images/blank.png" src="../_images/blank.png" style="width: 1320.0px; height: 21.0px;" /></a>
 </figure>
@@ -181,33 +186,48 @@
 <h2>コード<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
 <section id="ballandstick">
 <span id="ball-and-stick"></span><h3>BallAndStick<a class="headerlink" href="#ballandstick" title="この見出しへのパーマリンク"></a></h3>
-<p>Bulk構造でball_and_stickを適用する場合,結合の数が多くなるため,Blender上でのPythonスクリプトの実行にかなり時間がかかるので注意.</p>
+<div class="line-block">
+<div class="line">Bulk構造でball_and_stickを適用する場合,結合の数が多くなるため,Blender上でのPythonスクリプトの実行にかなり時間がかかるので注意.</div>
+<div class="line">その他,適用できるキーワード引数は <a class="reference internal" href="modules/blender.html#grrmpy.blender.make_pyscript.BallAndStick" title="grrmpy.blender.make_pyscript.BallAndStick"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallAndStick</span></code></a> を参照</div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">BallAndStick</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="ballandstick-bicolor">
 <span id="bicolor"></span><h3>BallAndStick(bicolor)<a class="headerlink" href="#ballandstick-bicolor" title="この見出しへのパーマリンク"></a></h3>
+<div class="line-block">
+<div class="line">その他,適用できるキーワード引数は <a class="reference internal" href="modules/blender.html#grrmpy.blender.make_pyscript.BallAndStick" title="grrmpy.blender.make_pyscript.BallAndStick"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallAndStick</span></code></a> を参照</div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">BallAndStick</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">bicolor</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="spacefilling">
 <span id="space-filling"></span><h3>SpaceFilling<a class="headerlink" href="#spacefilling" title="この見出しへのパーマリンク"></a></h3>
+<div class="line-block">
+<div class="line">その他,適用できるキーワード引数は <code class="xref py py-class docutils literal notranslate"><span class="pre">SpaceFillng</span></code> を参照</div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">SpaceFilling</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="stick">
 <span id="id2"></span><h3>Stick<a class="headerlink" href="#stick" title="この見出しへのパーマリンク"></a></h3>
-<p>サンプルではカメラを平行投影とし,被写界深度を設定している.</p>
+<div class="line-block">
+<div class="line">サンプルではカメラを平行投影とし,被写界深度を設定している.</div>
+<div class="line">その他,適用できるキーワード引数は <a class="reference internal" href="modules/blender.html#grrmpy.blender.make_pyscript.Stick" title="grrmpy.blender.make_pyscript.Stick"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stick</span></code></a> を参照</div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">Stick</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="stick-bicolor">
 <span id="id3"></span><h3>Stick(bicolor)<a class="headerlink" href="#stick-bicolor" title="この見出しへのパーマリンク"></a></h3>
-<p>サンプルではカメラを平行投影とし,被写界深度を設定している.</p>
+<div class="line-block">
+<div class="line">サンプルではカメラを平行投影とし,被写界深度を設定している.</div>
+<div class="line">その他,適用できるキーワード引数は <a class="reference internal" href="modules/blender.html#grrmpy.blender.make_pyscript.Stick" title="grrmpy.blender.make_pyscript.Stick"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stick</span></code></a> を参照</div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_py_script</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">Stick</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span><span class="n">bicolor</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.12</span><span class="p">))</span>
 </pre></div>
 </div>

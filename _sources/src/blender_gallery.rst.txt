@@ -54,7 +54,12 @@ Blenderギャラリー
 
    :ref:`Stick+SpaceFilling<combine>`
 
-:ref:`animation<animation>`
+.. figure:: ./img/animation.gif
+   :scale: 30%
+   :align: left
+
+   :ref:`animation<animation>`
+
 :ref:`motion_blur<motion_blur>`
 
 .. figure:: ./img/blank.png
@@ -67,12 +72,15 @@ Blenderギャラリー
 コード
 ==========
 
+
+
 .. _ball_and_stick:
 
 BallAndStick
 ------------------
 
-Bulk構造でball_and_stickを適用する場合,結合の数が多くなるため,Blender上でのPythonスクリプトの実行にかなり時間がかかるので注意.
+| Bulk構造でball_and_stickを適用する場合,結合の数が多くなるため,Blender上でのPythonスクリプトの実行にかなり時間がかかるので注意.
+| その他,適用できるキーワード引数は :class:`BallAndStick<grrmpy.blender.make_pyscript.BallAndStick>` を参照
 
 >>> make_py_script("-",BallAndStick(atoms))
 
@@ -82,6 +90,8 @@ Bulk構造でball_and_stickを適用する場合,結合の数が多くなるた�
 BallAndStick(bicolor)
 ----------------------------
 
+| その他,適用できるキーワード引数は :class:`BallAndStick<grrmpy.blender.make_pyscript.BallAndStick>` を参照
+
 >>> make_py_script("-",BallAndStick(atoms,bicolor=True))
 
 
@@ -89,6 +99,8 @@ BallAndStick(bicolor)
 
 SpaceFilling
 ------------------
+
+| その他,適用できるキーワード引数は :class:`SpaceFillng<grrmpy.blender.make_pyscript.SpaceFillng>` を参照
 
 >>> make_py_script("-", SpaceFilling(atoms))
 
@@ -98,7 +110,8 @@ SpaceFilling
 Stick
 ------------------
 
-サンプルではカメラを平行投影とし,被写界深度を設定している.
+| サンプルではカメラを平行投影とし,被写界深度を設定している.
+| その他,適用できるキーワード引数は :class:`Stick<grrmpy.blender.make_pyscript.Stick>` を参照
 
 >>> make_py_script("-", Stick(atoms))
 
@@ -107,7 +120,8 @@ Stick
 Stick(bicolor)
 ------------------
 
-サンプルではカメラを平行投影とし,被写界深度を設定している.
+| サンプルではカメラを平行投影とし,被写界深度を設定している.
+| その他,適用できるキーワード引数は :class:`Stick<grrmpy.blender.make_pyscript.Stick>` を参照
 
 >>> make_py_script("-", Stick(atoms,bicolor=True,radius=0.12))
 
