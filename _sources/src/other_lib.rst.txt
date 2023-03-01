@@ -37,6 +37,9 @@ Blender用のPythonスクリプトを作成するためのアプリ
 | 基本的には :class:`make_py_script<grrmpy.blender.make_pyscript.make_py_script>` と同じ機能である. アニメーションを作成する場合,
  特にイメージ数の多いアニメーションを作成する場合は :class:`make_py_script<grrmpy.blender.make_pyscript.make_py_script>` を使った方が良い.
 
+`アプリはこちら <https://shimi-lab-makeblenderscriptapp-app-vrendi.streamlit.app/>`_
+
+
 MatlanticGRRM ライブラリ
 ================================
 :strike:`MatlanticGRRMの機能はGRRMPYに移行中` → 移行完了
